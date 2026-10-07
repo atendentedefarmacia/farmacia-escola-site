@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Entre. Explore. Escaneie. Aprenda. — extensão digital da Farmácia-Escola." />
-  <title>Entre. Explore. Escaneie. Aprenda.</title>
+  <meta name="description" content="Entre. Explore. Escaneie. Aprender. — extensão digital da Farmácia-Escola." />
+  <title>Entre. Explore. Escaneie. Aprender.</title>
   <style>
 :root {
   --bg: #f6faf8;
@@ -107,7 +107,8 @@ button { cursor: pointer; }
 .eyebrow { margin: 0 0 10px; color: var(--primary); font-weight: 900; font-size: .77rem; letter-spacing: .15em; text-transform: uppercase; }
 h1, h2, h3 { line-height: 1.1; letter-spacing: -.035em; }
 h1 { margin: 0; font-size: clamp(3.2rem, 6.5vw, 6.5rem); max-width: 830px; }
-h1 span { color: var(--primary); }
+h1 .hero-title-green { color: var(--primary); }
+h1 .hero-title-white { color: #fff; text-shadow: 0 4px 22px rgba(0,0,0,.28); }
 h2 { margin: 0; font-size: clamp(2.2rem, 4.2vw, 4rem); }
 h3 { margin: 0 0 8px; font-size: 1.18rem; }
 p { margin-top: 0; }
@@ -442,25 +443,77 @@ p { margin-top: 0; }
 #bula .bula-guide{position:relative;z-index:1}
 .bula-game{position:relative;z-index:1;background:rgba(7,28,23,.76);backdrop-filter:blur(12px);border-color:rgba(143,234,214,.22)}
 .medicine-stage{min-height:460px}
-.medicine-product{width:230px;height:300px;position:relative;transform-style:preserve-3d;transition:transform .15s ease-out;filter:drop-shadow(0 26px 24px rgba(0,0,0,.28))}
-.product-face{position:absolute;display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;font-weight:900;border:1px solid rgba(255,255,255,.22);backface-visibility:hidden;overflow:hidden}
-.product-front{width:230px;height:300px;transform:translateZ(22px);background:#f8faf9;padding:0}
-.product-front img{width:100%;height:100%;object-fit:cover;display:block}
-.product-back{width:230px;height:300px;transform:rotateY(180deg) translateZ(22px);background:linear-gradient(145deg,#146c59,#0d4338);flex-direction:column;gap:8px;font-size:1.15rem}
-.product-back span{font-size:1rem}.product-back small{opacity:.8}
-.product-right,.product-left{width:44px;height:300px;top:0;background:linear-gradient(145deg,#dfe7e3,#9fb7ad);color:#17463b;flex-direction:column;gap:10px;font-size:.75rem}
-.product-right{right:-22px;transform:rotateY(90deg) translateZ(208px)}
-.product-left{left:-22px;transform:rotateY(-90deg) translateZ(22px)}
-.product-top,.product-bottom{width:230px;height:44px;left:0;background:linear-gradient(145deg,#f4f8f6,#bfcfc8);color:#17463b;font-size:.72rem}
-.product-top{top:-22px;transform:rotateX(90deg) translateZ(22px)}
-.product-bottom{bottom:-22px;transform:rotateX(-90deg) translateZ(278px)}
-.box-lid{position:absolute;width:230px;height:54px;left:0;top:0;transform-origin:top center;transform:rotateX(0deg) translateZ(0);background:linear-gradient(145deg,#f7faf8,#dbe6e0);border:1px solid rgba(25,79,67,.18);z-index:8;transition:transform .7s cubic-bezier(.2,.8,.2,1);backface-visibility:hidden}
-.box-lid::after{content:'ABRIR';position:absolute;inset:0;display:grid;place-items:center;color:#0f5b4a;font-size:.72rem;font-weight:950;letter-spacing:.16em}
-.box-lid.opened{transform:rotateX(-80deg) translateY(-6px) translateZ(8px)}
-.medicine-bottle{position:absolute;width:82px;height:132px;border-radius:18px 18px 15px 15px;background:linear-gradient(90deg,#fff,#dbe4df 48%,#fff);border:1px solid rgba(255,255,255,.6);box-shadow:0 22px 28px rgba(0,0,0,.24);opacity:0;transform:translateY(65px) translateZ(80px) scale(.7) rotate(-4deg);transition:.65s cubic-bezier(.2,.8,.2,1);z-index:12;display:flex;align-items:center;justify-content:center}
-.medicine-bottle.visible{opacity:1;transform:translateY(25px) translateZ(210px) scale(1) rotate(-3deg)}
-.bottle-cap{position:absolute;top:-18px;width:54px;height:25px;border-radius:8px 8px 5px 5px;background:linear-gradient(90deg,#fff,#d0dad5,#fff);border:1px solid rgba(0,0,0,.12)}
-.bottle-label{width:65px;padding:10px 4px;text-align:center;background:#e33737;color:#fff;font-weight:950;font-size:.6rem;line-height:1.1;border-radius:7px}.bottle-label small{font-size:.5rem}
+#bula .medicine-stage { perspective: 1500px; perspective-origin: 50% 46%; }
+#bula .medicine-product{
+  --box-w: 230px;
+  --box-h: 300px;
+  --box-d: 78px;
+  width: var(--box-w); height: var(--box-h);
+  position:relative;
+  transform-style:preserve-3d;
+  transform-origin:center center;
+  transition:transform .12s ease-out;
+  filter:drop-shadow(0 34px 32px rgba(0,0,0,.34));
+  will-change:transform;
+}
+#bula .product-face{
+  position:absolute; display:flex; align-items:center; justify-content:center;
+  text-align:center; color:#fff; font-weight:900; border:1px solid rgba(255,255,255,.28);
+  backface-visibility:hidden; overflow:hidden; transform-style:preserve-3d;
+  left:50%; top:50%;
+}
+#bula .product-front{
+  width:var(--box-w); height:var(--box-h);
+  margin-left:calc(var(--box-w) / -2); margin-top:calc(var(--box-h) / -2);
+  transform:translateZ(calc(var(--box-d) / 2));
+  background:linear-gradient(160deg,#ffffff 0%,#f2f7f4 48%,#d8e4df 100%);
+  padding:0;
+  box-shadow:inset 0 0 0 1px rgba(18,80,66,.14), inset -11px 0 20px rgba(25,73,62,.09);
+}
+#bula .product-front::after{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(112deg,rgba(255,255,255,.58),transparent 23%,transparent 72%,rgba(24,76,63,.12));
+  mix-blend-mode:screen;
+}
+#bula .product-back{
+  width:var(--box-w); height:var(--box-h);
+  margin-left:calc(var(--box-w) / -2); margin-top:calc(var(--box-h) / -2);
+  transform:rotateY(180deg) translateZ(calc(var(--box-d) / 2));
+  background:linear-gradient(145deg,#185f4e,#0b3e34 80%);
+  flex-direction:column; gap:9px; padding:18px; justify-content:flex-start; align-items:flex-start; text-align:left;
+}
+#bula .product-right,#bula .product-left{
+  width:var(--box-d); height:var(--box-h);
+  margin-left:calc(var(--box-d) / -2); margin-top:calc(var(--box-h) / -2);
+  background:linear-gradient(180deg,#edf5f1 0%,#c6d6d0 45%,#9cb1a9 100%);
+  color:#1c584b; flex-direction:column; gap:10px; font-size:.75rem;
+  box-shadow:inset 0 0 18px rgba(22,74,61,.16);
+}
+#bula .product-right{ transform:rotateY(90deg) translateZ(calc(var(--box-w) / 2)); }
+#bula .product-left{ transform:rotateY(-90deg) translateZ(calc(var(--box-w) / 2)); }
+#bula .product-top,#bula .product-bottom{
+  width:var(--box-w); height:var(--box-d);
+  margin-left:calc(var(--box-w) / -2); margin-top:calc(var(--box-d) / -2);
+  background:linear-gradient(145deg,#f8fbfa,#c7d5cf 80%); color:#165447; font-size:.72rem;
+}
+#bula .product-top{ transform:rotateX(90deg) translateZ(calc(var(--box-h) / 2)); }
+#bula .product-bottom{ transform:rotateX(-90deg) translateZ(calc(var(--box-h) / 2)); }
+#bula .box-lid{
+  position:absolute; width:var(--box-w); height:var(--box-d); left:50%; top:50%;
+  margin-left:calc(var(--box-w) / -2); margin-top:calc(var(--box-d) / -2);
+  transform-origin:center bottom;
+  transform:rotateX(90deg) translateZ(calc(var(--box-h) / 2));
+  background:linear-gradient(160deg,#31b99e,#15755f 72%);
+  border:1px solid rgba(255,255,255,.30); z-index:8;
+  transition:transform .72s cubic-bezier(.2,.8,.2,1);
+  backface-visibility:hidden;
+  box-shadow:0 10px 22px rgba(0,0,0,.18), inset 0 -8px 14px rgba(3,67,54,.16);
+}
+#bula .box-lid::after{display:none}
+#bula .box-lid.opened{ transform:rotateX(18deg) translateZ(calc(var(--box-h) / 2 + 2px)) translateY(-10px); }
+#bula .box-lid span{ color:#eafff9; font-size:.67rem; font-weight:950; letter-spacing:.14em; }
+#bula .medicine-bottle{ width:92px; height:175px; left:50%; top:50%; margin-left:-46px; margin-top:-87px; display:block; border:0; background:transparent; transform:translate3d(0,95px,calc(var(--box-d) + 78px)) scale(.62) rotate(-2deg); opacity:0; box-shadow:none; transition:.7s cubic-bezier(.2,.8,.2,1); z-index:14; }
+#bula .medicine-bottle.visible{ opacity:1; transform:translate3d(0,-2px,210px) scale(1) rotate(-2deg); }
 .bula-mini-note{margin-top:17px;padding:13px 15px;border:1px dashed rgba(120,225,202,.23);border-radius:14px;color:#a9c9c0;font-size:.82rem;line-height:1.55}
 .leaflet-viewer{margin-top:20px;border:1px solid rgba(130,227,205,.23);border-radius:18px;background:#0a1d18;overflow:hidden}
 .leaflet-viewer-top{display:flex;justify-content:space-between;align-items:center;padding:10px 13px;font-size:.72rem;font-weight:900;letter-spacing:.08em;color:#70e8cf;border-bottom:1px solid rgba(255,255,255,.08)}
@@ -495,6 +548,176 @@ p { margin-top: 0; }
 @media(max-width:620px){
   .sector-buttons{grid-template-columns:1fr}.sector-button{min-height:128px}.sector-detail-panel{padding:22px}.sector-detail-panel h3{font-size:1.65rem}.medicine-stage{min-height:420px}.medicine-product{transform:scale(.9)}.routine-image-frame{height:300px}.access-strip,.feedback-checks{grid-template-columns:1fr}.access-card{min-height:340px}.access-photo-wrap{height:220px}.leaflet-viewport{height:420px}.leaflet-sheet{width:92%;min-height:720px;padding:22px 24px}.leaflet-sheet p{font-size:.78rem}.product-front,.product-back{width:200px}.medicine-product{width:200px;height:270px}.product-front,.product-back{height:270px}.product-right,.product-left{height:270px}.product-top,.product-bottom{width:200px}.box-lid{width:200px}
 }
+
+/* ====== REFINO DA EXPERIÊNCIA 05 · CONSULTE ====== */
+#bula { background-image: linear-gradient(180deg, rgba(4,28,23,.88), rgba(4,25,21,.94)), url('assets/farmacia-interior-bg.png'); }
+#bula .section-head p:last-child { color: rgba(239,255,248,.78); }
+#bula .bula-guide { position: relative; z-index: 2; }
+#bula .bula-game { position: relative; z-index: 2; background: rgba(7,28,23,.84); border-color: rgba(141,236,214,.24); }
+#bula .bula-game-info { color: #ecfff9; }
+#bula .bula-game-info p { color: rgba(231,249,244,.78); }
+#bula .game-step { color: #effffb; }
+#bula .game-phase { background: linear-gradient(135deg, rgba(77,200,171,.20), rgba(16,79,66,.72)); border: 1px solid rgba(141,236,214,.18); }
+#bula .game-phase strong { color: #effffb; }
+#bula .status-dot { width:8px; height:8px; display:inline-block; border-radius:50%; background:#66e2c2; box-shadow:0 0 0 5px rgba(102,226,194,.10),0 0 18px rgba(102,226,194,.55); vertical-align:middle; }
+#bula .medicine-stage { min-height: 500px; border-radius: 20px; background:
+  radial-gradient(circle at 50% 40%, rgba(68,190,160,.12), transparent 35%),
+  linear-gradient(180deg, rgba(12,43,35,.55), rgba(4,25,21,.82));
+  isolation:isolate;
+}
+#bula .medicine-stage::before { display:none; }
+.scan-ring { position:absolute; inset:50% auto auto 50%; translate:-50% -52%; border:1px solid rgba(111,235,207,.12); border-radius:50%; pointer-events:none; }
+.scan-ring-a { width:330px; height:330px; box-shadow:0 0 0 28px rgba(91,219,190,.022), 0 0 0 62px rgba(91,219,190,.018); animation: spin 22s linear infinite; }
+.scan-ring-b { width:250px; height:250px; border-style:dashed; opacity:.48; animation: spin-rev 15s linear infinite; }
+.medicine-platform { position:absolute; left:50%; bottom:64px; width:330px; height:72px; translate:-50% 0; transform:perspective(500px) rotateX(70deg); border:1px solid rgba(135,240,216,.12); background:radial-gradient(ellipse at center,rgba(106,220,195,.13),rgba(17,53,44,.1) 48%, transparent 70%); filter:blur(.2px); }
+#bula .medicine-shadow { bottom:86px; width:250px; height:42px; background:rgba(0,0,0,.44); filter:blur(20px); }
+#bula .medicine-product { width:230px; height:300px; filter:drop-shadow(0 34px 32px rgba(0,0,0,.30)); }
+#bula .product-face { overflow:hidden; }
+#bula .product-front { background: linear-gradient(155deg,#fbfdfb,#e8efec 68%,#d2dfda); padding:0; }
+#bula .package-label { position:relative; width:100%; height:100%; padding:16px; display:flex; flex-direction:column; color:#16463b; background:linear-gradient(165deg,#fbfffd,#eef5f2 62%,#ddeae5); }
+.package-label::before { content:""; position:absolute; left:0; top:0; width:7px; height:100%; background:linear-gradient(#2cb797,#0d725d); }
+.package-topline { display:flex; justify-content:space-between; gap:8px; font-size:.47rem; font-weight:950; letter-spacing:.10em; color:#377f70; }
+.package-title { margin-top:30px; font-size:1.62rem; line-height:1; font-weight:950; letter-spacing:-.03em; }
+.package-subtitle { margin-top:6px; font-size:.71rem; font-weight:900; letter-spacing:.12em; color:#4f746c; }
+.package-dose { margin-top:14px; font-size:2.0rem; line-height:1; font-weight:950; color:#0c6955; }
+.package-volume { margin-top:6px; font-size:.76rem; font-weight:900; color:#5c756e; }
+.package-seal { margin-top:auto; align-self:flex-start; border:2px solid #20856e; border-radius:7px; padding:5px 8px; font-size:.55rem; font-weight:950; letter-spacing:.1em; color:#20856e; }
+.package-footer { display:flex; justify-content:space-between; align-items:end; gap:8px; margin-top:15px; font-size:.39rem; font-weight:900; letter-spacing:.05em; color:#60756f; }
+.fake-barcode { width:42px; height:18px; display:block; background:repeating-linear-gradient(90deg,#244b41 0 2px,transparent 2px 4px,#244b41 4px 5px,transparent 5px 7px); opacity:.78; }
+#bula .product-back { background:linear-gradient(145deg,#185f4e,#0b3e34 80%); flex-direction:column; gap:9px; padding:18px; justify-content:flex-start; align-items:flex-start; text-align:left; }
+#bula .product-back strong { font-size:1.05rem; }
+#bula .product-back span { font-size:.82rem; line-height:1.5; color:#cfeee6; }
+#bula .product-back small { font-size:.58rem; letter-spacing:.10em; color:#83cfc0; }
+.back-lines { width:100%; margin-top:6px; height:78px; background:repeating-linear-gradient(180deg,rgba(239,255,251,.55) 0 2px,transparent 2px 10px); opacity:.22; }
+#bula .product-right,#bula .product-left { background:linear-gradient(180deg,#eef4f1,#b9ccc5); color:#1c584b; }
+#bula .product-top,#bula .product-bottom { background:linear-gradient(145deg,#f7faf9,#bfcfc8); color:#165447; }
+#bula .box-lid { display:grid; place-items:center; background:linear-gradient(160deg,#31b99e,#15755f 72%); border-color:rgba(255,255,255,.30); box-shadow:0 10px 22px rgba(0,0,0,.18); }
+#bula .box-lid::after { display:none; }
+#bula .box-lid span { color:#eafff9; font-size:.67rem; font-weight:950; letter-spacing:.14em; }
+#bula .medicine-bottle { width:92px; height:175px; left:69px; top:78px; display:block; border:0; background:transparent; transform:translateY(100px) translateZ(155px) scale(.62) rotate(-2deg); opacity:0; box-shadow:none; transition:.7s cubic-bezier(.2,.8,.2,1); z-index:14; }
+#bula .medicine-bottle.visible { opacity:1; transform:translateY(-2px) translateZ(230px) scale(1) rotate(-2deg); }
+.bottle-body { position:absolute; left:0; right:0; bottom:0; top:34px; border-radius:16px 16px 20px 20px; background:linear-gradient(90deg,#f6fbf9,#d3dfda 45%,#ffffff 72%,#d6e1dc); border:1px solid rgba(35,79,68,.28); box-shadow:0 18px 26px rgba(0,0,0,.18); overflow:hidden; }
+.bottle-neck { position:absolute; left:26px; top:22px; width:40px; height:25px; border-radius:8px 8px 4px 4px; background:linear-gradient(90deg,#d7e2dd,#ffffff 50%,#cbd8d3); border:1px solid rgba(35,79,68,.25); z-index:2; }
+.bottle-cap { position:absolute; left:20px; top:0; width:52px; height:30px; border-radius:10px 10px 6px 6px; background:repeating-linear-gradient(90deg,#dce8e3 0 3px,#b6c8c1 3px 5px); border:1px solid rgba(28,67,57,.25); z-index:3; }
+.bottle-cap span { position:absolute; inset:5px 7px auto; height:5px; border-radius:99px; background:rgba(255,255,255,.55); }
+.bottle-liquid { position:absolute; left:6px; right:6px; bottom:6px; height:54%; border-radius:8px 8px 13px 13px; background:linear-gradient(180deg,rgba(245,229,174,.18),rgba(219,181,91,.54)); opacity:.9; }
+.bottle-label { position:absolute; left:8px; right:8px; top:48px; min-height:76px; z-index:2; padding:9px 7px; border:1px solid rgba(29,92,76,.20); border-radius:8px; background:rgba(250,253,251,.96); color:#155143; text-align:center; box-shadow:0 6px 12px rgba(20,66,55,.08); }
+.bottle-label strong { display:block; font-size:.62rem; line-height:1.1; }
+.bottle-label span { display:block; margin-top:4px; font-size:.56rem; font-weight:950; }
+.bottle-label small { display:block; margin-top:5px; font-size:.38rem; letter-spacing:.06em; font-weight:850; color:#66817a; }
+
+#bula .medicine-product::before{
+  content:""; position:absolute; width:calc(var(--box-w) + 10px); height:calc(var(--box-h) + 10px);
+  left:50%; top:50%; margin-left:calc((var(--box-w) + 10px)/-2); margin-top:calc((var(--box-h) + 10px)/-2);
+  border-radius:7px; pointer-events:none; transform:translateZ(calc(var(--box-d) / -2 - 2px));
+  box-shadow:0 0 0 1px rgba(118,238,209,.09), 0 0 45px rgba(82,222,190,.08); opacity:.95;
+}
+#bula .medicine-product::after{
+  content:"3D"; position:absolute; right:-58px; top:-18px; padding:6px 8px; border-radius:8px;
+  background:rgba(84,227,196,.12); border:1px solid rgba(145,242,221,.2); color:#9af2dc;
+  font-size:.58rem; font-weight:950; letter-spacing:.14em; transform:translateZ(calc(var(--box-d) + 16px)) rotateY(0deg);
+}
+
+.stage-hint { position:absolute; bottom:18px; left:50%; translate:-50% 0; padding:7px 10px; border:1px solid rgba(141,236,214,.13); border-radius:999px; background:rgba(4,23,19,.44); color:rgba(224,255,247,.56); font-size:.58rem; letter-spacing:.09em; font-weight:900; white-space:nowrap; pointer-events:none; }
+#bula .rotate-controls button { background:rgba(255,255,255,.06); border-color:rgba(158,239,219,.17); box-shadow:none; }
+#bula .rotate-controls button:focus-visible, #bula .leaflet-controls button:focus-visible, #bula .game-actions .btn:focus-visible, #bula #medicineStage:focus-visible { outline:3px solid rgba(143,242,217,.8); outline-offset:3px; }
+#bula .game-progress i { background:rgba(230,255,249,.13); }
+#bula .game-progress i.active { background:#64dcbf; box-shadow:0 0 12px rgba(100,220,191,.24); }
+#bula .game-actions { align-items:stretch; }
+#bula .game-actions .btn { min-height:46px; }
+#bula .game-actions .btn.ghost { background:transparent; border:1px solid rgba(142,234,214,.24); color:#dffbf4; }
+#bula .medicine-summary { margin-top:18px; display:grid; grid-template-columns:1fr 1fr; gap:9px; }
+#bula .medicine-summary > div { padding:12px 13px; border:1px solid rgba(143,234,214,.13); border-radius:14px; background:rgba(255,255,255,.035); }
+#bula .medicine-summary span { display:block; font-size:.63rem; text-transform:uppercase; letter-spacing:.09em; color:#72cdb9; font-weight:900; }
+#bula .medicine-summary strong { display:block; margin-top:3px; font-size:.83rem; color:#effffb; }
+#bula .safety-note { margin-top:12px; padding:13px 14px; border:1px solid rgba(244,210,130,.22); border-radius:14px; background:rgba(130,92,25,.11); color:#d9ded8; font-size:.78rem; line-height:1.55; }
+#bula .leaflet-viewer { background:rgba(4,20,17,.94); border-color:rgba(141,236,214,.22); }
+#bula .leaflet-viewport { height:560px; perspective:1000px; background:radial-gradient(circle at center,rgba(87,214,183,.11),transparent 52%), linear-gradient(180deg,rgba(14,51,42,.45),rgba(2,17,14,.75)); }
+#bula .leaflet-viewport::before { content:"ARRASTE PARA MOVER · RODA PARA ZOOM · USE OS BOTÕES PARA GIRAR"; }
+#bula .leaflet-sheet { width:min(790px,82%); min-height:930px; padding:32px 36px 38px; border-radius:7px 10px 8px 6px; transform-origin:center; box-shadow:0 30px 60px rgba(0,0,0,.38), 0 2px 0 rgba(255,255,255,.8) inset; user-select:text; background:linear-gradient(180deg,#fffef9,#fbf8ef); }
+#bula .leaflet-sheet-head { display:flex; justify-content:space-between; gap:20px; align-items:flex-start; }
+#bula .leaflet-sheet-head span { color:#174e42; font-size:1.42rem; letter-spacing:-.02em; }
+#bula .leaflet-sheet-head small { font-size:.74rem; }
+#bula .leaflet-stamp { min-width:72px; padding:7px 8px; border:1px solid #8eb5a9; border-radius:5px; color:#477c6d; font-size:.55rem; line-height:1.15; font-weight:950; text-align:center; letter-spacing:.08em; }
+#bula .leaflet-meta { display:flex; justify-content:space-between; gap:14px; padding:9px 0; color:#658078; font-size:.62rem; font-weight:900; letter-spacing:.06em; text-transform:uppercase; }
+#bula .leaflet-sheet section { padding:11px 0; }
+#bula .leaflet-sheet h4 { font-size:.95rem; }
+#bula .leaflet-sheet h4 { color:#185646; }
+#bula .leaflet-sheet p { color:#384640 !important; font-size:.80rem; line-height:1.65; }
+#bula .leaflet-controls button { background:rgba(255,255,255,.07); }
+#bula .official-leaflet-link { display:block; padding:0 13px 14px; color:#79d8c2; font-size:.75rem; font-weight:850; text-decoration:underline; text-underline-offset:3px; }
+#bula .bula-mini-note { color:#a9c9c0; }
+#bula .content-note { color:rgba(236,255,249,.72); }
+
+/* ===== 3D FINAL OVERRIDES ===== */
+#bula .medicine-stage { perspective:1500px; perspective-origin:50% 44%; }
+#bula .medicine-product {
+  --box-w:230px; --box-h:300px; --box-d:78px;
+  width:var(--box-w); height:var(--box-h);
+  transform-style:preserve-3d;
+  transform-origin:center center;
+  will-change:transform;
+}
+#bula .product-face { left:50%; top:50%; }
+#bula .product-front,#bula .product-back {
+  width:var(--box-w); height:var(--box-h);
+  margin-left:calc(var(--box-w) / -2); margin-top:calc(var(--box-h) / -2);
+}
+#bula .product-front { transform:translateZ(calc(var(--box-d) / 2)); }
+#bula .product-back { transform:rotateY(180deg) translateZ(calc(var(--box-d) / 2)); }
+#bula .product-right,#bula .product-left {
+  width:var(--box-d); height:var(--box-h);
+  margin-left:calc(var(--box-d) / -2); margin-top:calc(var(--box-h) / -2);
+}
+#bula .product-right { transform:rotateY(90deg) translateZ(calc(var(--box-w) / 2)); }
+#bula .product-left { transform:rotateY(-90deg) translateZ(calc(var(--box-w) / 2)); }
+#bula .product-top,#bula .product-bottom {
+  width:var(--box-w); height:var(--box-d);
+  margin-left:calc(var(--box-w) / -2); margin-top:calc(var(--box-d) / -2);
+}
+#bula .product-top { transform:rotateX(90deg) translateZ(calc(var(--box-h) / 2)); }
+#bula .product-bottom { transform:rotateX(-90deg) translateZ(calc(var(--box-h) / 2)); }
+#bula .box-lid {
+  width:var(--box-w); height:var(--box-d); left:50%; top:50%;
+  margin-left:calc(var(--box-w) / -2); margin-top:calc(var(--box-d) / -2);
+  transform-origin:center bottom;
+  transform:rotateX(90deg) translateZ(calc(var(--box-h) / 2));
+}
+#bula .box-lid.opened { transform:rotateX(18deg) translateZ(calc(var(--box-h) / 2 + 2px)) translateY(-10px); }
+#bula .medicine-bottle {
+  width:92px; height:175px; left:50%; top:50%;
+  margin-left:-46px; margin-top:-87px;
+  transform:translate3d(0,95px,calc(var(--box-d) + 78px)) scale(.62) rotate(-2deg);
+}
+#bula .medicine-bottle.visible {
+  transform:translate3d(0,-2px,210px) scale(1) rotate(-2deg);
+}
+#bula .medicine-product { transform:rotateX(-9deg) rotateY(-28deg) scale(var(--current-scale,1)); }
+
+@media (max-width: 760px) {
+  #bula .medicine-stage { min-height:430px; perspective:1200px; }
+  #bula .medicine-product { --box-w:200px; --box-h:270px; --box-d:68px; width:var(--box-w); height:var(--box-h); transform:rotateX(-9deg) rotateY(-28deg) scale(.88); }
+  #bula .medicine-bottle { left:69px; }
+  #bula 
+#bula .medicine-product::before{
+  content:""; position:absolute; width:calc(var(--box-w) + 10px); height:calc(var(--box-h) + 10px);
+  left:50%; top:50%; margin-left:calc((var(--box-w) + 10px)/-2); margin-top:calc((var(--box-h) + 10px)/-2);
+  border-radius:7px; pointer-events:none; transform:translateZ(calc(var(--box-d) / -2 - 2px));
+  box-shadow:0 0 0 1px rgba(118,238,209,.09), 0 0 45px rgba(82,222,190,.08); opacity:.95;
+}
+#bula .medicine-product::after{
+  content:"3D"; position:absolute; right:-58px; top:-18px; padding:6px 8px; border-radius:8px;
+  background:rgba(84,227,196,.12); border:1px solid rgba(145,242,221,.2); color:#9af2dc;
+  font-size:.58rem; font-weight:950; letter-spacing:.14em; transform:translateZ(calc(var(--box-d) + 16px)) rotateY(0deg);
+}
+
+.stage-hint { font-size:.50rem; }
+  #bula .medicine-summary { grid-template-columns:1fr; }
+  #bula .leaflet-viewport { height:470px; }
+  #bula .leaflet-sheet { width:94%; min-height:780px; padding:25px 24px 28px; }
+  #bula .leaflet-sheet p { font-size:.74rem; }
+}
+
   </style>
 </head>
 <body>
@@ -517,7 +740,7 @@ p { margin-top: 0; }
         <a href="#medicamentos">Medicamentos</a>
         <a href="#classes">Classes</a>
         <a href="#formas">Formas</a>
-        <a href="#bula">Bula</a>
+        <a href="#bula">Consulte</a>
         <a href="#rotina">Rotina</a>
         <a href="#acessibilidade">Acessibilidade</a>
         <a href="#sustentabilidade">Sustentabilidade</a>
@@ -547,7 +770,7 @@ p { margin-top: 0; }
       <div class="container hero-grid">
         <div class="hero-copy reveal">
           <p class="eyebrow">EXTENSÃO DIGITAL DA FARMÁCIA-ESCOLA</p>
-          <h1>Entre. Explore.<br /><span>Escaneie. Aprenda.</span></h1>
+          <h1><span class="hero-title-green">Entre. Explore. Escaneie.</span><br /><span class="hero-title-white">Aprender.</span></h1>
           <p class="hero-text">Uma experiência interativa para conhecer a rotina de uma farmácia, entender medicamentos e aprender de forma simples, visual e acessível.</p>
           <div class="hero-actions">
             <a class="btn primary" href="#farmacia">Explorar a farmácia</a>
@@ -658,16 +881,16 @@ p { margin-top: 0; }
         <div class="section-head">
           <div>
             <p class="eyebrow">05 · CONSULTE</p>
-            <h2>Como localizar informações na bula</h2>
+            <h2>Explore o medicamento e encontre a informação</h2>
           </div>
-          <p>A bula reúne informações essenciais para conhecer o medicamento e entender cuidados, modo de uso, advertências e conservação. Primeiro, explore o guia; depois, experimente a interação abaixo como em um pequeno jogo.</p>
+          <p>Conheça a embalagem, descubra a apresentação e avance passo a passo até a bula. A proposta é aprender a localizar informações sem transformar a experiência em orientação para automedicação.</p>
         </div>
 
         <div class="bula-guide">
           <button class="bula-item" aria-expanded="false" type="button"><span>Indicação</span><span>+</span></button>
           <div class="bula-panel">Mostra para quais condições, sintomas ou situações o medicamento é indicado. Ajuda a entender a finalidade do produto antes de qualquer uso.</div>
           <button class="bula-item" aria-expanded="false" type="button"><span>Posologia</span><span>+</span></button>
-          <div class="bula-panel">Explica dose, horários e intervalos de uso. Quando existir prescrição, ela deve ser seguida junto das orientações do profissional responsável.</div>
+          <div class="bula-panel">Explica dose, horários e intervalos de uso. A quantidade e a frequência dependem da apresentação e das orientações específicas da bula e do profissional de saúde.</div>
           <button class="bula-item" aria-expanded="false" type="button"><span>Contraindicações</span><span>+</span></button>
           <div class="bula-panel">Apresenta situações em que o medicamento não deve ser utilizado ou exige atenção especial.</div>
           <button class="bula-item" aria-expanded="false" type="button"><span>Reações adversas</span><span>+</span></button>
@@ -678,64 +901,124 @@ p { margin-top: 0; }
 
         <div class="bula-game" id="bulaGame">
           <div class="bula-game-visual">
-            <div class="game-topline"><span class="game-status">OBJETO REAL</span><span>Arraste • use a roda • aproxime</span></div>
-            <div class="medicine-stage" id="medicineStage" aria-label="Embalagem real de paracetamol genérico em suspensão oral, em visualização interativa">
-              <div class="medicine-shadow"></div>
-              <div class="medicine-product" id="medicineObject">
-                <div class="product-face product-front"><img src="https://redirect.cifarma.com.br/images/2024/Prancheta_13.jpg" alt="Paracetamol genérico 100 mg/mL, suspensão oral, Cifarma" /></div>
-                <div class="product-face product-back"><strong>PARACETAMOL</strong><span>Suspensão oral<br>100 mg/mL</span><small>Medicamento genérico</small></div>
-                <div class="product-face product-right"><strong>100 mg/mL</strong><small>USO ORAL</small></div>
-                <div class="product-face product-left"><strong>15 mL</strong><small>+ seringa dosadora</small></div>
-                <div class="product-face product-top"><span>ABRIR</span></div>
-                <div class="product-face product-bottom"><span>360°</span></div>
-                <div class="box-lid" id="boxLid"></div>
-              </div>
-              <div class="medicine-bottle" id="medicineBottle" aria-hidden="true"><div class="bottle-cap"></div><div class="bottle-label">PARACETAMOL<br><small>GENÉRICO</small></div></div>
+            <div class="game-topline">
+              <span class="game-status"><span class="status-dot" aria-hidden="true"></span> OBJETO INTERATIVO</span>
+              <span>Arraste · roda do mouse · controles</span>
             </div>
-            <div class="rotate-controls" aria-label="Controles de rotação e tamanho">
+
+            <div class="medicine-stage" id="medicineStage" tabindex="0" role="application" aria-label="Embalagem 3D educativa de paracetamol genérico em suspensão oral. Arraste para girar, use a roda do mouse para aproximar e os controles para interagir.">
+              <div class="scan-ring scan-ring-a" aria-hidden="true"></div>
+              <div class="scan-ring scan-ring-b" aria-hidden="true"></div>
+              <div class="medicine-platform" aria-hidden="true"></div>
+              <div class="medicine-shadow" aria-hidden="true"></div>
+
+              <div class="medicine-product" id="medicineObject">
+                <div class="product-face product-front">
+                  <div class="package-label">
+                    <div class="package-topline"><span>MEDICAMENTO GENÉRICO</span><span>USO ORAL</span></div>
+                    <div class="package-title">PARACETAMOL</div>
+                    <div class="package-subtitle">SUSPENSÃO ORAL</div>
+                    <div class="package-dose">100 mg/mL</div>
+                    <div class="package-volume">15 mL</div>
+                    <div class="package-seal">GENÉRICO</div>
+                    <div class="package-footer"><span>ANTI-TÉRMICO · ANALGÉSICO</span><span class="fake-barcode" aria-hidden="true"></span></div>
+                  </div>
+                </div>
+                <div class="product-face product-back">
+                  <strong>PARACETAMOL</strong>
+                  <span>Suspensão oral<br>100 mg/mL</span>
+                  <small>Exemplo educativo</small>
+                  <div class="back-lines" aria-hidden="true"></div>
+                </div>
+                <div class="product-face product-right">
+                  <strong>100</strong><small>mg/mL</small><small>USO ORAL</small>
+                </div>
+                <div class="product-face product-left">
+                  <strong>15 mL</strong><small>SUSPENSÃO</small><small>GENÉRICO</small>
+                </div>
+                <div class="product-face product-top"><span>ABRIR</span></div>
+                <div class="product-face product-bottom"><span>EDUCAÇÃO</span></div>
+                <div class="box-lid" id="boxLid"><span>ABRIR</span></div>
+
+                <div class="medicine-bottle" id="medicineBottle" aria-hidden="true">
+                  <div class="bottle-cap"><span></span></div>
+                  <div class="bottle-neck"></div>
+                  <div class="bottle-body">
+                    <div class="bottle-liquid"></div>
+                    <div class="bottle-label">
+                      <strong>PARACETAMOL</strong>
+                      <span>100 mg/mL</span>
+                      <small>SUSPENSÃO ORAL · GENÉRICO</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="stage-hint">ARRASTE PARA GIRAR <span aria-hidden="true">•</span> RODA PARA ZOOM</div>
+            </div>
+
+            <div class="rotate-controls" aria-label="Controles do objeto 3D">
               <button type="button" data-rotate="left" aria-label="Girar para a esquerda">←</button>
               <button type="button" data-rotate="up" aria-label="Girar para cima">↑</button>
               <button type="button" data-rotate="down" aria-label="Girar para baixo">↓</button>
               <button type="button" data-rotate="right" aria-label="Girar para a direita">→</button>
               <button type="button" data-rotate="zoomIn" aria-label="Aumentar zoom">+</button>
               <button type="button" data-rotate="zoomOut" aria-label="Diminuir zoom">−</button>
-              <button type="button" data-rotate="reset" aria-label="Reiniciar interação">↺</button>
+              <button type="button" data-rotate="reset" aria-label="Reiniciar interação">↻</button>
             </div>
           </div>
 
           <div class="bula-game-info">
-            <div class="game-phase"><span>FASE 1</span><strong>Observe o medicamento</strong></div>
+            <div class="game-phase"><span id="gamePhaseKicker">FASE 1</span><strong id="gamePhaseName">Observe o medicamento</strong></div>
             <div class="game-step" id="bulaStepTitle">1. Observe a embalagem</div>
-            <p id="bulaStepText">Este é um exemplo real de paracetamol genérico em suspensão oral. Gire a embalagem, aproxime para observar os detalhes e depois abra a caixa para continuar.</p>
-            <div class="game-progress" id="bulaProgress" aria-hidden="true"><i class="active"></i><i></i><i></i><i></i></div>
+            <p id="bulaStepText">Arraste a embalagem para girar e observe os detalhes. Depois, abra a caixa para continuar a experiência.</p>
+            <div class="game-progress" id="bulaProgress" aria-label="Progresso da interação">
+              <i class="active" title="Observar"></i><i title="Abrir"></i><i title="Retirar"></i><i title="Ler a bula"></i>
+            </div>
+
             <div class="game-actions">
               <button class="btn primary" type="button" id="openBoxBtn">Abrir caixa</button>
               <button class="btn secondary" type="button" id="takeMedicineBtn" disabled>Retirar medicamento</button>
               <button class="btn secondary" type="button" id="readLeafletBtn" disabled>Ler a bula</button>
+              <button class="btn ghost" type="button" id="resetInteractionBtn">Reiniciar interação</button>
             </div>
+
+            <div class="medicine-summary">
+              <div><span>Nome</span><strong>Paracetamol genérico</strong></div>
+              <div><span>Categoria</span><strong>Analgésico e antitérmico</strong></div>
+              <div><span>Apresentação</span><strong>Suspensão oral · 100 mg/mL</strong></div>
+              <div><span>Finalidade geral</span><strong>Redução da febre e alívio temporário de dores leves a moderadas.</strong></div>
+            </div>
+
+            <div class="safety-note"><strong>Aviso de segurança.</strong> Esta é uma representação educativa. Não use o conteúdo da atividade para decidir doses ou iniciar um tratamento. Para informações específicas, consulte a bula oficial e um profissional de saúde.</div>
 
             <div class="leaflet-viewer" id="leafletViewer" hidden>
               <div class="leaflet-viewer-top"><span>BULA INTERATIVA · GUIA EDUCATIVO</span><span id="leafletZoomLabel">100%</span></div>
-              <div class="leaflet-viewport" id="leafletViewport" aria-label="Bula educativa interativa. Arraste para mover, use o mouse para aproximar e os botões para girar.">
+              <div class="leaflet-viewport" id="leafletViewport" tabindex="0" role="application" aria-label="Bula educativa interativa. Arraste para mover, use a roda do mouse ou os botões para aproximar e afastar.">
+                <div class="leaflet-shadow" aria-hidden="true"></div>
                 <article class="leaflet-sheet" id="leafletSheet">
-                  <header class="leaflet-sheet-head"><span>PARACETAMOL</span><small>Suspensão oral • 100 mg/mL • Medicamento genérico</small></header>
-                  <section><h4>1. Para que este medicamento é indicado?</h4><p>O paracetamol é utilizado para a redução da febre e para o alívio temporário de dores leves a moderadas. Entre os exemplos descritos em bulas de apresentações pediátricas estão dores associadas a gripes e resfriados, dor de cabeça, dor de dente e dor de garganta.</p></section>
-                  <section><h4>2. Como este medicamento funciona?</h4><p>O paracetamol atua no sistema nervoso central, ajudando a reduzir a febre e a sensibilidade à dor. A bula informa que o início do efeito por via oral ocorre, em geral, entre 15 e 30 minutos.</p></section>
+                  <header class="leaflet-sheet-head">
+                    <div><span>PARACETAMOL</span><small>Suspensão oral · 100 mg/mL · Medicamento genérico</small></div>
+                    <div class="leaflet-stamp">GUIA<br>EDUCATIVO</div>
+                  </header>
+                  <div class="leaflet-meta"><span>Leia por assunto</span><span>Documento demonstrativo</span></div>
+                  <section><h4>1. Para que este medicamento é indicado?</h4><p>O paracetamol é utilizado para a redução da febre e para o alívio temporário de dores leves a moderadas. A indicação específica deve ser conferida na bula correspondente à apresentação.</p></section>
+                  <section><h4>2. Como este medicamento funciona?</h4><p>O paracetamol atua no sistema nervoso central, ajudando a reduzir a febre e a sensibilidade à dor. A bula de cada apresentação deve ser consultada para informações específicas.</p></section>
                   <section><h4>3. Quando não devo usar?</h4><p>Não deve ser utilizado por pessoas que tenham alergia ao paracetamol ou a componentes da formulação. Situações relacionadas a doença do fígado exigem atenção profissional.</p></section>
-                  <section><h4>4. Advertências e precauções</h4><p>Não associe diferentes medicamentos contendo paracetamol sem orientação. Em crianças, a quantidade administrada depende da concentração do produto e do peso. A seringa ou o dosador que acompanha a apresentação deve ser utilizado conforme as orientações da embalagem e da bula.</p></section>
-                  <section><h4>5. Como devo usar?</h4><p>A dose e o intervalo devem seguir a bula específica da apresentação e a orientação do profissional de saúde. Em suspensões, agite o frasco conforme indicado e utilize o dispositivo dosador apropriado. Não ofereça uma dose por conta própria.</p></section>
+                  <section><h4>4. Advertências e precauções</h4><p>Não associe diferentes medicamentos contendo paracetamol sem orientação. Em crianças, a quantidade administrada depende da concentração do produto e de fatores individuais. Siga a apresentação e a orientação apropriadas.</p></section>
+                  <section><h4>5. Como devo usar?</h4><p>A dose e o intervalo devem seguir a bula específica da apresentação e a orientação do profissional de saúde. Em suspensões, utilize corretamente o dispositivo dosador indicado pela embalagem.</p></section>
                   <section><h4>6. Reações adversas</h4><p>A bula pode descrever reações indesejadas e sinais que exigem atenção. Em caso de sintomas inesperados, importantes ou persistentes, procure orientação profissional.</p></section>
-                  <section><h4>7. Conservação</h4><p>Observe no rótulo e na bula as condições de armazenamento, proteção contra calor, luz e umidade e o prazo de validade. Mantenha o medicamento fora do alcance de crianças.</p></section>
-                  <section><h4>8. Onde conferir a informação oficial?</h4><p>As informações completas, incluindo composição detalhada, advertências e instruções específicas, devem ser consultadas na bula oficial do produto.</p></section>
-                  <footer class="leaflet-sheet-note">Modelo educativo interativo. Não substitui a bula oficial nem orientação médica ou farmacêutica.</footer>
+                  <section><h4>7. Conservação</h4><p>Observe no rótulo e na bula as condições de armazenamento e o prazo de validade. Mantenha o medicamento fora do alcance de crianças.</p></section>
+                  <section><h4>8. Onde conferir a informação oficial?</h4><p>As informações completas, incluindo composição detalhada, advertências e instruções específicas, devem ser consultadas na bula oficial do produto correspondente.</p></section>
+                  <footer class="leaflet-sheet-note">Modelo educativo interativo. Não substitui a bula oficial nem a orientação de médico ou farmacêutico.</footer>
                 </article>
               </div>
-              <div class="leaflet-controls">
+              <div class="leaflet-controls" aria-label="Controles da bula">
                 <button type="button" data-leaflet="left" aria-label="Girar bula para a esquerda">↶</button>
                 <button type="button" data-leaflet="right" aria-label="Girar bula para a direita">↷</button>
                 <button type="button" data-leaflet="zoomIn" aria-label="Aumentar zoom da bula">+</button>
                 <button type="button" data-leaflet="zoomOut" aria-label="Diminuir zoom da bula">−</button>
-                <button type="button" data-leaflet="reset" aria-label="Reiniciar bula">↺ Reiniciar</button>
+                <button type="button" data-leaflet="reset" aria-label="Reiniciar bula">↻ Reiniciar bula</button>
               </div>
               <a class="official-leaflet-link" href="https://consultas.anvisa.gov.br/api/consulta/medicamento/33904/2/anexo?Authorization=Guest" target="_blank" rel="noopener">Abrir referência oficial da bula</a>
             </div>
@@ -743,7 +1026,7 @@ p { margin-top: 0; }
             <div class="bula-mini-note"><strong>Aprenda a localizar:</strong> indicação, contraindicações, advertências, posologia, reações adversas e conservação aparecem em partes diferentes da bula. Aqui elas foram organizadas como uma experiência para explorar visualmente.</div>
           </div>
         </div>
-        <p class="content-note"><strong>Experiência educativa:</strong> a interação é uma representação digital. Ela não substitui a leitura da bula oficial nem a orientação de um profissional de saúde.</p>
+        <p class="content-note"><strong>Experiência educativa:</strong> a interação é uma representação digital e não substitui a leitura da bula oficial.</p>
       </div>
     </section>
 
@@ -1302,7 +1585,7 @@ $('#clearHistory').addEventListener('click', () => {
 renderQuizStart();
 renderHistory();
 
-// ---------- Interação 360° da bula ----------
+// ---------- Interação 360° do medicamento + bula ----------
 const medicineObject = document.getElementById('medicineObject');
 const medicineStage = document.getElementById('medicineStage');
 const boxLid = document.getElementById('boxLid');
@@ -1310,15 +1593,23 @@ const medicineBottle = document.getElementById('medicineBottle');
 const openBoxBtn = document.getElementById('openBoxBtn');
 const takeMedicineBtn = document.getElementById('takeMedicineBtn');
 const readLeafletBtn = document.getElementById('readLeafletBtn');
+const resetInteractionBtn = document.getElementById('resetInteractionBtn');
 const bulaStepTitle = document.getElementById('bulaStepTitle');
 const bulaStepText = document.getElementById('bulaStepText');
 const leafletViewer = document.getElementById('leafletViewer');
 const leafletViewport = document.getElementById('leafletViewport');
 const leafletSheet = document.getElementById('leafletSheet');
 const leafletZoomLabel = document.getElementById('leafletZoomLabel');
-let rotX = -7, rotY = -18, productScale = 1, dragX = 0, dragY = 0, dragging = false;
+const gamePhaseKicker = document.getElementById('gamePhaseKicker');
+const gamePhaseName = document.getElementById('gamePhaseName');
+const progressItems = [...document.querySelectorAll('#bulaProgress i')];
+
+let rotX = -9, rotY = -28, productScale = 1;
+let dragX = 0, dragY = 0, dragging = false;
+let interactionStep = 1;
+
 function renderMedicine(){
-  medicineObject.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg) scale(${productScale})`;
+  medicineObject.style.setProperty('--current-scale', productScale); medicineObject.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg) scale(${productScale})`;
 }
 function changeRotation(dx, dy){
   rotY += dx;
@@ -1326,68 +1617,152 @@ function changeRotation(dx, dy){
   renderMedicine();
 }
 function changeProductZoom(delta){
-  productScale = Math.max(.78, Math.min(1.45, productScale + delta));
+  productScale = Math.max(.78, Math.min(1.42, productScale + delta));
   renderMedicine();
 }
+function setProgress(step){
+  interactionStep = step;
+  progressItems.forEach((item,index)=>item.classList.toggle('active', index < step));
+  gamePhaseKicker.textContent = step >= 4 ? 'FASE 2' : 'FASE 1';
+  gamePhaseName.textContent = step >= 4 ? 'Leia a bula' : 'Explore o medicamento';
+}
+function setStep(title,text){
+  bulaStepTitle.textContent = title;
+  bulaStepText.textContent = text;
+}
 function resetMedicine(){
-  rotX = -7; rotY = -18; productScale = 1;
+  rotX = -9; rotY = -28; productScale = 1;
+  dragging = false;
   boxLid.classList.remove('opened');
   medicineBottle.classList.remove('visible');
   openBoxBtn.disabled = false;
   takeMedicineBtn.disabled = true;
   readLeafletBtn.disabled = true;
   leafletViewer.hidden = true;
-  document.querySelectorAll('#bulaProgress i').forEach((i,n)=>i.classList.toggle('active', n===0));
-  bulaStepTitle.textContent = '1. Observe a embalagem';
-  bulaStepText.textContent = 'Este é um exemplo real de paracetamol genérico em suspensão oral. Gire a embalagem, aproxime para observar os detalhes e depois abra a caixa para continuar.';
-  renderMedicine();
+  setProgress(1);
+  setStep('1. Observe a embalagem','Arraste a embalagem para girar e observe os detalhes. Depois, abra a caixa para continuar a experiência.');
   resetLeaflet();
+  renderMedicine();
+  medicineStage.focus({preventScroll:true});
 }
+
 renderMedicine();
-medicineStage.addEventListener('pointerdown', e => { dragging = true; dragX=e.clientX; dragY=e.clientY; medicineStage.setPointerCapture(e.pointerId); });
-medicineStage.addEventListener('pointermove', e => { if(!dragging) return; const dx=e.clientX-dragX, dy=e.clientY-dragY; dragX=e.clientX; dragY=e.clientY; changeRotation(dx*.55, -dy*.38); });
-medicineStage.addEventListener('pointerup', () => dragging=false);
+medicineStage.addEventListener('pointerdown', e => {
+  if(e.pointerType === 'mouse' && e.button !== 0) return;
+  dragging = true;
+  dragX = e.clientX;
+  dragY = e.clientY;
+  medicineStage.setPointerCapture(e.pointerId);
+});
+medicineStage.addEventListener('pointermove', e => {
+  if(!dragging) return;
+  const dx=e.clientX-dragX;
+  const dy=e.clientY-dragY;
+  dragX=e.clientX;
+  dragY=e.clientY;
+  changeRotation(dx*.55, -dy*.38);
+});
+medicineStage.addEventListener('pointerup', e => { dragging=false; try{medicineStage.releasePointerCapture(e.pointerId);}catch(_){} });
 medicineStage.addEventListener('pointercancel', () => dragging=false);
-medicineStage.addEventListener('wheel', e => { e.preventDefault(); changeProductZoom(e.deltaY < 0 ? .06 : -.06); }, {passive:false});
+medicineStage.addEventListener('wheel', e => {
+  e.preventDefault();
+  changeProductZoom(e.deltaY < 0 ? .06 : -.06);
+}, {passive:false});
+medicineStage.addEventListener('keydown', e => {
+  const key=e.key;
+  if(key==='ArrowLeft'){e.preventDefault();changeRotation(-12,0);}
+  else if(key==='ArrowRight'){e.preventDefault();changeRotation(12,0);}
+  else if(key==='ArrowUp'){e.preventDefault();changeRotation(0,-10);}
+  else if(key==='ArrowDown'){e.preventDefault();changeRotation(0,10);}
+  else if(key==='+' || key==='='){e.preventDefault();changeProductZoom(.06);}
+  else if(key==='-' || key==='_'){e.preventDefault();changeProductZoom(-.06);}
+  else if(key==='Home'){e.preventDefault();resetMedicine();}
+});
+
 document.querySelectorAll('[data-rotate]').forEach(btn => btn.addEventListener('click', () => {
   const d=btn.dataset.rotate;
-  if(d==='left') changeRotation(-24,0); else if(d==='right') changeRotation(24,0); else if(d==='up') changeRotation(0,-17); else if(d==='down') changeRotation(0,17); else if(d==='zoomIn') changeProductZoom(.08); else if(d==='zoomOut') changeProductZoom(-.08); else resetMedicine();
+  if(d==='left') changeRotation(-24,0);
+  else if(d==='right') changeRotation(24,0);
+  else if(d==='up') changeRotation(0,-17);
+  else if(d==='down') changeRotation(0,17);
+  else if(d==='zoomIn') changeProductZoom(.08);
+  else if(d==='zoomOut') changeProductZoom(-.08);
+  else resetMedicine();
 }));
+
 openBoxBtn.addEventListener('click', () => {
   boxLid.classList.add('opened');
-  openBoxBtn.disabled = true; takeMedicineBtn.disabled = false;
-  bulaStepTitle.textContent = '2. Abra a caixa';
-  bulaStepText.textContent = 'A embalagem foi aberta. Agora retire o medicamento para avançar para a parte em que você encontra e lê a bula.';
-  document.querySelectorAll('#bulaProgress i')[1].classList.add('active');
+  openBoxBtn.disabled = true;
+  takeMedicineBtn.disabled = false;
+  setProgress(2);
+  setStep('2. Abra a caixa','A tampa foi aberta. Agora retire o frasco para revelar a apresentação do medicamento.');
 });
+
 takeMedicineBtn.addEventListener('click', () => {
   medicineBottle.classList.add('visible');
-  takeMedicineBtn.disabled = true; readLeafletBtn.disabled = false;
-  bulaStepTitle.textContent = '3. Retire o medicamento';
-  bulaStepText.textContent = 'O frasco apareceu. Agora abra a bula interativa: ela pode ser movida, girada e ampliada para leitura.';
-  document.querySelectorAll('#bulaProgress i')[2].classList.add('active');
+  takeMedicineBtn.disabled = true;
+  readLeafletBtn.disabled = false;
+  setProgress(3);
+  setStep('3. Retire o medicamento','O frasco saiu da embalagem. Observe novamente em 360° e, quando estiver pronto, abra a bula interativa.');
 });
+
 readLeafletBtn.addEventListener('click', () => {
   leafletViewer.hidden = false;
-  document.querySelectorAll('#bulaProgress i')[3].classList.add('active');
-  leafletViewer.scrollIntoView({behavior:'smooth', block:'nearest'});
+  setProgress(4);
+  setStep('4. Leia a bula','Agora você pode mover o documento, ampliar o conteúdo e girar a folha. Use os controles ou o mouse para explorar.');
   resetLeaflet();
+  requestAnimationFrame(()=>leafletViewer.scrollIntoView({behavior:'smooth', block:'nearest'}));
 });
+resetInteractionBtn.addEventListener('click', resetMedicine);
 
 let leafletScale=1, leafletRotation=0, leafletX=0, leafletY=0, leafletDragging=false, leafletStartX=0, leafletStartY=0;
 function renderLeaflet(){
   leafletSheet.style.transform = `translate(${leafletX}px, ${leafletY}px) rotate(${leafletRotation}deg) scale(${leafletScale})`;
   leafletZoomLabel.textContent = Math.round(leafletScale*100)+'%';
 }
-function resetLeaflet(){ leafletScale=1; leafletRotation=0; leafletX=0; leafletY=0; if(leafletSheet) renderLeaflet(); }
-leafletViewport.addEventListener('pointerdown', e => { leafletDragging=true; leafletStartX=e.clientX; leafletStartY=e.clientY; leafletViewport.setPointerCapture(e.pointerId); });
-leafletViewport.addEventListener('pointermove', e => { if(!leafletDragging) return; leafletX += e.clientX-leafletStartX; leafletY += e.clientY-leafletStartY; leafletStartX=e.clientX; leafletStartY=e.clientY; renderLeaflet(); });
-leafletViewport.addEventListener('pointerup',()=>leafletDragging=false);
+function resetLeaflet(){
+  leafletScale=1; leafletRotation=0; leafletX=0; leafletY=0;
+  if(leafletSheet) renderLeaflet();
+}
+leafletViewport.addEventListener('pointerdown', e => {
+  if(e.pointerType === 'mouse' && e.button !== 0) return;
+  leafletDragging=true;
+  leafletStartX=e.clientX;
+  leafletStartY=e.clientY;
+  leafletViewport.setPointerCapture(e.pointerId);
+});
+leafletViewport.addEventListener('pointermove', e => {
+  if(!leafletDragging) return;
+  leafletX += e.clientX-leafletStartX;
+  leafletY += e.clientY-leafletStartY;
+  leafletStartX=e.clientX;
+  leafletStartY=e.clientY;
+  renderLeaflet();
+});
+leafletViewport.addEventListener('pointerup', e => { leafletDragging=false; try{leafletViewport.releasePointerCapture(e.pointerId);}catch(_){} });
 leafletViewport.addEventListener('pointercancel',()=>leafletDragging=false);
-leafletViewport.addEventListener('wheel', e=>{ e.preventDefault(); leafletScale=Math.max(.72,Math.min(2.2,leafletScale+(e.deltaY<0?.07:-.07))); renderLeaflet(); }, {passive:false});
+leafletViewport.addEventListener('wheel', e=>{
+  e.preventDefault();
+  leafletScale=Math.max(.72,Math.min(2.2,leafletScale+(e.deltaY<0?.07:-.07)));
+  renderLeaflet();
+},{passive:false});
+leafletViewport.addEventListener('keydown', e=>{
+  if(e.key==='ArrowLeft'){e.preventDefault();leafletRotation-=6;renderLeaflet();}
+  else if(e.key==='ArrowRight'){e.preventDefault();leafletRotation+=6;renderLeaflet();}
+  else if(e.key==='ArrowUp'){e.preventDefault();leafletY+=12;renderLeaflet();}
+  else if(e.key==='ArrowDown'){e.preventDefault();leafletY-=12;renderLeaflet();}
+  else if(e.key==='+' || e.key==='='){e.preventDefault();leafletScale=Math.min(2.2,leafletScale+.08);renderLeaflet();}
+  else if(e.key==='-' || e.key==='_'){e.preventDefault();leafletScale=Math.max(.72,leafletScale-.08);renderLeaflet();}
+  else if(e.key==='Home'){e.preventDefault();resetLeaflet();}
+});
+
 document.querySelectorAll('[data-leaflet]').forEach(btn=>btn.addEventListener('click',()=>{
   const d=btn.dataset.leaflet;
-  if(d==='left') leafletRotation-=6; else if(d==='right') leafletRotation+=6; else if(d==='zoomIn') leafletScale=Math.min(2.2,leafletScale+.12); else if(d==='zoomOut') leafletScale=Math.max(.72,leafletScale-.12); else resetLeaflet();
+  if(d==='left') leafletRotation-=6;
+  else if(d==='right') leafletRotation+=6;
+  else if(d==='zoomIn') leafletScale=Math.min(2.2,leafletScale+.12);
+  else if(d==='zoomOut') leafletScale=Math.max(.72,leafletScale-.12);
+  else resetLeaflet();
   renderLeaflet();
 }));
 
