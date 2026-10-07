@@ -412,6 +412,89 @@ p { margin-top: 0; }
   .access-card { flex-basis:210px; }
 }
 
+  
+/* ===== Ajustes visuais e interativos ===== */
+.sector-explorer{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(360px,.95fr);gap:20px;align-items:stretch}
+.sector-buttons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.sector-button{min-height:150px;border:1px solid var(--line);border-radius:22px;padding:20px;text-align:left;background:linear-gradient(145deg,var(--surface),var(--surface-2));color:var(--text);box-shadow:var(--shadow);display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease}
+.sector-button::after{content:"";position:absolute;inset:auto -20px -45px auto;width:130px;height:130px;border-radius:50%;background:radial-gradient(circle,rgba(41,187,157,.26),transparent 67%);pointer-events:none}
+.sector-button span{color:var(--primary);font-size:.7rem;font-weight:950;letter-spacing:.14em}
+.sector-button strong{font-size:1.35rem;line-height:1.05}
+.sector-button small{color:var(--muted);font-size:.85rem}
+.sector-button:hover,.sector-button:focus-visible{transform:translateY(-4px);box-shadow:0 18px 40px rgba(14,63,53,.12);outline:none}
+.sector-button.selected{background:linear-gradient(145deg,#188b74,#126b59);color:#fff;border-color:rgba(255,255,255,.45);box-shadow:0 20px 42px rgba(10,87,72,.25)}
+.sector-button.selected span,.sector-button.selected small{color:#cffff2}
+.sector-detail-panel{min-height:100%;padding:28px;border-radius:24px;border:1px solid rgba(110,220,194,.25);background:linear-gradient(145deg,#0d2420,#102f28);color:#ecfff9;box-shadow:0 24px 55px rgba(7,37,31,.22);position:relative;overflow:hidden}
+.sector-detail-panel::after{content:"";position:absolute;right:-70px;top:-60px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(63,215,181,.18),transparent 65%)}
+.sector-detail-panel.changing{animation:detailIn .45s ease both}
+.detail-index{font-size:.72rem;font-weight:900;letter-spacing:.15em;color:#6de1c7}
+.sector-detail-panel h3{font-size:2rem;margin:10px 0 10px}
+.sector-detail-panel>p{color:#c2ddd6;font-size:1rem;line-height:1.75}
+.detail-highlight{margin-top:18px;padding:15px 16px;border-radius:16px;background:rgba(112,232,205,.09);border:1px solid rgba(112,232,205,.17)}
+.detail-label{display:block;font-size:.68rem;letter-spacing:.14em;font-weight:900;color:#70e8cf;margin-bottom:5px}
+.detail-observe{margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,.1)}
+.detail-observe span{font-size:.8rem;font-weight:900;color:#fff}
+.detail-observe p{margin:7px 0 0;color:#c2ddd6;line-height:1.65}
+
+#bula{background-image:linear-gradient(rgba(5,24,20,.83),rgba(5,24,20,.9)),url('assets/farmacia-interior-bg.png');background-size:cover;background-position:center;position:relative}
+#bula .section-head,#bula .content-note{position:relative;z-index:1}
+#bula .section-head h2,#bula .section-head p,#bula .section-head .eyebrow{color:#effff8}
+#bula .bula-guide{position:relative;z-index:1}
+.bula-game{position:relative;z-index:1;background:rgba(7,28,23,.76);backdrop-filter:blur(12px);border-color:rgba(143,234,214,.22)}
+.medicine-stage{min-height:460px}
+.medicine-product{width:230px;height:300px;position:relative;transform-style:preserve-3d;transition:transform .15s ease-out;filter:drop-shadow(0 26px 24px rgba(0,0,0,.28))}
+.product-face{position:absolute;display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;font-weight:900;border:1px solid rgba(255,255,255,.22);backface-visibility:hidden;overflow:hidden}
+.product-front{width:230px;height:300px;transform:translateZ(22px);background:#f8faf9;padding:0}
+.product-front img{width:100%;height:100%;object-fit:cover;display:block}
+.product-back{width:230px;height:300px;transform:rotateY(180deg) translateZ(22px);background:linear-gradient(145deg,#146c59,#0d4338);flex-direction:column;gap:8px;font-size:1.15rem}
+.product-back span{font-size:1rem}.product-back small{opacity:.8}
+.product-right,.product-left{width:44px;height:300px;top:0;background:linear-gradient(145deg,#dfe7e3,#9fb7ad);color:#17463b;flex-direction:column;gap:10px;font-size:.75rem}
+.product-right{right:-22px;transform:rotateY(90deg) translateZ(208px)}
+.product-left{left:-22px;transform:rotateY(-90deg) translateZ(22px)}
+.product-top,.product-bottom{width:230px;height:44px;left:0;background:linear-gradient(145deg,#f4f8f6,#bfcfc8);color:#17463b;font-size:.72rem}
+.product-top{top:-22px;transform:rotateX(90deg) translateZ(22px)}
+.product-bottom{bottom:-22px;transform:rotateX(-90deg) translateZ(278px)}
+.box-lid{position:absolute;width:230px;height:54px;left:0;top:0;transform-origin:top center;transform:rotateX(0deg) translateZ(0);background:linear-gradient(145deg,#f7faf8,#dbe6e0);border:1px solid rgba(25,79,67,.18);z-index:8;transition:transform .7s cubic-bezier(.2,.8,.2,1);backface-visibility:hidden}
+.box-lid::after{content:'ABRIR';position:absolute;inset:0;display:grid;place-items:center;color:#0f5b4a;font-size:.72rem;font-weight:950;letter-spacing:.16em}
+.box-lid.opened{transform:rotateX(-80deg) translateY(-6px) translateZ(8px)}
+.medicine-bottle{position:absolute;width:82px;height:132px;border-radius:18px 18px 15px 15px;background:linear-gradient(90deg,#fff,#dbe4df 48%,#fff);border:1px solid rgba(255,255,255,.6);box-shadow:0 22px 28px rgba(0,0,0,.24);opacity:0;transform:translateY(65px) translateZ(80px) scale(.7) rotate(-4deg);transition:.65s cubic-bezier(.2,.8,.2,1);z-index:12;display:flex;align-items:center;justify-content:center}
+.medicine-bottle.visible{opacity:1;transform:translateY(25px) translateZ(210px) scale(1) rotate(-3deg)}
+.bottle-cap{position:absolute;top:-18px;width:54px;height:25px;border-radius:8px 8px 5px 5px;background:linear-gradient(90deg,#fff,#d0dad5,#fff);border:1px solid rgba(0,0,0,.12)}
+.bottle-label{width:65px;padding:10px 4px;text-align:center;background:#e33737;color:#fff;font-weight:950;font-size:.6rem;line-height:1.1;border-radius:7px}.bottle-label small{font-size:.5rem}
+.bula-mini-note{margin-top:17px;padding:13px 15px;border:1px dashed rgba(120,225,202,.23);border-radius:14px;color:#a9c9c0;font-size:.82rem;line-height:1.55}
+.leaflet-viewer{margin-top:20px;border:1px solid rgba(130,227,205,.23);border-radius:18px;background:#0a1d18;overflow:hidden}
+.leaflet-viewer-top{display:flex;justify-content:space-between;align-items:center;padding:10px 13px;font-size:.72rem;font-weight:900;letter-spacing:.08em;color:#70e8cf;border-bottom:1px solid rgba(255,255,255,.08)}
+.leaflet-viewport{height:520px;overflow:hidden;position:relative;display:grid;place-items:center;background:radial-gradient(circle at center,rgba(77,190,162,.11),transparent 58%);touch-action:none;cursor:grab}
+.leaflet-viewport:active{cursor:grabbing}
+.leaflet-viewport::before{content:"ARRASTE • ZOOM • GIRE";position:absolute;left:14px;bottom:12px;z-index:3;font-size:.62rem;letter-spacing:.12em;color:rgba(218,255,246,.47);pointer-events:none}
+.leaflet-sheet{width:min(760px,84%);min-height:880px;background:#fffdf7;color:#222;padding:30px 34px 34px;border-radius:6px;box-shadow:0 24px 44px rgba(0,0,0,.28);transform-origin:center;transition:transform .08s linear;user-select:none}
+.leaflet-sheet-head{padding-bottom:13px;border-bottom:2px solid #1a6d5c;margin-bottom:15px}.leaflet-sheet-head span{font-size:1.35rem;font-weight:950;color:#174d42}.leaflet-sheet-head small{display:block;margin-top:4px;color:#67766f;font-weight:700}
+.leaflet-sheet section{padding:9px 0;border-bottom:1px solid #dfe6e2}.leaflet-sheet h4{margin:0 0 6px;font-size:1rem;color:#185646}.leaflet-sheet p{margin:0;color:#384640;font-size:.82rem;line-height:1.56}.leaflet-sheet-note{margin-top:16px;padding:11px 13px;border:1px solid #b9cec6;background:#eef6f2;color:#52675f;font-size:.74rem;line-height:1.5}
+.leaflet-controls{display:flex;justify-content:center;gap:7px;flex-wrap:wrap;padding:11px;border-top:1px solid rgba(255,255,255,.08)}
+.leaflet-controls button{height:38px;min-width:42px;border:1px solid rgba(255,255,255,.13);border-radius:10px;background:rgba(255,255,255,.07);color:#effff8;font-weight:900;padding:0 12px}.leaflet-controls button:hover{background:rgba(101,224,196,.12)}
+.official-leaflet-link{display:block;text-align:center;padding:0 12px 14px;color:#7cead0;font-weight:800;font-size:.82rem}
+
+.routine-image-frame{height:430px;background:#0a1a16;display:grid;place-items:center}
+.routine-image-bg{position:absolute;inset:0;background:radial-gradient(circle at center,rgba(77,218,184,.07),transparent 55%)}
+.routine-image-frame img{position:relative;z-index:1;width:100%;height:100%;object-fit:contain;background:#0d211c;padding:0}
+
+.access-strip{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;overflow:visible;padding:4px 0 8px;scroll-snap-type:none}
+.access-card{width:auto;min-height:355px;padding:0;overflow:hidden;display:flex;flex-direction:column}
+.access-photo-wrap{position:relative;height:190px;overflow:hidden}
+.access-card img{width:100%;height:100%;object-fit:cover;display:block}
+.access-card .access-symbol{width:56px;height:56px;margin:0;position:absolute;left:16px;bottom:-18px;display:grid;place-items:center;border-radius:16px;border:4px solid var(--surface);background:var(--primary);color:#fff;font-weight:950;font-size:.95rem;box-shadow:0 10px 22px rgba(0,0,0,.16)}
+.access-card h3{padding:0 18px;margin:30px 0 0;font-size:1.2rem}.access-card p{padding:0 18px 20px;margin-top:7px;font-size:.95rem;line-height:1.65}
+.feedback-checks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.feedback-checks label{min-height:64px;padding:13px 14px;border:1px solid var(--line);border-radius:15px;background:var(--bg);align-items:center;font-weight:700}
+.feedback-checks label:hover{border-color:var(--primary);background:var(--secondary)}
+@keyframes detailIn{from{opacity:.35;transform:translateX(12px)}to{opacity:1;transform:none}}
+
+@media(max-width:900px){
+  .sector-explorer{grid-template-columns:1fr}.sector-detail-panel{min-height:auto}.routine-image-frame{height:380px}.access-strip{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:620px){
+  .sector-buttons{grid-template-columns:1fr}.sector-button{min-height:128px}.sector-detail-panel{padding:22px}.sector-detail-panel h3{font-size:1.65rem}.medicine-stage{min-height:420px}.medicine-product{transform:scale(.9)}.routine-image-frame{height:300px}.access-strip,.feedback-checks{grid-template-columns:1fr}.access-card{min-height:340px}.access-photo-wrap{height:220px}.leaflet-viewport{height:420px}.leaflet-sheet{width:92%;min-height:720px;padding:22px 24px}.leaflet-sheet p{font-size:.78rem}.product-front,.product-back{width:200px}.medicine-product{width:200px;height:270px}.product-front,.product-back{height:270px}.product-right,.product-left{height:270px}.product-top,.product-bottom{width:200px}.box-lid{width:200px}
+}
   </style>
 </head>
 <body>
@@ -495,21 +578,29 @@ p { margin-top: 0; }
             <p class="eyebrow">01 · CONHEÇA</p>
             <h2>Conheça a Farmácia</h2>
           </div>
-          <p>Veja uma representação dos setores da maquete. Toque ou clique em um espaço para abrir uma explicação mais detalhada.</p>
+          <p>Escolha um setor para descobrir sua função. Os botões estão organizados em blocos iguais e a explicação aparece ao lado.</p>
         </div>
 
-        <div class="maquette-wrap">
-          <div class="maquette" aria-label="Mapa ilustrativo dos setores da farmácia">
-            <button class="room room-atendimento" data-sector="Atendimento" type="button">Atendimento</button>
-            <button class="room room-caixa" data-sector="Caixa" type="button">Caixa</button>
-            <button class="room room-armazenamento" data-sector="Armazenamento" type="button">Armazenamento</button>
-            <button class="room room-dispensacao" data-sector="Dispensação" type="button">Dispensação</button>
-            <button class="room room-acessibilidade" data-sector="Acessibilidade" type="button">Acessibilidade</button>
+        <div class="sector-explorer">
+          <div class="sector-buttons" aria-label="Setores interativos da farmácia">
+            <button class="sector-button selected" data-sector="Atendimento" type="button"><span>01</span><strong>Atendimento</strong><small>Acolhimento e escuta</small></button>
+            <button class="sector-button" data-sector="Caixa" type="button"><span>02</span><strong>Caixa</strong><small>Conferência e finalização</small></button>
+            <button class="sector-button" data-sector="Armazenamento" type="button"><span>03</span><strong>Armazenamento</strong><small>Organização e conservação</small></button>
+            <button class="sector-button" data-sector="Dispensação" type="button"><span>04</span><strong>Dispensação</strong><small>Entrega e orientação</small></button>
+            <button class="sector-button" data-sector="Acessibilidade" type="button"><span>05</span><strong>Acessibilidade</strong><small>Circulação e acesso</small></button>
           </div>
-          <p class="map-tip">Clique nos espaços da maquete para destacar a explicação correspondente.</p>
-        </div>
 
-        <div class="sector-list" id="sectorList" aria-live="polite"></div>
+          <aside class="sector-detail-panel" id="sectorDetail" aria-live="polite">
+            <div class="detail-index">SETOR 01</div>
+            <h3 id="sectorDetailTitle">Atendimento</h3>
+            <p id="sectorDetailText">É o ponto de acolhimento do visitante e do usuário. Aqui acontece a escuta inicial, a identificação da necessidade e a orientação adequada.</p>
+            <div class="detail-highlight">
+              <span class="detail-label">NA PRÁTICA</span>
+              <strong id="sectorDetailFocus">Relaciona-se diretamente à experiência e ao acolhimento do público.</strong>
+            </div>
+            <div class="detail-observe"><span>O que observar</span><p id="sectorDetailObserve">Organização do balcão, comunicação clara e encaminhamento para atendimento profissional quando necessário.</p></div>
+          </aside>
+        </div>
       </div>
     </section>
 
@@ -587,52 +678,69 @@ p { margin-top: 0; }
 
         <div class="bula-game" id="bulaGame">
           <div class="bula-game-visual">
-            <div class="game-topline"><span class="game-status">INTERAÇÃO</span><span>Arraste para girar</span></div>
-            <div class="medicine-stage" id="medicineStage" aria-label="Objeto 3D interativo de uma embalagem de medicamento">
+            <div class="game-topline"><span class="game-status">OBJETO REAL</span><span>Arraste • use a roda • aproxime</span></div>
+            <div class="medicine-stage" id="medicineStage" aria-label="Embalagem real de paracetamol genérico em suspensão oral, em visualização interativa">
               <div class="medicine-shadow"></div>
-              <div class="medicine-object" id="medicineObject">
-                <div class="cube-face cube-front">MEDICAMENTO<br><small>EDUCATIVO</small></div>
-                <div class="cube-face cube-back">INFORMAÇÕES<br><small>NO VERSO</small></div>
-                <div class="cube-face cube-right">POSOLOGIA</div>
-                <div class="cube-face cube-left">CUIDADOS</div>
-                <div class="cube-face cube-top">ABERTURA</div>
-                <div class="cube-face cube-bottom">360°</div>
+              <div class="medicine-product" id="medicineObject">
+                <div class="product-face product-front"><img src="https://redirect.cifarma.com.br/images/2024/Prancheta_13.jpg" alt="Paracetamol genérico 100 mg/mL, suspensão oral, Cifarma" /></div>
+                <div class="product-face product-back"><strong>PARACETAMOL</strong><span>Suspensão oral<br>100 mg/mL</span><small>Medicamento genérico</small></div>
+                <div class="product-face product-right"><strong>100 mg/mL</strong><small>USO ORAL</small></div>
+                <div class="product-face product-left"><strong>15 mL</strong><small>+ seringa dosadora</small></div>
+                <div class="product-face product-top"><span>ABRIR</span></div>
+                <div class="product-face product-bottom"><span>360°</span></div>
                 <div class="box-lid" id="boxLid"></div>
               </div>
-              <div class="blister" id="blister" aria-hidden="true">
-                <span></span><span></span><span></span><span></span><span></span><span></span>
-              </div>
+              <div class="medicine-bottle" id="medicineBottle" aria-hidden="true"><div class="bottle-cap"></div><div class="bottle-label">PARACETAMOL<br><small>GENÉRICO</small></div></div>
             </div>
-            <div class="rotate-controls" aria-label="Controles de rotação">
+            <div class="rotate-controls" aria-label="Controles de rotação e tamanho">
               <button type="button" data-rotate="left" aria-label="Girar para a esquerda">←</button>
               <button type="button" data-rotate="up" aria-label="Girar para cima">↑</button>
               <button type="button" data-rotate="down" aria-label="Girar para baixo">↓</button>
               <button type="button" data-rotate="right" aria-label="Girar para a direita">→</button>
-              <button type="button" data-rotate="reset" aria-label="Voltar à posição inicial">↺</button>
+              <button type="button" data-rotate="zoomIn" aria-label="Aumentar zoom">+</button>
+              <button type="button" data-rotate="zoomOut" aria-label="Diminuir zoom">−</button>
+              <button type="button" data-rotate="reset" aria-label="Reiniciar interação">↺</button>
             </div>
           </div>
 
           <div class="bula-game-info">
-            <div class="game-phase"><span>FASE 1</span><strong>Abra a embalagem</strong></div>
-            <div class="game-step" id="bulaStepTitle">1. Observe a caixa</div>
-            <p id="bulaStepText">Passe o cursor sobre o objeto, arraste para os lados ou use as setas. A ideia é reconhecer que uma embalagem possui diferentes faces e informações.</p>
-            <div class="game-progress" id="bulaProgress" aria-hidden="true"><i class="active"></i><i></i><i></i></div>
+            <div class="game-phase"><span>FASE 1</span><strong>Observe o medicamento</strong></div>
+            <div class="game-step" id="bulaStepTitle">1. Observe a embalagem</div>
+            <p id="bulaStepText">Este é um exemplo real de paracetamol genérico em suspensão oral. Gire a embalagem, aproxime para observar os detalhes e depois abra a caixa para continuar.</p>
+            <div class="game-progress" id="bulaProgress" aria-hidden="true"><i class="active"></i><i></i><i></i><i></i></div>
             <div class="game-actions">
               <button class="btn primary" type="button" id="openBoxBtn">Abrir caixa</button>
               <button class="btn secondary" type="button" id="takeMedicineBtn" disabled>Retirar medicamento</button>
               <button class="btn secondary" type="button" id="readLeafletBtn" disabled>Ler a bula</button>
             </div>
-            <div class="leaflet-panel" id="leafletPanel" hidden>
-              <div class="leaflet-head"><span>BULA · GUIA VISUAL</span><span>↕</span></div>
-              <button type="button" data-bula="indicação">Indicação <span>+</span></button>
-              <div class="leaflet-copy" data-bula-copy="indicação">Mostra para que situações o medicamento é indicado.</div>
-              <button type="button" data-bula="posologia">Posologia <span>+</span></button>
-              <div class="leaflet-copy" data-bula-copy="posologia">Apresenta dose, horários e intervalos de uso.</div>
-              <button type="button" data-bula="contraindicações">Contraindicações <span>+</span></button>
-              <div class="leaflet-copy" data-bula-copy="contraindicações">Indica quando o medicamento não deve ser usado ou requer cuidado.</div>
-              <button type="button" data-bula="reação">Reações adversas <span>+</span></button>
-              <div class="leaflet-copy" data-bula-copy="reação">Reúne possíveis efeitos indesejados descritos para o produto.</div>
+
+            <div class="leaflet-viewer" id="leafletViewer" hidden>
+              <div class="leaflet-viewer-top"><span>BULA INTERATIVA · GUIA EDUCATIVO</span><span id="leafletZoomLabel">100%</span></div>
+              <div class="leaflet-viewport" id="leafletViewport" aria-label="Bula educativa interativa. Arraste para mover, use o mouse para aproximar e os botões para girar.">
+                <article class="leaflet-sheet" id="leafletSheet">
+                  <header class="leaflet-sheet-head"><span>PARACETAMOL</span><small>Suspensão oral • 100 mg/mL • Medicamento genérico</small></header>
+                  <section><h4>1. Para que este medicamento é indicado?</h4><p>O paracetamol é utilizado para a redução da febre e para o alívio temporário de dores leves a moderadas. Entre os exemplos descritos em bulas de apresentações pediátricas estão dores associadas a gripes e resfriados, dor de cabeça, dor de dente e dor de garganta.</p></section>
+                  <section><h4>2. Como este medicamento funciona?</h4><p>O paracetamol atua no sistema nervoso central, ajudando a reduzir a febre e a sensibilidade à dor. A bula informa que o início do efeito por via oral ocorre, em geral, entre 15 e 30 minutos.</p></section>
+                  <section><h4>3. Quando não devo usar?</h4><p>Não deve ser utilizado por pessoas que tenham alergia ao paracetamol ou a componentes da formulação. Situações relacionadas a doença do fígado exigem atenção profissional.</p></section>
+                  <section><h4>4. Advertências e precauções</h4><p>Não associe diferentes medicamentos contendo paracetamol sem orientação. Em crianças, a quantidade administrada depende da concentração do produto e do peso. A seringa ou o dosador que acompanha a apresentação deve ser utilizado conforme as orientações da embalagem e da bula.</p></section>
+                  <section><h4>5. Como devo usar?</h4><p>A dose e o intervalo devem seguir a bula específica da apresentação e a orientação do profissional de saúde. Em suspensões, agite o frasco conforme indicado e utilize o dispositivo dosador apropriado. Não ofereça uma dose por conta própria.</p></section>
+                  <section><h4>6. Reações adversas</h4><p>A bula pode descrever reações indesejadas e sinais que exigem atenção. Em caso de sintomas inesperados, importantes ou persistentes, procure orientação profissional.</p></section>
+                  <section><h4>7. Conservação</h4><p>Observe no rótulo e na bula as condições de armazenamento, proteção contra calor, luz e umidade e o prazo de validade. Mantenha o medicamento fora do alcance de crianças.</p></section>
+                  <section><h4>8. Onde conferir a informação oficial?</h4><p>As informações completas, incluindo composição detalhada, advertências e instruções específicas, devem ser consultadas na bula oficial do produto.</p></section>
+                  <footer class="leaflet-sheet-note">Modelo educativo interativo. Não substitui a bula oficial nem orientação médica ou farmacêutica.</footer>
+                </article>
+              </div>
+              <div class="leaflet-controls">
+                <button type="button" data-leaflet="left" aria-label="Girar bula para a esquerda">↶</button>
+                <button type="button" data-leaflet="right" aria-label="Girar bula para a direita">↷</button>
+                <button type="button" data-leaflet="zoomIn" aria-label="Aumentar zoom da bula">+</button>
+                <button type="button" data-leaflet="zoomOut" aria-label="Diminuir zoom da bula">−</button>
+                <button type="button" data-leaflet="reset" aria-label="Reiniciar bula">↺ Reiniciar</button>
+              </div>
+              <a class="official-leaflet-link" href="https://consultas.anvisa.gov.br/api/consulta/medicamento/33904/2/anexo?Authorization=Guest" target="_blank" rel="noopener">Abrir referência oficial da bula</a>
             </div>
+
+            <div class="bula-mini-note"><strong>Aprenda a localizar:</strong> indicação, contraindicações, advertências, posologia, reações adversas e conservação aparecem em partes diferentes da bula. Aqui elas foram organizadas como uma experiência para explorar visualmente.</div>
           </div>
         </div>
         <p class="content-note"><strong>Experiência educativa:</strong> a interação é uma representação digital. Ela não substitui a leitura da bula oficial nem a orientação de um profissional de saúde.</p>
@@ -665,6 +773,7 @@ p { margin-top: 0; }
           <div class="routine-window">
             <div class="routine-window-top"><span id="routinePhase">FASE 1 · ATENDIMENTO</span><span id="routineCounter">01/06</span></div>
             <div class="routine-image-frame">
+              <div class="routine-image-bg"></div>
               <img id="routineImage" src="assets/rotina_01.jpg" alt="Atendente acolhendo uma pessoa no balcão da farmácia" />
               <div class="routine-scanline" aria-hidden="true"></div>
               <div class="routine-corner routine-corner-a"></div><div class="routine-corner routine-corner-b"></div>
@@ -690,28 +799,22 @@ p { margin-top: 0; }
 
         <div class="access-strip" aria-label="Exemplos visuais de acessibilidade">
           <article class="access-card">
-            <img src="assets/acess_01.jpg" alt="Pessoa observando embalagens com texto legível" loading="lazy" />
-            <div class="access-symbol">A</div><h3>Letras legíveis</h3><p>Fontes maiores, espaçamento confortável e informações curtas.</p>
+            <div class="access-photo-wrap"><img src="assets/acess_01.jpg" alt="Pessoa observando embalagens com texto legível" loading="lazy" /><span class="access-symbol">A</span></div><h3>Letras legíveis</h3><p>Fontes maiores, espaçamento confortável e informações curtas.</p>
           </article>
           <article class="access-card">
-            <img src="assets/acess_02.jpg" alt="Pessoa usando recurso visual com alto contraste" loading="lazy" />
-            <div class="access-symbol">◐</div><h3>Contraste</h3><p>Texto e fundo com contraste suficiente para facilitar a leitura.</p>
+            <div class="access-photo-wrap"><img src="assets/acess_02.jpg" alt="Pessoa usando recurso visual com alto contraste" loading="lazy" /><span class="access-symbol">◐</span></div><h3>Contraste</h3><p>Texto e fundo com contraste suficiente para facilitar a leitura.</p>
           </article>
           <article class="access-card">
-            <img src="assets/acess_03.jpg" alt="Pessoa em cadeira de rodas seguindo sinalização visual" loading="lazy" />
-            <div class="access-symbol">→</div><h3>Pictogramas</h3><p>Símbolos e sinalização visual ajudam a reconhecer cada setor.</p>
+            <div class="access-photo-wrap"><img src="assets/acess_03.jpg" alt="Pessoa em cadeira de rodas seguindo sinalização visual" loading="lazy" /><span class="access-symbol">→</span></div><h3>Pictogramas</h3><p>Símbolos e sinalização visual ajudam a reconhecer cada setor.</p>
           </article>
           <article class="access-card">
-            <img src="assets/acess_04.jpg" alt="Pessoa usando QR Code e recurso de áudio em um ponto acessível" loading="lazy" />
-            <div class="access-symbol">◉</div><h3>Áudio e QR Codes</h3><p>QR Codes podem abrir conteúdos em áudio quando possível.</p>
+            <div class="access-photo-wrap"><img src="assets/acess_04.jpg" alt="Pessoa usando QR Code e recurso de áudio em um ponto acessível" loading="lazy" /><span class="access-symbol">◉</span></div><h3>Áudio e QR Codes</h3><p>QR Codes podem abrir conteúdos em áudio quando possível.</p>
           </article>
           <article class="access-card">
-            <img src="assets/acess_05.jpg" alt="Pessoa assistindo vídeo com legenda e interpretação em Libras" loading="lazy" />
-            <div class="access-symbol">CC</div><h3>Vídeos acessíveis</h3><p>Legendas e, quando viável, recursos de Libras e descrição.</p>
+            <div class="access-photo-wrap"><img src="assets/acess_05.jpg" alt="Pessoa assistindo vídeo com legenda e interpretação em Libras" loading="lazy" /><span class="access-symbol">CC</span></div><h3>Vídeos acessíveis</h3><p>Legendas e, quando viável, recursos de Libras e descrição.</p>
           </article>
           <article class="access-card">
-            <img src="assets/acess_06.jpg" alt="Pessoa em cadeira de rodas circulando por corredor amplo de farmácia" loading="lazy" />
-            <div class="access-symbol">♿</div><h3>Circulação acessível</h3><p>Espaço para cadeira de rodas e caminhos sem barreiras.</p>
+            <div class="access-photo-wrap"><img src="assets/acess_06.jpg" alt="Pessoa em cadeira de rodas circulando por corredor amplo de farmácia" loading="lazy" /><span class="access-symbol">♿</span></div><h3>Circulação acessível</h3><p>Espaço para cadeira de rodas e caminhos sem barreiras.</p>
           </article>
         </div>
         <div class="visual-only-note">As ferramentas de tamanho, contraste, tema e movimento continuam disponíveis somente no <strong>menu</strong>.</div>
@@ -819,6 +922,7 @@ p { margin-top: 0; }
           <p><strong>Instituição:</strong> Nome da instituição</p>
           <p><strong>Projeto:</strong> Extensão digital da Farmácia-Escola</p>
           <hr />
+          <p class="credit-small"><strong>Imagem do medicamento interativo:</strong> Cifarma Farmacêutica — fotografia do Paracetamol 100 mg/mL, suspensão oral, medicamento genérico.</p>
           <p class="credit-small"><strong>Créditos das imagens:</strong> Wikimedia Commons — <em>Comprimidos.jpg</em> (Abinoam Jr., CC BY-SA 3.0); <em>Capsule medicine.png</em> (Joseph Hemê, CC BY-SA 4.0); <em>Cough medicine.jpg</em> (Mysid, domínio público); <em>Tube of hydrocortisone cream.jpg</em> (Father Goose, CC BY-SA 4.0); <em>Diprosalic ointment tube.jpeg</em> (Cnbrb, CC BY-SA 4.0); <em>Eye Drops - eye lubricant.jpg</em> (Dineshkumar Nallaveerappan, CC BY-SA 4.0).</p>
         </div>
       </div>
@@ -950,32 +1054,22 @@ const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => [...document.querySelectorAll(selector)];
 
 // ---------- Conheça a Farmácia ----------
-const sectorList = $('#sectorList');
-function renderSectors(activeName = sectors[0].name) {
-  sectorList.innerHTML = sectors.map((s) => `
-    <article class="sector-card ${s.name === activeName ? 'active' : ''}" id="sector-${slug(s.name)}">
-      <div class="sector-kicker">${s.icon} Setor da maquete</div>
-      <h3>${s.name}</h3>
-      <p>${s.text}</p>
-      <div class="sector-meta">
-        <div><strong>O que observar</strong><span>${s.detail.replace('O que observar: ', '')}</span></div>
-        <div><strong>Por que importa</strong><span>${s.focus}</span></div>
-      </div>
-    </article>
-  `).join('');
+const sectorButtons = $$('.sector-button');
+function renderSectorDetail(name){
+  const s = sectors.find(item => item.name === name) || sectors[0];
+  sectorButtons.forEach(btn => btn.classList.toggle('selected', btn.dataset.sector === s.name));
+  const idx = sectors.findIndex(item => item.name === s.name) + 1;
+  $('#sectorDetail').classList.remove('changing');
+  void $('#sectorDetail').offsetWidth;
+  $('#sectorDetail').classList.add('changing');
+  $('#sectorDetail').querySelector('.detail-index').textContent = 'SETOR ' + String(idx).padStart(2,'0');
+  $('#sectorDetailTitle').textContent = s.name;
+  $('#sectorDetailText').textContent = s.text;
+  $('#sectorDetailFocus').textContent = s.focus;
+  $('#sectorDetailObserve').textContent = s.detail.replace('O que observar: ', '');
 }
-function slug(text) { return text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-'); }
-renderSectors();
-
-$$('.room').forEach((room) => {
-  room.addEventListener('click', () => {
-    $$('.room').forEach(r => r.classList.remove('selected'));
-    room.classList.add('selected');
-    renderSectors(room.dataset.sector);
-    const target = $('#sector-' + slug(room.dataset.sector));
-    if (target) target.scrollIntoView({ behavior: document.body.classList.contains('reduce-motion') ? 'auto' : 'smooth', block: 'nearest' });
-  });
-});
+sectorButtons.forEach(btn => btn.addEventListener('click', () => renderSectorDetail(btn.dataset.sector)));
+renderSectorDetail('Atendimento');
 
 // ---------- Medicamentos ----------
 const medContainer = $('#medicationCards');
@@ -1212,43 +1306,89 @@ renderHistory();
 const medicineObject = document.getElementById('medicineObject');
 const medicineStage = document.getElementById('medicineStage');
 const boxLid = document.getElementById('boxLid');
-const blister = document.getElementById('blister');
+const medicineBottle = document.getElementById('medicineBottle');
 const openBoxBtn = document.getElementById('openBoxBtn');
 const takeMedicineBtn = document.getElementById('takeMedicineBtn');
 const readLeafletBtn = document.getElementById('readLeafletBtn');
 const bulaStepTitle = document.getElementById('bulaStepTitle');
 const bulaStepText = document.getElementById('bulaStepText');
-const leafletPanel = document.getElementById('leafletPanel');
-let rotX = -8, rotY = -24, dragX = 0, dragY = 0, dragging = false;
-function renderMedicineRotation() { medicineObject.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`; }
-function changeRotation(dx, dy) { rotY += dx; rotX = Math.max(-55, Math.min(55, rotX + dy)); renderMedicineRotation(); }
-renderMedicineRotation();
-medicineStage.addEventListener('pointerdown', e => { dragging = true; dragX = e.clientX; dragY = e.clientY; medicineStage.setPointerCapture(e.pointerId); });
-medicineStage.addEventListener('pointermove', e => { if (!dragging) return; const dx=e.clientX-dragX, dy=e.clientY-dragY; dragX=e.clientX; dragY=e.clientY; changeRotation(dx*.5, -dy*.35); });
+const leafletViewer = document.getElementById('leafletViewer');
+const leafletViewport = document.getElementById('leafletViewport');
+const leafletSheet = document.getElementById('leafletSheet');
+const leafletZoomLabel = document.getElementById('leafletZoomLabel');
+let rotX = -7, rotY = -18, productScale = 1, dragX = 0, dragY = 0, dragging = false;
+function renderMedicine(){
+  medicineObject.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg) scale(${productScale})`;
+}
+function changeRotation(dx, dy){
+  rotY += dx;
+  rotX = Math.max(-55, Math.min(55, rotX + dy));
+  renderMedicine();
+}
+function changeProductZoom(delta){
+  productScale = Math.max(.78, Math.min(1.45, productScale + delta));
+  renderMedicine();
+}
+function resetMedicine(){
+  rotX = -7; rotY = -18; productScale = 1;
+  boxLid.classList.remove('opened');
+  medicineBottle.classList.remove('visible');
+  openBoxBtn.disabled = false;
+  takeMedicineBtn.disabled = true;
+  readLeafletBtn.disabled = true;
+  leafletViewer.hidden = true;
+  document.querySelectorAll('#bulaProgress i').forEach((i,n)=>i.classList.toggle('active', n===0));
+  bulaStepTitle.textContent = '1. Observe a embalagem';
+  bulaStepText.textContent = 'Este é um exemplo real de paracetamol genérico em suspensão oral. Gire a embalagem, aproxime para observar os detalhes e depois abra a caixa para continuar.';
+  renderMedicine();
+  resetLeaflet();
+}
+renderMedicine();
+medicineStage.addEventListener('pointerdown', e => { dragging = true; dragX=e.clientX; dragY=e.clientY; medicineStage.setPointerCapture(e.pointerId); });
+medicineStage.addEventListener('pointermove', e => { if(!dragging) return; const dx=e.clientX-dragX, dy=e.clientY-dragY; dragX=e.clientX; dragY=e.clientY; changeRotation(dx*.55, -dy*.38); });
 medicineStage.addEventListener('pointerup', () => dragging=false);
 medicineStage.addEventListener('pointercancel', () => dragging=false);
+medicineStage.addEventListener('wheel', e => { e.preventDefault(); changeProductZoom(e.deltaY < 0 ? .06 : -.06); }, {passive:false});
 document.querySelectorAll('[data-rotate]').forEach(btn => btn.addEventListener('click', () => {
   const d=btn.dataset.rotate;
-  if(d==='left') changeRotation(-25,0); else if(d==='right') changeRotation(25,0); else if(d==='up') changeRotation(0,-18); else if(d==='down') changeRotation(0,18); else { rotX=-8; rotY=-24; renderMedicineRotation(); }
+  if(d==='left') changeRotation(-24,0); else if(d==='right') changeRotation(24,0); else if(d==='up') changeRotation(0,-17); else if(d==='down') changeRotation(0,17); else if(d==='zoomIn') changeProductZoom(.08); else if(d==='zoomOut') changeProductZoom(-.08); else resetMedicine();
 }));
 openBoxBtn.addEventListener('click', () => {
   boxLid.classList.add('opened');
   openBoxBtn.disabled = true; takeMedicineBtn.disabled = false;
-  bulaStepTitle.textContent = '2. Abra e retire o medicamento';
-  bulaStepText.textContent = 'A caixa foi aberta. Agora retire a cartela para continuar a experiência e perceber a diferença entre a embalagem e o produto acondicionado.';
+  bulaStepTitle.textContent = '2. Abra a caixa';
+  bulaStepText.textContent = 'A embalagem foi aberta. Agora retire o medicamento para avançar para a parte em que você encontra e lê a bula.';
   document.querySelectorAll('#bulaProgress i')[1].classList.add('active');
 });
 takeMedicineBtn.addEventListener('click', () => {
-  blister.classList.add('visible');
+  medicineBottle.classList.add('visible');
   takeMedicineBtn.disabled = true; readLeafletBtn.disabled = false;
-  bulaStepTitle.textContent = '3. Retire o medicamento e leia a bula';
-  bulaStepText.textContent = 'Agora a interação chega à parte principal: escolha os tópicos da bula abaixo e veja onde cada informação aparece.';
+  bulaStepTitle.textContent = '3. Retire o medicamento';
+  bulaStepText.textContent = 'O frasco apareceu. Agora abra a bula interativa: ela pode ser movida, girada e ampliada para leitura.';
   document.querySelectorAll('#bulaProgress i')[2].classList.add('active');
 });
-readLeafletBtn.addEventListener('click', () => { leafletPanel.hidden = false; leafletPanel.scrollIntoView({behavior:'smooth', block:'nearest'}); });
-document.querySelectorAll('.leaflet-panel > button').forEach(btn => btn.addEventListener('click', () => {
-  const key = btn.dataset.bula; const copy = document.querySelector(`[data-bula-copy="${key}"]`); const open = btn.classList.toggle('open');
-  btn.querySelector('span').textContent = open ? '−' : '+'; copy.classList.toggle('open', open);
+readLeafletBtn.addEventListener('click', () => {
+  leafletViewer.hidden = false;
+  document.querySelectorAll('#bulaProgress i')[3].classList.add('active');
+  leafletViewer.scrollIntoView({behavior:'smooth', block:'nearest'});
+  resetLeaflet();
+});
+
+let leafletScale=1, leafletRotation=0, leafletX=0, leafletY=0, leafletDragging=false, leafletStartX=0, leafletStartY=0;
+function renderLeaflet(){
+  leafletSheet.style.transform = `translate(${leafletX}px, ${leafletY}px) rotate(${leafletRotation}deg) scale(${leafletScale})`;
+  leafletZoomLabel.textContent = Math.round(leafletScale*100)+'%';
+}
+function resetLeaflet(){ leafletScale=1; leafletRotation=0; leafletX=0; leafletY=0; if(leafletSheet) renderLeaflet(); }
+leafletViewport.addEventListener('pointerdown', e => { leafletDragging=true; leafletStartX=e.clientX; leafletStartY=e.clientY; leafletViewport.setPointerCapture(e.pointerId); });
+leafletViewport.addEventListener('pointermove', e => { if(!leafletDragging) return; leafletX += e.clientX-leafletStartX; leafletY += e.clientY-leafletStartY; leafletStartX=e.clientX; leafletStartY=e.clientY; renderLeaflet(); });
+leafletViewport.addEventListener('pointerup',()=>leafletDragging=false);
+leafletViewport.addEventListener('pointercancel',()=>leafletDragging=false);
+leafletViewport.addEventListener('wheel', e=>{ e.preventDefault(); leafletScale=Math.max(.72,Math.min(2.2,leafletScale+(e.deltaY<0?.07:-.07))); renderLeaflet(); }, {passive:false});
+document.querySelectorAll('[data-leaflet]').forEach(btn=>btn.addEventListener('click',()=>{
+  const d=btn.dataset.leaflet;
+  if(d==='left') leafletRotation-=6; else if(d==='right') leafletRotation+=6; else if(d==='zoomIn') leafletScale=Math.min(2.2,leafletScale+.12); else if(d==='zoomOut') leafletScale=Math.max(.72,leafletScale-.12); else resetLeaflet();
+  renderLeaflet();
 }));
 
 // ---------- Rotina em formato de jogo ----------
