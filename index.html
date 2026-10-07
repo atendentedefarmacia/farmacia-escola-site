@@ -649,6 +649,22 @@ p { margin-top: 0; }
 #bula .bula-mini-note { color:#a9c9c0; }
 #bula .content-note { color:rgba(236,255,249,.72); }
 
+/* ===== NAVEGAÇÃO POR ETAPAS · 05 CONSULTE ===== */
+#bula .sequence-actions{display:flex;align-items:center;justify-content:flex-end;gap:10px;margin-top:18px;}
+#bula .sequence-arrow{width:56px;height:52px;padding:0;border-radius:16px;border:1px solid rgba(143,234,214,.22);background:rgba(255,255,255,.06);color:#effffb;font-size:1.55rem;font-weight:900;line-height:1;display:grid;place-items:center;cursor:pointer;transition:transform .18s ease,background .18s ease,border-color .18s ease,opacity .18s ease;}
+#bula .sequence-arrow:hover:not(:disabled){transform:translateY(-2px);background:rgba(100,220,191,.16);border-color:rgba(143,234,214,.46);}
+#bula .sequence-arrow:disabled{opacity:.34;cursor:not-allowed;}
+#bula .sequence-arrow.sequence-next{background:linear-gradient(135deg,#1aa484,#0c6c59);border-color:rgba(159,247,225,.32);box-shadow:0 10px 22px rgba(0,0,0,.14);}
+#bula .sequence-arrow.sequence-reset{background:rgba(255,255,255,.03);}
+#bula .medicine-stage{min-height:540px;}
+#bula .three-medicine-viewport{width:100%;height:540px;}
+#bula .medicine-stage{touch-action:none;}
+@media (max-width:700px){
+  #bula .medicine-stage,#bula .three-medicine-viewport{min-height:430px;height:430px;}
+  #bula .sequence-arrow{width:52px;height:48px;border-radius:14px;}
+  #bula .sequence-actions{justify-content:center;}
+}
+
 /* ===== 3D FINAL OVERRIDES ===== */
 #bula .medicine-stage { perspective:1500px; perspective-origin:50% 44%; }
 #bula .medicine-product {
@@ -956,17 +972,16 @@ p { margin-top: 0; }
 
           <div class="bula-game-info">
             <div class="game-phase"><span id="gamePhaseKicker">FASE 1</span><strong id="gamePhaseName">Observe o medicamento</strong></div>
-            <div class="game-step" id="bulaStepTitle">1. Observe a embalagem</div>
-            <p id="bulaStepText">Arraste a embalagem para girar e observe os detalhes. Depois, abra a caixa para continuar a experiência.</p>
+            <div class="game-step" id="bulaStepTitle">1. Observe a caixa</div>
+            <p id="bulaStepText">Nesta primeira etapa, observe somente a caixa do medicamento. Arraste para girar e examine a embalagem em 3D.</p>
             <div class="game-progress" id="bulaProgress" aria-label="Progresso da interação">
               <i class="active" title="Observar"></i><i title="Abrir"></i><i title="Retirar"></i><i title="Ler a bula"></i>
             </div>
 
-            <div class="game-actions">
-              <button class="btn primary" type="button" id="openBoxBtn">Abrir caixa</button>
-              <button class="btn secondary" type="button" id="takeMedicineBtn" disabled>Retirar medicamento</button>
-              <button class="btn secondary" type="button" id="readLeafletBtn" disabled>Ler a bula</button>
-              <button class="btn ghost" type="button" id="resetInteractionBtn">Reiniciar interação</button>
+            <div class="game-actions sequence-actions" aria-label="Navegação da experiência do medicamento">
+              <button class="sequence-arrow" type="button" id="prevStepBtn" aria-label="Voltar uma etapa" title="Voltar">←</button>
+              <button class="sequence-arrow sequence-next" type="button" id="nextStepBtn" aria-label="Avançar uma etapa" title="Avançar">→</button>
+              <button class="sequence-arrow sequence-reset" type="button" id="resetInteractionBtn" aria-label="Reiniciar interação" title="Reiniciar interação">↻</button>
             </div>
 
             <div class="medicine-summary">
@@ -1574,9 +1589,8 @@ renderHistory();
 
 // ---------- Interação 3D do medicamento + bula ----------
 const medicineStage = document.getElementById('medicineStage');
-const openBoxBtn = document.getElementById('openBoxBtn');
-const takeMedicineBtn = document.getElementById('takeMedicineBtn');
-const readLeafletBtn = document.getElementById('readLeafletBtn');
+const prevStepBtn = document.getElementById('prevStepBtn');
+const nextStepBtn = document.getElementById('nextStepBtn');
 const resetInteractionBtn = document.getElementById('resetInteractionBtn');
 const bulaStepTitle = document.getElementById('bulaStepTitle');
 const bulaStepText = document.getElementById('bulaStepText');
@@ -1602,11 +1616,12 @@ function setStep(title,text){
 
 // --- WebGL 3D (Three.js): caixa + frasco, com rotação livre e zoom ---
 const threeHost = document.getElementById('threeMedicineViewport');
-let renderer, camera, scene, productRoot, boxGroup, boxLidPivot, bottleGroup, animationFrameId;
+let renderer, camera, scene, productRoot, boxGroup, boxLidPivot, bottleGroup, inner, animationFrameId;
 let threeRotX = -0.16, threeRotY = -0.52, threeZoom = 6.4;
 let pointerActive = false, lastPX = 0, lastPY = 0;
 let threeOpen = false, threeBottleOut = false;
 let bottleStart = 0, lidStart = 0;
+let threeExitBox = false;
 
 function createTextTexture(lines, bg='#f8fbf9', fg='#174f43', width=512, height=768){
   const c=document.createElement('canvas'); c.width=width; c.height=height;
@@ -1652,26 +1667,29 @@ function createMedicine3D(){
   const side=new THREE.MeshStandardMaterial({color:0xb51f26,roughness:.78});
   const top=new THREE.MeshStandardMaterial({color:0x163b70,roughness:.70});
   const bottom=new THREE.MeshStandardMaterial({color:0x9a1b25,roughness:.8});
-  const boxGeom=new THREE.BoxGeometry(2.05,3.12,.78);
+  const boxGeom=new THREE.BoxGeometry(2.55,3.72,.96);
   boxGroup=new THREE.Mesh(boxGeom,[side,side,top,bottom,front,back]);
-  boxGroup.position.set(-.35,-.42,0);
+  boxGroup.position.set(-.38,-.45,0);
+  boxGroup.material.forEach(m=>{m.transparent=true;m.opacity=1;});
   productRoot.add(boxGroup);
 
   // Interior escuro para reforçar a ideia de caixa aberta.
-  const inner=new THREE.Mesh(new THREE.BoxGeometry(1.84,.05,.64),new THREE.MeshStandardMaterial({color:0x2b2522,roughness:.9}));
-  inner.position.set(-.35,1.08,0.01); inner.visible=true; productRoot.add(inner);
+  inner=new THREE.Mesh(new THREE.BoxGeometry(2.34,.07,.80),new THREE.MeshStandardMaterial({color:0x29211f,roughness:.9}));
+  inner.position.set(-.38,1.46,0.01); inner.visible=true; productRoot.add(inner);
 
   // Tampa articulada de verdade.
   boxLidPivot=new THREE.Group();
-  boxLidPivot.position.set(-.35,1.14,-.37);
-  const lid=new THREE.Mesh(new THREE.BoxGeometry(2.05,.12,.78),new THREE.MeshStandardMaterial({color:0xd62828,roughness:.7}));
-  lid.position.set(0,0,.39);
+  boxLidPivot.position.set(-.38,1.41,-.48);
+  const lid=new THREE.Mesh(new THREE.BoxGeometry(2.55,.14,.96),new THREE.MeshStandardMaterial({color:0xd62828,roughness:.7}));
+  lid.position.set(0,0,.48);
+  lid.material.transparent=true;
   boxLidPivot.add(lid);
   productRoot.add(boxLidPivot);
 
   // Frasco modelado com perfil realista (lathe), tampa e rótulo cilíndrico.
   bottleGroup=new THREE.Group();
-  bottleGroup.position.set(.52,-.55,.00);
+  bottleGroup.position.set(.42,-.60,.00);
+  bottleGroup.visible=false;
   const profile=[
     new THREE.Vector2(.48,-.92),new THREE.Vector2(.55,-.84),new THREE.Vector2(.56,.46),
     new THREE.Vector2(.52,.60),new THREE.Vector2(.40,.75),new THREE.Vector2(.28,.86),
@@ -1714,24 +1732,43 @@ function resizeThree(){
 }
 function renderThree(){
   if(!renderer) return;
-  const targetLid=threeOpen ? -1.20 : 0;
-  const targetBottle=threeBottleOut ? 1.55 : 0;
-  boxLidPivot.rotation.x += (targetLid-boxLidPivot.rotation.x)*.12;
-  bottleGroup.position.z += (targetBottle-bottleGroup.position.z)*.12;
-  bottleGroup.position.y += ((threeBottleOut?-.38:-.55)-bottleGroup.position.y)*.12;
+
+  const targetLid = threeOpen ? -1.18 : 0;
+  const targetBottleZ = threeBottleOut ? 1.85 : 0;
+  const targetBottleY = threeBottleOut ? -.30 : -.60;
+  const targetBoxX = threeExitBox ? -2.65 : -.38;
+  const targetBoxScale = threeExitBox ? .82 : 1;
+  const targetBoxOpacity = threeExitBox ? 0 : 1;
+
+  boxLidPivot.rotation.x += (targetLid-boxLidPivot.rotation.x)*.11;
+  bottleGroup.position.z += (targetBottleZ-bottleGroup.position.z)*.105;
+  bottleGroup.position.y += (targetBottleY-bottleGroup.position.y)*.105;
+  boxGroup.position.x += (targetBoxX-boxGroup.position.x)*.085;
+  boxGroup.scale.lerp(new THREE.Vector3(targetBoxScale,targetBoxScale,targetBoxScale),.085);
+  boxGroup.material?.forEach?.(m=>{m.opacity += (targetBoxOpacity-m.opacity)*.08; m.transparent=true;});
+  boxLidPivot.position.x += (targetBoxX+.02-boxLidPivot.position.x)*.085;
+  boxLidPivot.scale.lerp(new THREE.Vector3(targetBoxScale,targetBoxScale,targetBoxScale),.085);
+  inner.position.x += (targetBoxX+.02-inner.position.x)*.085;
+  inner.scale.lerp(new THREE.Vector3(targetBoxScale,targetBoxScale,targetBoxScale),.085);
+
   productRoot.rotation.x += (threeRotX-productRoot.rotation.x)*.18;
   productRoot.rotation.y += (threeRotY-productRoot.rotation.y)*.18;
   camera.position.z += (threeZoom-camera.position.z)*.15;
-  camera.lookAt(0,-.15,0);
+  camera.lookAt(0,-.08,0);
+
   renderer.render(scene,camera);
   animationFrameId=requestAnimationFrame(renderThree);
 }
 function change3DRotation(dx,dy){ threeRotY += dx; threeRotX=Math.max(-.95,Math.min(.95,threeRotX+dy)); }
 function change3DZoom(delta){ threeZoom=Math.max(4.7,Math.min(8.4,threeZoom+delta)); }
-function reset3D(){ threeRotX=-.16; threeRotY=-.52; threeZoom=6.4; threeOpen=false; threeBottleOut=false; }
+function reset3D(){
+  threeRotX=-.12; threeRotY=-.42; threeZoom=6.0; threeOpen=false; threeBottleOut=false; threeExitBox=false;
+  if(bottleGroup) bottleGroup.visible=false;
+}
 
 if(window.THREE) createMedicine3D();
 else if(threeHost){ threeHost.innerHTML='<div style="padding:32px;text-align:center;color:#fff">O visualizador 3D precisa carregar a biblioteca gráfica para funcionar.</div>'; }
+updateSequenceButtons();
 
 medicineStage.addEventListener('pointerdown',e=>{
   if(e.pointerType==='mouse'&&e.button!==0)return;
@@ -1761,23 +1798,65 @@ document.querySelectorAll('[data-rotate]').forEach(btn=>btn.addEventListener('cl
   else if(d==='zoomIn')change3DZoom(-.32); else if(d==='zoomOut')change3DZoom(.32); else resetMedicine();
 }));
 
+function updateSequenceButtons(){
+  if(!prevStepBtn || !nextStepBtn) return;
+  prevStepBtn.disabled = interactionStep === 1;
+  nextStepBtn.disabled = interactionStep === 4;
+}
+
+function showLeaflet(){
+  leafletViewer.hidden=false;
+  resetLeaflet();
+  requestAnimationFrame(()=>leafletViewer.scrollIntoView({behavior:'smooth',block:'nearest'}));
+}
+function hideLeaflet(){
+  leafletViewer.hidden=true;
+}
+
+function applyInteractionStep(step, smoothScroll=true){
+  step=Math.max(1,Math.min(4,step));
+  if(step===1){
+    threeOpen=false; threeBottleOut=false; threeExitBox=false;
+    if(bottleGroup) bottleGroup.visible=false;
+    hideLeaflet();
+    setProgress(1);
+    setStep('1. Observe a caixa','Nesta primeira etapa, observe somente a caixa do medicamento. Arraste para girar e examine a embalagem em 3D.');
+  }else if(step===2){
+    threeOpen=true; threeBottleOut=false; threeExitBox=false;
+    if(bottleGroup) bottleGroup.visible=false;
+    hideLeaflet();
+    setProgress(2);
+    setStep('2. Abra a caixa','A tampa se abre como uma embalagem real. Observe o interior e avance quando estiver pronto para retirar o medicamento.');
+  }else if(step===3){
+    threeOpen=true; threeBottleOut=true; threeExitBox=true;
+    if(bottleGroup) bottleGroup.visible=true;
+    hideLeaflet();
+    setProgress(3);
+    setStep('3. Retire o medicamento','A caixa sai de cena enquanto o frasco de suspensão oral sobe e sai de dentro da embalagem. Depois, avance para consultar a bula.');
+  }else{
+    threeOpen=true; threeBottleOut=true; threeExitBox=true;
+    if(bottleGroup) bottleGroup.visible=true;
+    setProgress(4);
+    setStep('4. Leia a bula','Agora você pode mover, ampliar e girar o documento para explorar as informações.');
+    showLeaflet();
+  }
+  updateSequenceButtons();
+  if(smoothScroll && step===4){
+    requestAnimationFrame(()=>leafletViewer.scrollIntoView({behavior:'smooth',block:'nearest'}));
+  }
+}
+
 function resetMedicine(){
   reset3D();
-  openBoxBtn.disabled=false; takeMedicineBtn.disabled=true; readLeafletBtn.disabled=true; leafletViewer.hidden=true;
-  setProgress(1); setStep('1. Observe a embalagem','Arraste o medicamento para girar em 360°. Veja a frente, as laterais, o topo e a profundidade da embalagem.');
+  applyInteractionStep(1,false);
   resetLeaflet();
 }
-openBoxBtn.addEventListener('click',()=>{
-  threeOpen=true; openBoxBtn.disabled=true; takeMedicineBtn.disabled=false;
-  setProgress(2); setStep('2. Abra a caixa','A tampa agora se abre em 3D. Depois, retire o frasco para continuar.');
-});
-takeMedicineBtn.addEventListener('click',()=>{
-  threeBottleOut=true; takeMedicineBtn.disabled=true; readLeafletBtn.disabled=false;
-  setProgress(3); setStep('3. Retire o frasco','O frasco de suspensão oral saiu da caixa. Gire novamente e observe a apresentação do xarope.');
-});
-readLeafletBtn.addEventListener('click',()=>{
-  leafletViewer.hidden=false; setProgress(4); setStep('4. Leia a bula','Agora você pode mover, ampliar e girar o documento para explorar as informações.'); resetLeaflet();
-  requestAnimationFrame(()=>leafletViewer.scrollIntoView({behavior:'smooth',block:'nearest'}));
+
+nextStepBtn.addEventListener('click',()=>applyInteractionStep(interactionStep+1));
+prevStepBtn.addEventListener('click',()=>{
+  if(interactionStep<=1) return;
+  applyInteractionStep(interactionStep-1,false);
+  if(interactionStep===3) setTimeout(()=>{ if(bottleGroup) bottleGroup.visible=true; },50);
 });
 resetInteractionBtn.addEventListener('click',resetMedicine);
 
