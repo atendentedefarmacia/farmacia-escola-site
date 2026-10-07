@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Entre. Explore. Escaneie. Aprenda. — extensão digital da Farmácia-Escola." />
+  <title>Entre. Explore. Escaneie. Aprenda.</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <header class="topbar">
+    <div class="container nav-wrap">
+      <a class="brand" href="#inicio" aria-label="Ir para o início">
+        <span class="brand-mark" aria-hidden="true">✚</span>
+        <span>Farmácia-Escola</span>
+      </a>
+
+      <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mainNav">
+        ☰ <span>Menu</span>
+      </button>
+
+      <nav id="mainNav" class="main-nav" aria-label="Navegação principal">
+        <a href="#inicio">Início</a>
+        <a href="#farmacia">Farmácia</a>
+        <a href="#medicamentos">Medicamentos</a>
+        <a href="#classes">Classes</a>
+        <a href="#formas">Formas</a>
+        <a href="#bula">Bula</a>
+        <a href="#rotina">Rotina</a>
+        <a href="#acessibilidade">Acessibilidade</a>
+        <a href="#sustentabilidade">Sustentabilidade</a>
+        <a href="#quiz">Quiz</a>
+        <a href="#creditos">Créditos</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <section id="inicio" class="hero section">
+      <div class="container hero-grid">
+        <div>
+          <p class="eyebrow">EXTENSÃO DIGITAL DA FARMÁCIA-ESCOLA</p>
+          <h1>Entre. Explore.<br /><span>Escaneie. Aprenda.</span></h1>
+          <p class="hero-text">Uma experiência interativa para conhecer a rotina de uma farmácia, entender os medicamentos e aprender de forma simples e visual.</p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#farmacia">Explorar a farmácia</a>
+            <a class="btn secondary" href="#quiz">Fazer o quiz</a>
+          </div>
+
+          <div class="notice" role="note">
+            <strong>Como usar:</strong> navegue pelos botões, explore os setores e responda ao quiz. O conteúdo é educativo e não substitui a orientação de um profissional de saúde.
+          </div>
+        </div>
+
+        <div class="hero-card" aria-label="Visão ilustrativa da Farmácia-Escola">
+          <div class="cross-big" aria-hidden="true">✚</div>
+          <div class="floating-card card-1">📦 Armazenamento</div>
+          <div class="floating-card card-2">💊 Medicamentos</div>
+          <div class="floating-card card-3">♿ Acessibilidade</div>
+          <div class="floating-card card-4">♻️ Sustentabilidade</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="farmacia" class="section alt">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">01 · CONHEÇA</p>
+            <h2>Conheça a Farmácia</h2>
+          </div>
+          <p>Veja uma representação dos setores da maquete. Use os cartões para descobrir a função de cada espaço.</p>
+        </div>
+
+        <div class="map-layout">
+          <div class="maquette" aria-label="Mapa ilustrativo dos setores da farmácia">
+            <div class="room room-atendimento" data-sector="Atendimento">Atendimento</div>
+            <div class="room room-caixa" data-sector="Caixa">Caixa</div>
+            <div class="room room-armazenamento" data-sector="Armazenamento">Armazenamento</div>
+            <div class="room room-dispensacao" data-sector="Dispensação">Dispensação</div>
+            <div class="room room-acessibilidade" data-sector="Acessibilidade">Acessibilidade</div>
+          </div>
+
+          <div class="sector-list" id="sectorList"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="medicamentos" class="section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">02 · APRENDA</p>
+            <h2>Medicamentos por categoria</h2>
+          </div>
+          <p>Conteúdo resumido para facilitar a identificação e a compreensão dos temas.</p>
+        </div>
+
+        <div class="filter-row" role="toolbar" aria-label="Filtrar categorias">
+          <button class="chip active" data-filter="todos">Todos</button>
+          <button class="chip" data-filter="dor">Dor e febre</button>
+          <button class="chip" data-filter="alergia">Alergias</button>
+          <button class="chip" data-filter="infeccao">Infecções</button>
+          <button class="chip" data-filter="cronicos">Uso contínuo</button>
+        </div>
+        <div class="cards-grid" id="medicationCards"></div>
+      </div>
+    </section>
+
+    <section id="classes" class="section alt">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">03 · ORGANIZE</p>
+            <h2>Classes terapêuticas</h2>
+          </div>
+          <p>Entenda, em linguagem simples, como alguns medicamentos são agrupados por efeito e finalidade.</p>
+        </div>
+        <div class="cards-grid" id="classCards"></div>
+      </div>
+    </section>
+
+    <section id="formas" class="section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">04 · OBSERVE</p>
+            <h2>Formas farmacêuticas</h2>
+          </div>
+          <p>O formato do medicamento ajuda a definir como ele é usado e armazenado.</p>
+        </div>
+        <div class="forms-grid" id="formsCards"></div>
+      </div>
+    </section>
+
+    <section id="bula" class="section alt">
+      <div class="container narrow">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">05 · CONSULTE</p>
+            <h2>Como localizar informações na bula</h2>
+          </div>
+          <p>Aprenda onde procurar as informações mais importantes antes do uso.</p>
+        </div>
+        <div class="bula-guide">
+          <button class="bula-item" aria-expanded="false"><span>Indicação</span><span>+</span></button>
+          <div class="bula-panel">Mostra para quais condições ou sintomas o medicamento é indicado.</div>
+          <button class="bula-item" aria-expanded="false"><span>Posologia</span><span>+</span></button>
+          <div class="bula-panel">Explica dose, horários, intervalo e duração conforme a orientação indicada na bula e pelo profissional.</div>
+          <button class="bula-item" aria-expanded="false"><span>Contraindicações</span><span>+</span></button>
+          <div class="bula-panel">Informa situações em que o medicamento não deve ser usado, de acordo com a bula.</div>
+          <button class="bula-item" aria-expanded="false"><span>Reações adversas</span><span>+</span></button>
+          <div class="bula-panel">Apresenta possíveis efeitos indesejados e orientações relevantes.</div>
+          <button class="bula-item" aria-expanded="false"><span>Conservação</span><span>+</span></button>
+          <div class="bula-panel">Informa como guardar o medicamento, incluindo temperatura, luz e umidade quando aplicável.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="rotina" class="section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">06 · VIVENCIE</p>
+            <h2>Rotina da farmácia</h2>
+          </div>
+          <p>Três etapas essenciais para entender o funcionamento do espaço.</p>
+        </div>
+        <div class="timeline">
+          <article class="timeline-item"><div class="timeline-number">01</div><div><h3>Atendimento</h3><p>Escuta, acolhimento, orientação e encaminhamento conforme a necessidade.</p></div></article>
+          <article class="timeline-item"><div class="timeline-number">02</div><div><h3>Armazenamento</h3><p>Organização, identificação e cuidados para preservar a qualidade dos produtos.</p></div></article>
+          <article class="timeline-item"><div class="timeline-number">03</div><div><h3>Caixa</h3><p>Conferência de produtos, valores, formas de pagamento e finalização da compra.</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="acessibilidade" class="section alt">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">07 · INCLUA</p>
+            <h2>Acessibilidade</h2>
+          </div>
+          <p>Recursos e boas práticas para que mais pessoas possam navegar e aprender.</p>
+        </div>
+        <div class="access-grid">
+          <article class="access-card"><div class="icon">🔎</div><h3>Texto legível</h3><p>Fonte confortável, títulos claros e parágrafos curtos.</p></article>
+          <article class="access-card"><div class="icon">🎨</div><h3>Bom contraste</h3><p>Texto e fundo com contraste suficiente para leitura.</p></article>
+          <article class="access-card"><div class="icon">⌨️</div><h3>Navegação</h3><p>Botões com rótulos objetivos e acesso por teclado.</p></article>
+          <article class="access-card"><div class="icon">🎥</div><h3>Vídeos acessíveis</h3><p>Use legendas e, quando necessário, descrição do conteúdo.</p></article>
+        </div>
+
+        <div class="access-tools" aria-label="Ferramentas de acessibilidade">
+          <button class="btn secondary" id="increaseText">Aumentar texto</button>
+          <button class="btn secondary" id="highContrast">Alto contraste</button>
+          <button class="btn secondary" id="reduceMotion">Reduzir animações</button>
+          <button class="btn secondary" id="resetAccess">Restaurar</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="sustentabilidade" class="section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">08 · CUIDE</p>
+            <h2>Sustentabilidade</h2>
+          </div>
+          <p>Pequenas atitudes ajudam a reduzir impactos e melhorar o descarte de resíduos.</p>
+        </div>
+        <div class="sustain-grid">
+          <article><div class="icon">♻️</div><h3>Descarte correto</h3><p>Medicamentos vencidos ou sem uso não devem ser descartados de qualquer forma. Procure pontos de coleta e siga as orientações locais.</p></article>
+          <article><div class="icon">📦</div><h3>Reaproveitamento</h3><p>Materiais limpos e adequados podem ser reutilizados em ações educativas, conforme as regras da instituição.</p></article>
+          <article><div class="icon">💧</div><h3>Uso consciente</h3><p>Evite desperdícios de água, energia, papel e outros recursos durante a rotina.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="quiz" class="section alt">
+      <div class="container quiz-wrap">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">09 · TESTE</p>
+            <h2>Quiz da Farmácia-Escola</h2>
+          </div>
+          <p>Responda às perguntas e confira seu resultado no final.</p>
+        </div>
+        <div id="quizBox" class="quiz-box"></div>
+      </div>
+    </section>
+
+    <section id="creditos" class="section credits">
+      <div class="container narrow">
+        <p class="eyebrow">10 · PROJETO</p>
+        <h2>Créditos</h2>
+        <div class="credit-box">
+          <p><strong>Alunos:</strong> Nome dos alunos</p>
+          <p><strong>Turma:</strong> 0000</p>
+          <p><strong>Docente:</strong> Nome do(a) docente</p>
+          <p><strong>Instituição:</strong> Nome da instituição</p>
+          <p><strong>Projeto:</strong> Extensão digital da Farmácia-Escola</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p>Entre. Explore. Escaneie. Aprenda.</p>
+      <p>Projeto educativo da Farmácia-Escola</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
