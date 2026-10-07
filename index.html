@@ -5,7 +5,312 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Entre. Explore. Escaneie. Aprenda. — extensão digital da Farmácia-Escola." />
   <title>Entre. Explore. Escaneie. Aprenda.</title>
-  <link rel="stylesheet" href="style.css" />
+  <style>
+:root {
+  --bg: #f6faf8;
+  --surface: #ffffff;
+  --surface-2: #edf6f2;
+  --text: #17302a;
+  --muted: #5d6f69;
+  --primary: #16856f;
+  --primary-dark: #0d6655;
+  --secondary: #e4f5ef;
+  --accent: #64b29f;
+  --line: #d7e6e0;
+  --shadow: 0 18px 55px rgba(18, 61, 52, .10);
+  --max: 1180px;
+  --radius: 24px;
+  --font-scale: 1;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.6;
+  font-size: calc(16px * var(--font-scale));
+  overflow-x: hidden;
+}
+body.dark {
+  --bg: #0c1715;
+  --surface: #12211e;
+  --surface-2: #172c27;
+  --text: #eefbf7;
+  --muted: #b7cbc4;
+  --primary: #42b69e;
+  --primary-dark: #74d0bb;
+  --secondary: #1b3831;
+  --accent: #4caa95;
+  --line: #29453e;
+  --shadow: 0 18px 55px rgba(0,0,0,.30);
+}
+body.high-contrast {
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #ffffff;
+  --text: #000000;
+  --muted: #111111;
+  --primary: #003d2f;
+  --primary-dark: #00261e;
+  --secondary: #ffffff;
+  --accent: #000000;
+  --line: #000000;
+}
+body.font-large { --font-scale: 1.14; }
+body.reduce-motion *, body.reduce-motion *::before, body.reduce-motion *::after {
+  animation-duration: .01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: .01ms !important;
+  scroll-behavior: auto !important;
+}
+
+img { max-width: 100%; display: block; }
+button, input, select, textarea { font: inherit; }
+a { color: inherit; text-decoration: none; }
+button { cursor: pointer; }
+
+.container { width: min(100% - 40px, var(--max)); margin: 0 auto; position: relative; z-index: 2; }
+.narrow { width: min(100% - 40px, 860px); }
+.section { padding: 96px 0; position: relative; }
+.section.alt { background: var(--surface-2); }
+.skip-link {
+  position: fixed; left: 12px; top: -60px; background: #000; color: #fff; padding: 10px 14px; border-radius: 10px; z-index: 1000;
+}
+.skip-link:focus { top: 12px; }
+
+.topbar {
+  position: sticky; top: 0; z-index: 50; backdrop-filter: blur(18px);
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  border-bottom: 1px solid var(--line);
+}
+.nav-wrap { min-height: 72px; display: flex; align-items: center; gap: 22px; }
+.brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 850; white-space: nowrap; }
+.brand-mark {
+  width: 38px; height: 38px; display: grid; place-items: center; color: #fff; background: linear-gradient(135deg, var(--primary), #3a9c87); border-radius: 12px; box-shadow: 0 10px 25px rgba(22,133,111,.22);
+}
+.main-nav { display: flex; flex: 1; justify-content: flex-end; align-items: center; gap: 4px; flex-wrap: wrap; }
+.main-nav > a { padding: 8px 9px; border-radius: 10px; color: var(--muted); font-size: .88rem; font-weight: 650; }
+.main-nav > a:hover, .main-nav > a:focus-visible { background: var(--secondary); color: var(--primary-dark); outline: none; }
+.menu-toggle { display: none; margin-left: auto; border: 1px solid var(--line); background: var(--surface); color: var(--text); border-radius: 12px; padding: 10px 12px; font-weight: 800; }
+.menu-tools { display: flex; align-items: center; gap: 5px; padding-left: 8px; margin-left: 5px; border-left: 1px solid var(--line); }
+.menu-tools-title { color: var(--muted); font-size: .72rem; text-transform: uppercase; letter-spacing: .08em; margin-right: 2px; }
+.tool-btn { border: 1px solid var(--line); background: var(--surface); color: var(--text); border-radius: 9px; padding: 7px 9px; font-size: .76rem; font-weight: 800; }
+.tool-btn span { font-weight: 650; }
+.tool-btn[aria-pressed="true"] { background: var(--primary); color: #fff; border-color: var(--primary); }
+.tool-btn.subtle { color: var(--muted); }
+
+.hero { min-height: 760px; padding-top: 86px; display: flex; align-items: center; overflow: hidden; background: radial-gradient(circle at 10% 10%, rgba(87,183,159,.18), transparent 34%), radial-gradient(circle at 86% 78%, rgba(24,131,109,.12), transparent 30%); }
+.hero-grid { display: grid; grid-template-columns: 1.02fr .98fr; gap: 60px; align-items: center; }
+.eyebrow { margin: 0 0 10px; color: var(--primary); font-weight: 900; font-size: .77rem; letter-spacing: .15em; text-transform: uppercase; }
+h1, h2, h3 { line-height: 1.1; letter-spacing: -.035em; }
+h1 { margin: 0; font-size: clamp(3.2rem, 6.5vw, 6.5rem); max-width: 830px; }
+h1 span { color: var(--primary); }
+h2 { margin: 0; font-size: clamp(2.2rem, 4.2vw, 4rem); }
+h3 { margin: 0 0 8px; font-size: 1.18rem; }
+p { margin-top: 0; }
+.hero-text { max-width: 660px; color: var(--muted); font-size: 1.15rem; margin: 22px 0 28px; }
+.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 0; border-radius: 14px; padding: 13px 18px; font-weight: 850; transition: transform .18s ease, box-shadow .18s ease, background .18s ease; }
+.btn:hover { transform: translateY(-2px); }
+.btn.primary { background: linear-gradient(135deg, var(--primary), #2e9b84); color: #fff; box-shadow: 0 14px 30px rgba(22,133,111,.22); }
+.btn.secondary { background: var(--secondary); color: var(--primary-dark); border: 1px solid var(--line); }
+.btn.ghost { background: transparent; color: var(--muted); border: 1px solid var(--line); }
+.btn.small { padding: 8px 12px; border-radius: 10px; font-size: .83rem; }
+.notice, .feedback-local-note, .visual-only-note, .content-note { border: 1px solid var(--line); background: color-mix(in srgb, var(--surface) 88%, transparent); border-radius: 16px; padding: 15px 17px; color: var(--muted); font-size: .94rem; }
+.notice { margin-top: 26px; max-width: 700px; }
+
+.hero-card {
+  position: relative; min-height: 490px; border-radius: 34px; overflow: hidden; border: 1px solid rgba(255,255,255,.35);
+  background: linear-gradient(150deg, #0f6e5d 0%, #14574c 52%, #173e37 100%); box-shadow: var(--shadow); isolation: isolate;
+}
+.hero-card::before { content: ""; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,.13), transparent 45%, rgba(74,203,178,.12)); }
+.hero-glow { position: absolute; width: 310px; height: 310px; border-radius: 50%; background: rgba(127,235,207,.22); filter: blur(25px); right: 9%; top: 18%; animation: breathe 4.5s ease-in-out infinite; }
+.cross-big { position: absolute; inset: 0; display: grid; place-items: center; font-size: 190px; color: rgba(255,255,255,.12); font-weight: 300; }
+.scan-beam { position: absolute; left: -20%; right: -20%; top: 0; height: 4px; background: linear-gradient(90deg, transparent, #b7fff0, transparent); box-shadow: 0 0 28px #8ff3dc; animation: scan 4s linear infinite; z-index: 2; }
+.floating-card { position: absolute; z-index: 3; display: inline-flex; align-items: center; gap: 9px; padding: 12px 14px; border-radius: 14px; color: #fff; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.20); backdrop-filter: blur(10px); box-shadow: 0 15px 30px rgba(0,0,0,.14); font-size: .93rem; font-weight: 800; animation: floaty 4.4s ease-in-out infinite; }
+.floating-card span { font-size: 1.15rem; }
+.card-1 { top: 14%; left: 9%; animation-delay: -.8s; }
+.card-2 { top: 33%; right: 9%; animation-delay: -2.2s; }
+.card-3 { bottom: 23%; left: 8%; animation-delay: -1.2s; }
+.card-4 { bottom: 10%; right: 8%; animation-delay: -2.8s; }
+.hero-orbit { position: absolute; border: 1px solid rgba(28,124,104,.13); border-radius: 50%; pointer-events: none; }
+.orbit-one { width: 640px; height: 640px; top: -220px; right: -140px; animation: spin 26s linear infinite; }
+.orbit-two { width: 360px; height: 360px; bottom: -220px; left: -120px; animation: spin-rev 22s linear infinite; }
+.hero-spark { position: absolute; width: 8px; height: 8px; border-radius: 50%; background: var(--primary); box-shadow: 0 0 22px rgba(22,133,111,.55); }
+.spark-one { top: 25%; left: 46%; animation: twinkle 2.8s ease-in-out infinite; }
+.spark-two { top: 70%; left: 16%; animation: twinkle 3.2s ease-in-out infinite -.8s; }
+
+.section-head { display: grid; grid-template-columns: 1fr minmax(300px, 460px); gap: 28px; align-items: end; margin-bottom: 36px; }
+.section-head > p { color: var(--muted); margin: 0; }
+
+.maquette-wrap { margin-bottom: 20px; }
+.maquette { display: grid; grid-template-columns: 1.1fr .8fr 1.1fr; grid-template-rows: 160px 180px 140px; gap: 12px; padding: 16px; border: 1px solid var(--line); border-radius: 28px; background: linear-gradient(145deg, var(--surface), var(--surface-2)); box-shadow: var(--shadow); }
+.room { border: 1px solid rgba(255,255,255,.44); border-radius: 20px; color: #fff; font-weight: 900; font-size: 1.02rem; min-height: 80px; transition: transform .2s ease, box-shadow .2s ease, filter .2s ease; position: relative; overflow: hidden; }
+.room::after { content: ""; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,.22), transparent 42%); pointer-events: none; }
+.room:hover, .room:focus-visible { transform: translateY(-4px) scale(1.01); box-shadow: 0 18px 32px rgba(16,66,56,.16); outline: none; }
+.room.selected { box-shadow: 0 0 0 4px rgba(255,255,255,.62), 0 20px 38px rgba(16,66,56,.20); filter: saturate(1.08); }
+.room-atendimento { grid-column: 1; grid-row: 1 / span 2; background: linear-gradient(145deg,#1e957d,#146752); }
+.room-caixa { grid-column: 2; grid-row: 1; background: linear-gradient(145deg,#42988a,#246e62); }
+.room-armazenamento { grid-column: 3; grid-row: 1 / span 2; background: linear-gradient(145deg,#1b7e6e,#245248); }
+.room-dispensacao { grid-column: 2; grid-row: 2; background: linear-gradient(145deg,#66a08e,#407566); }
+.room-acessibilidade { grid-column: 1 / span 2; grid-row: 3; background: linear-gradient(145deg,#4b7da0,#385e7c); }
+.map-tip { margin: 14px 3px 0; color: var(--muted); font-size: .9rem; }
+.sector-list { display: grid; gap: 14px; }
+.sector-card { border: 1px solid var(--line); border-left: 6px solid var(--primary); background: var(--surface); border-radius: 20px; padding: 20px 22px; box-shadow: 0 12px 30px rgba(14,63,53,.06); transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease; }
+.sector-card.active { transform: translateY(-2px); box-shadow: 0 18px 36px rgba(22,133,111,.14); border-color: color-mix(in srgb, var(--primary) 45%, var(--line)); }
+.sector-card .sector-kicker { color: var(--primary); font-size: .74rem; font-weight: 900; text-transform: uppercase; letter-spacing: .08em; }
+.sector-card p { color: var(--muted); margin: 6px 0; }
+.sector-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
+.sector-meta div { background: var(--surface-2); border-radius: 12px; padding: 10px 12px; }
+.sector-meta strong { display:block; font-size: .82rem; }
+.sector-meta span { color: var(--muted); font-size: .84rem; }
+
+.filter-row { display: flex; flex-wrap: wrap; gap: 9px; margin-bottom: 22px; }
+.chip { border: 1px solid var(--line); background: var(--surface); color: var(--muted); padding: 9px 14px; border-radius: 999px; font-weight: 800; }
+.chip.active, .chip:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+.cards-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.card, .access-card, .sustain-grid article { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 20px; box-shadow: 0 12px 30px rgba(14,63,53,.05); }
+.card { transition: transform .18s ease, box-shadow .18s ease; }
+.card:hover, .access-card:hover, .sustain-grid article:hover { transform: translateY(-4px); box-shadow: 0 18px 38px rgba(14,63,53,.10); }
+.card p, .access-card p, .sustain-grid article p { color: var(--muted); margin-bottom: 0; }
+.tag { display: inline-flex; padding: 6px 9px; border-radius: 999px; background: var(--secondary); color: var(--primary-dark); font-size: .74rem; font-weight: 900; margin-bottom: 11px; }
+.content-note { margin-top: 20px; }
+
+.forms-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.forms-card { overflow: hidden; background: var(--surface); border: 1px solid var(--line); border-radius: 22px; box-shadow: var(--shadow); }
+.form-image-wrap { height: 230px; overflow: hidden; background: #e9f1ef; }
+.form-image-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform .45s ease; }
+.forms-card:hover .form-image-wrap img { transform: scale(1.05); }
+.forms-copy { padding: 17px 18px 20px; }
+.forms-copy p { color: var(--muted); margin: 6px 0 0; }
+.image-note { margin: 16px 0 0; color: var(--muted); font-size: .84rem; }
+
+.bula-guide { display: grid; gap: 10px; }
+.bula-item { width: 100%; display: flex; justify-content: space-between; align-items: center; background: var(--surface); color: var(--text); border: 1px solid var(--line); border-radius: 16px; padding: 16px 18px; font-weight: 900; text-align: left; }
+.bula-item.open { border-color: var(--primary); color: var(--primary-dark); }
+.bula-panel { display: none; color: var(--muted); background: var(--surface); border: 1px solid var(--line); border-top: 0; margin-top: -18px; padding: 24px 18px 16px; border-radius: 0 0 16px 16px; }
+.bula-item.open + .bula-panel { display: block; }
+
+.timeline { display: grid; gap: 14px; }
+.timeline-item { display: grid; grid-template-columns: 80px 1fr; gap: 20px; background: var(--surface); border: 1px solid var(--line); border-radius: 22px; padding: 22px; box-shadow: 0 12px 30px rgba(14,63,53,.05); }
+.timeline-number { width: 58px; height: 58px; display:grid; place-items:center; background: var(--secondary); color: var(--primary-dark); border-radius: 18px; font-weight: 950; }
+.timeline-item p { color: var(--muted); margin-bottom: 0; }
+
+.access-grid, .sustain-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.access-card .icon, .sustain-grid article .icon { font-size: 1.8rem; margin-bottom: 12px; }
+.visual-only-note { margin-top: 20px; }
+
+.quiz-wrap { max-width: 980px; }
+.quiz-box { background: var(--surface); border: 1px solid var(--line); border-radius: 28px; padding: clamp(20px, 4vw, 36px); box-shadow: var(--shadow); min-height: 250px; }
+.quiz-start { max-width: 560px; margin: 0 auto; text-align: center; }
+.quiz-start h3 { font-size: 1.8rem; margin-bottom: 8px; }
+.quiz-start p { color: var(--muted); }
+.quiz-name { width: 100%; border: 1px solid var(--line); background: var(--bg); color: var(--text); border-radius: 12px; padding: 13px 14px; margin: 13px 0; outline: none; }
+.quiz-name:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(22,133,111,.13); }
+.quiz-progress { color: var(--primary); font-weight: 900; font-size: .83rem; text-transform: uppercase; letter-spacing: .09em; }
+.quiz-question { font-size: clamp(1.3rem, 3vw, 2rem); font-weight: 900; margin: 10px 0 22px; }
+.answers { display: grid; gap: 10px; }
+.answer { width: 100%; text-align: left; border: 1px solid var(--line); background: var(--surface); color: var(--text); padding: 14px 16px; border-radius: 14px; font-weight: 750; }
+.answer:hover:not(:disabled) { border-color: var(--primary); transform: translateX(2px); }
+.answer.correct { background: #dff6e9; border-color: #4ba16d; color: #17492b; }
+.answer.wrong { background: #fde4e1; border-color: #d8655d; color: #6b1f1a; }
+.quiz-actions { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 22px; }
+#feedback { color: var(--muted); font-weight: 800; }
+.result { text-align: center; padding: 20px; }
+.result-score { font-size: clamp(4rem, 13vw, 7rem); font-weight: 950; color: var(--primary); line-height: 1; margin: 12px 0; }
+.history-box { margin-top: 22px; border: 1px solid var(--line); background: var(--surface); border-radius: 24px; padding: 20px; }
+.history-head { display: flex; justify-content: space-between; gap: 16px; align-items: center; }
+.history-head h3 { margin: 0; font-size: 1.35rem; }
+.history-list { display: grid; gap: 9px; margin-top: 15px; }
+.history-item { display: grid; grid-template-columns: 1fr auto auto; gap: 15px; align-items: center; padding: 12px 14px; background: var(--surface-2); border-radius: 13px; }
+.history-name { font-weight: 850; }
+.history-score { color: var(--primary-dark); font-weight: 950; }
+.history-date { color: var(--muted); font-size: .82rem; }
+.history-empty { color: var(--muted); padding: 10px 0; }
+
+.feedback-form { display: grid; gap: 15px; background: var(--surface); border: 1px solid var(--line); border-radius: 24px; padding: 22px; box-shadow: var(--shadow); }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.feedback-form label { display: grid; gap: 7px; font-weight: 850; font-size: .9rem; }
+.feedback-form input, .feedback-form select, .feedback-form textarea { width: 100%; border: 1px solid var(--line); background: var(--bg); color: var(--text); border-radius: 12px; padding: 12px 13px; resize: vertical; outline: none; }
+.feedback-form input:focus, .feedback-form select:focus, .feedback-form textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(22,133,111,.12); }
+.feedback-checks { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; color: var(--muted); }
+.feedback-checks p { grid-column: 1 / -1; margin: 0 0 2px; color: var(--text); }
+.feedback-checks label { display: flex; grid-template-columns: auto 1fr; display:flex; align-items: flex-start; gap: 8px; font-weight: 650; }
+.feedback-status { margin: 0; color: var(--primary-dark); font-weight: 850; min-height: 24px; }
+.feedback-local-note { margin-top: 14px; }
+
+.credit-box { margin-top: 20px; padding: 24px; background: var(--surface); border: 1px solid var(--line); border-radius: 22px; box-shadow: var(--shadow); }
+.credit-box hr { border: 0; border-top: 1px solid var(--line); margin: 20px 0; }
+.credit-small { color: var(--muted); font-size: .86rem; margin-bottom: 0; }
+.footer { padding: 28px 0; background: #0c2822; color: #dff7ef; }
+.footer-inner { display: flex; justify-content: space-between; gap: 16px; }
+.footer p { margin: 0; }
+
+.reveal { animation: rise .8s ease both; }
+.reveal:nth-child(2) { animation-delay: .1s; }
+
+@keyframes rise { from { opacity:0; transform: translateY(18px); } to { opacity:1; transform: translateY(0); } }
+@keyframes floaty { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+@keyframes breathe { 0%,100%{transform:scale(.95);opacity:.45} 50%{transform:scale(1.08);opacity:.7} }
+@keyframes scan { 0%{transform:translateY(0)} 50%{transform:translateY(460px)} 100%{transform:translateY(0)} }
+@keyframes spin { to { transform:rotate(360deg); } }
+@keyframes spin-rev { to { transform:rotate(-360deg); } }
+@keyframes twinkle { 0%,100%{opacity:.25;transform:scale(.8)} 50%{opacity:1;transform:scale(1.5)} }
+
+@media (max-width: 1080px) {
+  .main-nav > a { font-size: .8rem; }
+  .menu-tools { order: 20; }
+  .cards-grid { grid-template-columns: repeat(2, 1fr); }
+  .forms-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 860px) {
+  .nav-wrap { position: relative; }
+  .menu-toggle { display: inline-flex; align-items: center; gap: 7px; }
+  .main-nav { display: none; position: absolute; top: calc(100% + 10px); left: 0; right: 0; padding: 14px; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; box-shadow: var(--shadow); justify-content: stretch; }
+  .main-nav.open { display: grid; grid-template-columns: repeat(2, 1fr); }
+  .main-nav > a { padding: 10px; }
+  .menu-tools { grid-column: 1 / -1; border-left: 0; border-top: 1px solid var(--line); padding: 12px 0 0; margin: 6px 0 0; flex-wrap: wrap; }
+  .menu-tools-title { width: 100%; }
+  .hero { min-height: auto; padding: 80px 0; }
+  .hero-grid { grid-template-columns: 1fr; gap: 34px; }
+  .hero-card { min-height: 400px; }
+  .section-head { grid-template-columns: 1fr; gap: 12px; }
+  .maquette { grid-template-columns: 1fr 1fr; grid-template-rows: repeat(4, 125px); }
+  .room-atendimento { grid-column: 1; grid-row: 1 / span 2; }
+  .room-caixa { grid-column: 2; grid-row: 1; }
+  .room-armazenamento { grid-column: 2; grid-row: 2; }
+  .room-dispensacao { grid-column: 1; grid-row: 3; }
+  .room-acessibilidade { grid-column: 2; grid-row: 3; }
+  .cards-grid, .access-grid, .sustain-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 620px) {
+  .container, .narrow { width: min(100% - 22px, var(--max)); }
+  .section { padding: 68px 0; }
+  .main-nav.open { grid-template-columns: 1fr; }
+  .menu-tools { grid-column: auto; }
+  .menu-tools-title { margin-bottom: 3px; }
+  .tool-btn { flex: 1 1 calc(50% - 6px); }
+  h1 { font-size: clamp(2.7rem, 14vw, 4.2rem); }
+  .hero-card { min-height: 340px; }
+  .cross-big { font-size: 130px; }
+  .floating-card { font-size: .78rem; padding: 9px 11px; }
+  .cards-grid, .forms-grid, .access-grid, .sustain-grid, .feedback-checks, .form-grid { grid-template-columns: 1fr; }
+  .maquette { grid-template-columns: 1fr 1fr; grid-template-rows: repeat(4, 96px); padding: 10px; }
+  .room { border-radius: 14px; font-size: .86rem; }
+  .sector-meta { grid-template-columns: 1fr; }
+  .form-image-wrap { height: 210px; }
+  .timeline-item { grid-template-columns: 60px 1fr; gap: 13px; }
+  .timeline-number { width: 48px; height: 48px; border-radius: 14px; }
+  .quiz-actions, .history-head, .footer-inner { flex-direction: column; align-items: stretch; }
+  .history-item { grid-template-columns: 1fr auto; }
+  .history-date { grid-column: 1 / -1; }
+  .hero-actions .btn { width: 100%; }
+}
+
+  </style>
 </head>
 <body>
   <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
@@ -17,8 +322,8 @@
         <span>Farmácia-Escola</span>
       </a>
 
-      <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mainNav">
-        ☰ <span>Menu</span>
+      <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mainNav" aria-label="Abrir menu">
+        <span class="menu-icon">☰</span><span>Menu</span>
       </button>
 
       <nav id="mainNav" class="main-nav" aria-label="Navegação principal">
@@ -32,34 +337,51 @@
         <a href="#acessibilidade">Acessibilidade</a>
         <a href="#sustentabilidade">Sustentabilidade</a>
         <a href="#quiz">Quiz</a>
+        <a href="#feedback">Feedback</a>
         <a href="#creditos">Créditos</a>
+
+        <div class="menu-tools" aria-label="Preferências de acessibilidade e aparência">
+          <span class="menu-tools-title">Preferências</span>
+          <button type="button" class="tool-btn" id="increaseText" aria-pressed="false">Aa+ <span>Aumentar</span></button>
+          <button type="button" class="tool-btn" id="highContrast" aria-pressed="false">◐ <span>Contraste</span></button>
+          <button type="button" class="tool-btn" id="toggleTheme" aria-pressed="false">☼ <span>Modo escuro</span></button>
+          <button type="button" class="tool-btn" id="reduceMotion" aria-pressed="false">≈ <span>Menos animação</span></button>
+          <button type="button" class="tool-btn subtle" id="resetAccess">↺ <span>Restaurar</span></button>
+        </div>
       </nav>
     </div>
   </header>
 
   <main id="conteudo">
     <section id="inicio" class="hero section">
+      <div class="hero-orbit orbit-one" aria-hidden="true"></div>
+      <div class="hero-orbit orbit-two" aria-hidden="true"></div>
+      <div class="hero-spark spark-one" aria-hidden="true"></div>
+      <div class="hero-spark spark-two" aria-hidden="true"></div>
+
       <div class="container hero-grid">
-        <div>
+        <div class="hero-copy reveal">
           <p class="eyebrow">EXTENSÃO DIGITAL DA FARMÁCIA-ESCOLA</p>
           <h1>Entre. Explore.<br /><span>Escaneie. Aprenda.</span></h1>
-          <p class="hero-text">Uma experiência interativa para conhecer a rotina de uma farmácia, entender os medicamentos e aprender de forma simples e visual.</p>
+          <p class="hero-text">Uma experiência interativa para conhecer a rotina de uma farmácia, entender medicamentos e aprender de forma simples, visual e acessível.</p>
           <div class="hero-actions">
             <a class="btn primary" href="#farmacia">Explorar a farmácia</a>
             <a class="btn secondary" href="#quiz">Fazer o quiz</a>
           </div>
 
           <div class="notice" role="note">
-            <strong>Como usar:</strong> navegue pelos botões, explore os setores e responda ao quiz. O conteúdo é educativo e não substitui a orientação de um profissional de saúde.
+            <strong>Como usar:</strong> explore os setores, abra os conteúdos, observe as formas farmacêuticas e termine testando o que aprendeu. O conteúdo é educativo e não substitui a orientação de um profissional de saúde.
           </div>
         </div>
 
-        <div class="hero-card" aria-label="Visão ilustrativa da Farmácia-Escola">
+        <div class="hero-card reveal" aria-label="Painel visual da Farmácia-Escola">
+          <div class="hero-glow" aria-hidden="true"></div>
           <div class="cross-big" aria-hidden="true">✚</div>
-          <div class="floating-card card-1">📦 Armazenamento</div>
-          <div class="floating-card card-2">💊 Medicamentos</div>
-          <div class="floating-card card-3">♿ Acessibilidade</div>
-          <div class="floating-card card-4">♻️ Sustentabilidade</div>
+          <div class="scan-beam" aria-hidden="true"></div>
+          <div class="floating-card card-1"><span>📦</span> Armazenamento</div>
+          <div class="floating-card card-2"><span>💊</span> Medicamentos</div>
+          <div class="floating-card card-3"><span>♿</span> Acessibilidade</div>
+          <div class="floating-card card-4"><span>♻️</span> Sustentabilidade</div>
         </div>
       </div>
     </section>
@@ -71,20 +393,21 @@
             <p class="eyebrow">01 · CONHEÇA</p>
             <h2>Conheça a Farmácia</h2>
           </div>
-          <p>Veja uma representação dos setores da maquete. Use os cartões para descobrir a função de cada espaço.</p>
+          <p>Veja uma representação dos setores da maquete. Toque ou clique em um espaço para abrir uma explicação mais detalhada.</p>
         </div>
 
-        <div class="map-layout">
+        <div class="maquette-wrap">
           <div class="maquette" aria-label="Mapa ilustrativo dos setores da farmácia">
-            <div class="room room-atendimento" data-sector="Atendimento">Atendimento</div>
-            <div class="room room-caixa" data-sector="Caixa">Caixa</div>
-            <div class="room room-armazenamento" data-sector="Armazenamento">Armazenamento</div>
-            <div class="room room-dispensacao" data-sector="Dispensação">Dispensação</div>
-            <div class="room room-acessibilidade" data-sector="Acessibilidade">Acessibilidade</div>
+            <button class="room room-atendimento" data-sector="Atendimento" type="button">Atendimento</button>
+            <button class="room room-caixa" data-sector="Caixa" type="button">Caixa</button>
+            <button class="room room-armazenamento" data-sector="Armazenamento" type="button">Armazenamento</button>
+            <button class="room room-dispensacao" data-sector="Dispensação" type="button">Dispensação</button>
+            <button class="room room-acessibilidade" data-sector="Acessibilidade" type="button">Acessibilidade</button>
           </div>
-
-          <div class="sector-list" id="sectorList"></div>
+          <p class="map-tip">Clique nos espaços da maquete para destacar a explicação correspondente.</p>
         </div>
+
+        <div class="sector-list" id="sectorList" aria-live="polite"></div>
       </div>
     </section>
 
@@ -95,17 +418,18 @@
             <p class="eyebrow">02 · APRENDA</p>
             <h2>Medicamentos por categoria</h2>
           </div>
-          <p>Conteúdo resumido para facilitar a identificação e a compreensão dos temas.</p>
+          <p>Exemplos didáticos para reconhecer categorias comuns. Os nomes abaixo não são indicação de uso.</p>
         </div>
 
         <div class="filter-row" role="toolbar" aria-label="Filtrar categorias">
-          <button class="chip active" data-filter="todos">Todos</button>
-          <button class="chip" data-filter="dor">Dor e febre</button>
-          <button class="chip" data-filter="alergia">Alergias</button>
-          <button class="chip" data-filter="infeccao">Infecções</button>
-          <button class="chip" data-filter="cronicos">Uso contínuo</button>
+          <button class="chip active" data-filter="todos" type="button">Todos</button>
+          <button class="chip" data-filter="dor" type="button">Dor e febre</button>
+          <button class="chip" data-filter="alergia" type="button">Alergias</button>
+          <button class="chip" data-filter="infeccao" type="button">Infecções</button>
+          <button class="chip" data-filter="cronicos" type="button">Uso contínuo</button>
         </div>
         <div class="cards-grid" id="medicationCards"></div>
+        <p class="content-note"><strong>Importante:</strong> antibióticos, outros medicamentos e tratamentos podem exigir avaliação e prescrição. O objetivo desta seção é apenas educativo.</p>
       </div>
     </section>
 
@@ -129,9 +453,10 @@
             <p class="eyebrow">04 · OBSERVE</p>
             <h2>Formas farmacêuticas</h2>
           </div>
-          <p>O formato do medicamento ajuda a definir como ele é usado e armazenado.</p>
+          <p>Compare formas reais de apresentação e observe como o formato faz parte da forma de administração.</p>
         </div>
         <div class="forms-grid" id="formsCards"></div>
+        <p class="image-note">Imagens ilustrativas selecionadas de Wikimedia Commons. Os medicamentos mostrados são apenas exemplos de formas farmacêuticas.</p>
       </div>
     </section>
 
@@ -142,19 +467,19 @@
             <p class="eyebrow">05 · CONSULTE</p>
             <h2>Como localizar informações na bula</h2>
           </div>
-          <p>Aprenda onde procurar as informações mais importantes antes do uso.</p>
+          <p>A bula reúne dados essenciais para leitura segura. Aqui, o visitante aprende onde encontrar cada informação e por que ela é importante.</p>
         </div>
         <div class="bula-guide">
-          <button class="bula-item" aria-expanded="false"><span>Indicação</span><span>+</span></button>
-          <div class="bula-panel">Mostra para quais condições ou sintomas o medicamento é indicado.</div>
-          <button class="bula-item" aria-expanded="false"><span>Posologia</span><span>+</span></button>
-          <div class="bula-panel">Explica dose, horários, intervalo e duração conforme a orientação indicada na bula e pelo profissional.</div>
-          <button class="bula-item" aria-expanded="false"><span>Contraindicações</span><span>+</span></button>
-          <div class="bula-panel">Informa situações em que o medicamento não deve ser usado, de acordo com a bula.</div>
-          <button class="bula-item" aria-expanded="false"><span>Reações adversas</span><span>+</span></button>
-          <div class="bula-panel">Apresenta possíveis efeitos indesejados e orientações relevantes.</div>
-          <button class="bula-item" aria-expanded="false"><span>Conservação</span><span>+</span></button>
-          <div class="bula-panel">Informa como guardar o medicamento, incluindo temperatura, luz e umidade quando aplicável.</div>
+          <button class="bula-item" aria-expanded="false" type="button"><span>Indicação</span><span>+</span></button>
+          <div class="bula-panel">Mostra para quais condições, sintomas ou situações o medicamento é indicado. É uma das primeiras informações que ajudam a entender a finalidade do produto.</div>
+          <button class="bula-item" aria-expanded="false" type="button"><span>Posologia</span><span>+</span></button>
+          <div class="bula-panel">Explica a dose, os horários, os intervalos e outras orientações de uso. A pessoa deve conferir a bula e seguir a orientação do profissional responsável quando houver prescrição.</div>
+          <button class="bula-item" aria-expanded="false" type="button"><span>Contraindicações</span><span>+</span></button>
+          <div class="bula-panel">Informa situações em que o medicamento não deve ser usado ou em que é necessário cuidado especial, conforme as informações oficiais do produto.</div>
+          <button class="bula-item" aria-expanded="false" type="button"><span>Reações adversas</span><span>+</span></button>
+          <div class="bula-panel">Apresenta possíveis efeitos indesejados. A frequência e a gravidade podem variar, por isso esta parte merece atenção durante a leitura.</div>
+          <button class="bula-item" aria-expanded="false" type="button"><span>Conservação</span><span>+</span></button>
+          <div class="bula-panel">Indica como guardar o medicamento, incluindo condições relacionadas a temperatura, luz, umidade e validade, quando aplicável.</div>
         </div>
       </div>
     </section>
@@ -166,12 +491,12 @@
             <p class="eyebrow">06 · VIVENCIE</p>
             <h2>Rotina da farmácia</h2>
           </div>
-          <p>Três etapas essenciais para entender o funcionamento do espaço.</p>
+          <p>Três etapas essenciais para entender o funcionamento do espaço representado na maquete.</p>
         </div>
         <div class="timeline">
-          <article class="timeline-item"><div class="timeline-number">01</div><div><h3>Atendimento</h3><p>Escuta, acolhimento, orientação e encaminhamento conforme a necessidade.</p></div></article>
-          <article class="timeline-item"><div class="timeline-number">02</div><div><h3>Armazenamento</h3><p>Organização, identificação e cuidados para preservar a qualidade dos produtos.</p></div></article>
-          <article class="timeline-item"><div class="timeline-number">03</div><div><h3>Caixa</h3><p>Conferência de produtos, valores, formas de pagamento e finalização da compra.</p></div></article>
+          <article class="timeline-item"><div class="timeline-number">01</div><div><h3>Atendimento</h3><p>Escuta, acolhimento, identificação da necessidade e orientação adequada. O atendimento também ajuda a encaminhar a pessoa para um profissional quando necessário.</p></div></article>
+          <article class="timeline-item"><div class="timeline-number">02</div><div><h3>Armazenamento</h3><p>Organização, identificação e cuidados de conservação ajudam a manter os produtos em condições adequadas e facilitam a localização dos itens.</p></div></article>
+          <article class="timeline-item"><div class="timeline-number">03</div><div><h3>Caixa</h3><p>Conferência de produtos, valores, formas de pagamento e finalização da compra, com atenção às informações do pedido e do atendimento.</p></div></article>
         </div>
       </div>
     </section>
@@ -183,21 +508,17 @@
             <p class="eyebrow">07 · INCLUA</p>
             <h2>Acessibilidade</h2>
           </div>
-          <p>Recursos e boas práticas para que mais pessoas possam navegar e aprender.</p>
+          <p>A acessibilidade é parte do projeto: o site apresenta boas práticas para facilitar a compreensão, a circulação e o acesso às informações.</p>
         </div>
         <div class="access-grid">
-          <article class="access-card"><div class="icon">🔎</div><h3>Texto legível</h3><p>Fonte confortável, títulos claros e parágrafos curtos.</p></article>
-          <article class="access-card"><div class="icon">🎨</div><h3>Bom contraste</h3><p>Texto e fundo com contraste suficiente para leitura.</p></article>
-          <article class="access-card"><div class="icon">⌨️</div><h3>Navegação</h3><p>Botões com rótulos objetivos e acesso por teclado.</p></article>
-          <article class="access-card"><div class="icon">🎥</div><h3>Vídeos acessíveis</h3><p>Use legendas e, quando necessário, descrição do conteúdo.</p></article>
+          <article class="access-card"><div class="icon">🔎</div><h3>Letras legíveis</h3><p>Tamanho adequado, espaçamento confortável, títulos claros e textos curtos.</p></article>
+          <article class="access-card"><div class="icon">◐</div><h3>Contraste</h3><p>Texto e fundo com contraste suficiente para facilitar a leitura e a identificação dos elementos.</p></article>
+          <article class="access-card"><div class="icon">🪧</div><h3>Pictogramas e sinalização</h3><p>Ícones, nomes visíveis e sinais ajudam o visitante a reconhecer cada setor da maquete.</p></article>
+          <article class="access-card"><div class="icon">🎧</div><h3>Áudio e QR Codes</h3><p>Quando possível, QR Codes podem abrir conteúdos em áudio para ampliar as formas de acesso.</p></article>
+          <article class="access-card"><div class="icon">🎥</div><h3>Vídeos com legendas</h3><p>Vídeos devem conter legendas e, quando viável, recursos de Libras e descrição do conteúdo.</p></article>
+          <article class="access-card"><div class="icon">♿</div><h3>Circulação acessível</h3><p>A representação deve considerar espaço para cadeira de rodas, identificação clara dos setores e circulação possível.</p></article>
         </div>
-
-        <div class="access-tools" aria-label="Ferramentas de acessibilidade">
-          <button class="btn secondary" id="increaseText">Aumentar texto</button>
-          <button class="btn secondary" id="highContrast">Alto contraste</button>
-          <button class="btn secondary" id="reduceMotion">Reduzir animações</button>
-          <button class="btn secondary" id="resetAccess">Restaurar</button>
-        </div>
+        <div class="visual-only-note">As ferramentas de tamanho, contraste, tema e movimento ficam disponíveis no <strong>menu</strong> para não poluir esta seção.</div>
       </div>
     </section>
 
@@ -208,12 +529,15 @@
             <p class="eyebrow">08 · CUIDE</p>
             <h2>Sustentabilidade</h2>
           </div>
-          <p>Pequenas atitudes ajudam a reduzir impactos e melhorar o descarte de resíduos.</p>
+          <p>Aprenda a relacionar a rotina da farmácia com descarte responsável, reaproveitamento e consumo consciente.</p>
         </div>
         <div class="sustain-grid">
-          <article><div class="icon">♻️</div><h3>Descarte correto</h3><p>Medicamentos vencidos ou sem uso não devem ser descartados de qualquer forma. Procure pontos de coleta e siga as orientações locais.</p></article>
-          <article><div class="icon">📦</div><h3>Reaproveitamento</h3><p>Materiais limpos e adequados podem ser reutilizados em ações educativas, conforme as regras da instituição.</p></article>
-          <article><div class="icon">💧</div><h3>Uso consciente</h3><p>Evite desperdícios de água, energia, papel e outros recursos durante a rotina.</p></article>
+          <article><div class="icon">🩹</div><h3>Perfurocortantes</h3><p>Agulhas e materiais que podem cortar ou perfurar devem ser encaminhados para descarte em recipiente apropriado para perfurocortantes, nunca no lixo comum.</p></article>
+          <article><div class="icon">💊</div><h3>Medicamentos vencidos</h3><p>Não descarte medicamentos vencidos ou sem uso no vaso sanitário ou no lixo comum. Procure pontos de coleta e siga as orientações do local.</p></article>
+          <article><div class="icon">📦</div><h3>Papel e papelão</h3><p>Caixas e papéis limpos e secos podem seguir a coleta seletiva quando o serviço local aceitar esse material.</p></article>
+          <article><div class="icon">🫙</div><h3>Vidro</h3><p>Frascos de vidro devem seguir a destinação prevista pela coleta local. Quando houver risco de contaminação ou quebra, siga a orientação específica do serviço.</p></article>
+          <article><div class="icon">🗑️</div><h3>Resíduo comum</h3><p>Resíduos sem possibilidade de reciclagem ou reaproveitamento devem receber a destinação indicada pelo sistema de coleta da instituição ou do município.</p></article>
+          <article><div class="icon">♻️</div><h3>Consumo consciente</h3><p>Reaproveitar materiais da maquete, evitar desperdícios e planejar o uso de recursos ajuda a reduzir custos e impactos ambientais.</p></article>
         </div>
       </div>
     </section>
@@ -225,15 +549,72 @@
             <p class="eyebrow">09 · TESTE</p>
             <h2>Quiz da Farmácia-Escola</h2>
           </div>
-          <p>Responda às perguntas e confira seu resultado no final.</p>
+          <p>Digite seu nome, responda às 8 perguntas e confira sua pontuação. As tentativas ficam salvas no histórico deste navegador.</p>
         </div>
         <div id="quizBox" class="quiz-box"></div>
+        <div class="history-box">
+          <div class="history-head">
+            <div>
+              <span class="eyebrow">HISTÓRICO</span>
+              <h3>Suas pontuações</h3>
+            </div>
+            <button type="button" class="btn ghost small" id="clearHistory">Limpar histórico</button>
+          </div>
+          <div id="quizHistory" class="history-list"></div>
+        </div>
       </div>
     </section>
 
-    <section id="creditos" class="section credits">
+    <section id="feedback" class="section">
       <div class="container narrow">
-        <p class="eyebrow">10 · PROJETO</p>
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">10 · FEEDBACK</p>
+            <h2>Conte o que você achou</h2>
+          </div>
+          <p>Deixe uma opinião, registre uma dúvida ou ajude a equipe a avaliar se a experiência foi realmente autoexplicativa.</p>
+        </div>
+
+        <form id="feedbackForm" class="feedback-form">
+          <div class="form-grid">
+            <label>Seu nome (opcional)
+              <input id="feedbackName" name="name" type="text" maxlength="60" placeholder="Como podemos chamar você?" />
+            </label>
+            <label>Tipo de comentário
+              <select id="feedbackType" name="type">
+                <option value="opinião">Opinião sobre o site</option>
+                <option value="dúvida">Tenho uma dúvida</option>
+                <option value="sugestão">Tenho uma sugestão</option>
+              </select>
+            </label>
+          </div>
+
+          <label>Mensagem
+            <textarea id="feedbackMessage" name="message" rows="5" maxlength="500" required placeholder="Escreva sua opinião, dúvida ou sugestão..."></textarea>
+          </label>
+
+          <div class="feedback-checks">
+            <p><strong>Como foi sua experiência?</strong></p>
+            <label><input type="checkbox" name="evaluation" value="setores" /> Consegui identificar os setores.</label>
+            <label><input type="checkbox" name="evaluation" value="objetivo" /> Entendi o objetivo da maquete.</label>
+            <label><input type="checkbox" name="evaluation" value="informações" /> Consegui localizar as informações.</label>
+            <label><input type="checkbox" name="evaluation" value="clareza" /> As explicações estavam claras.</label>
+            <label><input type="checkbox" name="evaluation" value="navegação" /> A navegação foi simples.</label>
+            <label><input type="checkbox" name="evaluation" value="acessibilidade" /> Os elementos estavam acessíveis.</label>
+            <label><input type="checkbox" name="evaluation" value="aprendizado" /> Aprendi alguma informação nova.</label>
+          </div>
+
+          <button class="btn primary" type="submit">Enviar feedback</button>
+          <p class="feedback-status" id="feedbackStatus" aria-live="polite"></p>
+        </form>
+
+        <div class="feedback-local-note"><strong>Sobre o envio:</strong> nesta versão gratuita, o feedback é armazenado somente no navegador do dispositivo. Para a turma receber as respostas de todos os visitantes, depois podemos conectar este formulário a um Google Forms, Formspree ou outro serviço gratuito.</div>
+      </div>
+    </section>
+
+    <section id="creditos" class="section credits alt">
+      <div class="container narrow">
+        <p class="eyebrow">11 · PROJETO</p>
         <h2>Créditos</h2>
         <div class="credit-box">
           <p><strong>Alunos:</strong> Nome dos alunos</p>
@@ -241,6 +622,8 @@
           <p><strong>Docente:</strong> Nome do(a) docente</p>
           <p><strong>Instituição:</strong> Nome da instituição</p>
           <p><strong>Projeto:</strong> Extensão digital da Farmácia-Escola</p>
+          <hr />
+          <p class="credit-small"><strong>Créditos das imagens:</strong> Wikimedia Commons — <em>Comprimidos.jpg</em> (Abinoam Jr., CC BY-SA 3.0); <em>Capsule medicine.png</em> (Joseph Hemê, CC BY-SA 4.0); <em>Cough medicine.jpg</em> (Mysid, domínio público); <em>Tube of hydrocortisone cream.jpg</em> (Father Goose, CC BY-SA 4.0); <em>Diprosalic ointment tube.jpeg</em> (Cnbrb, CC BY-SA 4.0); <em>Eye Drops - eye lubricant.jpg</em> (Dineshkumar Nallaveerappan, CC BY-SA 4.0).</p>
         </div>
       </div>
     </section>
@@ -253,6 +636,397 @@
     </div>
   </footer>
 
-  <script src="script.js"></script>
+  <script>
+const sectors = [
+  {
+    name: 'Atendimento', icon: '🧑‍⚕️',
+    text: 'É o ponto de acolhimento do visitante e do usuário. Aqui acontece a escuta inicial, a identificação da necessidade e a orientação adequada.',
+    detail: 'O que observar: organização do balcão, comunicação clara e encaminhamento para atendimento profissional quando necessário.',
+    focus: 'Relaciona-se diretamente à experiência e ao acolhimento do público.'
+  },
+  {
+    name: 'Caixa', icon: '🧾',
+    text: 'É a etapa de fechamento da compra. O setor reúne a conferência dos produtos, dos valores e da forma de pagamento.',
+    detail: 'O que observar: identificação dos itens, conferência do pedido e finalização da operação com organização.',
+    focus: 'Mostra que a rotina de uma farmácia também envolve processos administrativos.'
+  },
+  {
+    name: 'Armazenamento', icon: '📦',
+    text: 'Área de organização e conservação dos produtos. A identificação correta facilita a localização e ajuda a manter condições adequadas.',
+    detail: 'O que observar: prateleiras organizadas, identificação, controle de validade e cuidados de conservação quando aplicáveis.',
+    focus: 'Ajuda a perceber como a organização influencia segurança e agilidade.'
+  },
+  {
+    name: 'Dispensação', icon: '💊',
+    text: 'É o momento em que o medicamento ou produto é disponibilizado ao usuário junto das orientações que devem acompanhar a entrega.',
+    detail: 'O que observar: conferência do produto, atenção às informações e comunicação acessível para o usuário.',
+    focus: 'Conecta o conhecimento sobre o medicamento com a prática do atendimento.'
+  },
+  {
+    name: 'Acessibilidade', icon: '♿',
+    text: 'Representa os recursos que devem facilitar o acesso, a circulação e a compreensão da maquete e do atendimento para diferentes públicos.',
+    detail: 'O que observar: espaço de circulação, sinalização visual, contraste e caminhos que não criem barreiras.',
+    focus: 'Reforça que acessibilidade deve ser pensada desde o planejamento do espaço.'
+  }
+];
+
+const medications = [
+  { title: 'Paracetamol', category: 'dor', desc: 'Exemplo didático de medicamento associado ao alívio de dor e febre.' },
+  { title: 'Dipirona', category: 'dor', desc: 'Exemplo didático de medicamento utilizado em situações de dor e febre.' },
+  { title: 'Ibuprofeno', category: 'dor', desc: 'Exemplo de medicamento que pode ser relacionado à dor e à inflamação.' },
+  { title: 'Ácido acetilsalicílico', category: 'dor', desc: 'Exemplo de substância que aparece em medicamentos com ação analgésica e antitérmica.' },
+  { title: 'Naproxeno', category: 'dor', desc: 'Exemplo didático de anti-inflamatório não esteroidal relacionado à dor e inflamação.' },
+
+  { title: 'Loratadina', category: 'alergia', desc: 'Exemplo de anti-histamínico usado no tratamento de determinados sintomas alérgicos.' },
+  { title: 'Cetirizina', category: 'alergia', desc: 'Exemplo de anti-histamínico utilizado em algumas condições alérgicas.' },
+  { title: 'Fexofenadina', category: 'alergia', desc: 'Exemplo de anti-histamínico presente em tratamentos de sintomas alérgicos.' },
+  { title: 'Desloratadina', category: 'alergia', desc: 'Exemplo de medicamento da classe dos anti-histamínicos.' },
+  { title: 'Dexclorfeniramina', category: 'alergia', desc: 'Exemplo de anti-histamínico usado em situações alérgicas específicas.' },
+
+  { title: 'Amoxicilina', category: 'infeccao', desc: 'Exemplo de antibiótico utilizado contra determinadas infecções bacterianas, conforme prescrição quando indicada.' },
+  { title: 'Azitromicina', category: 'infeccao', desc: 'Exemplo de antibiótico usado contra determinadas infecções bacterianas, com uso orientado por profissional.' },
+  { title: 'Cefalexina', category: 'infeccao', desc: 'Exemplo de antibiótico da classe das cefalosporinas.' },
+  { title: 'Fluconazol', category: 'infeccao', desc: 'Exemplo de medicamento antifúngico usado contra determinadas infecções por fungos.' },
+  { title: 'Aciclovir', category: 'infeccao', desc: 'Exemplo de antiviral utilizado em situações específicas de infecções por certos vírus.' },
+
+  { title: 'Metformina', category: 'cronicos', desc: 'Exemplo de medicamento usado em tratamentos de longo prazo para controle da glicemia em situações específicas.' },
+  { title: 'Losartana', category: 'cronicos', desc: 'Exemplo de medicamento usado em tratamentos de longo prazo relacionados à pressão arterial.' },
+  { title: 'Levotiroxina', category: 'cronicos', desc: 'Exemplo de medicamento usado em reposição de hormônio tireoidiano em condições específicas.' },
+  { title: 'Sinvastatina', category: 'cronicos', desc: 'Exemplo de medicamento utilizado para controle de colesterol em situações indicadas.' },
+  { title: 'Enalapril', category: 'cronicos', desc: 'Exemplo de medicamento utilizado em tratamentos cardiovasculares de acompanhamento contínuo.' }
+];
+
+const therapeuticClasses = [
+  { title: 'Analgésicos', icon: '🩹', desc: 'Relacionados ao alívio da dor. Diferentes medicamentos podem ter indicações, riscos e usos distintos.' },
+  { title: 'Antitérmicos', icon: '🌡️', desc: 'Associados ao controle da febre em situações específicas. Alguns também possuem ação analgésica.' },
+  { title: 'Anti-inflamatórios', icon: '🔥', desc: 'Podem reduzir inflamação e dor em determinados quadros, mas não são indicados para qualquer situação.' },
+  { title: 'Antialérgicos', icon: '🤧', desc: 'Atuam no controle de determinados sintomas de alergia, como coceira e espirros.' },
+  { title: 'Antibióticos', icon: '🦠', desc: 'Atuam contra determinadas bactérias. O uso inadequado favorece resistência bacteriana.' },
+  { title: 'Antifúngicos', icon: '🍄', desc: 'São usados no tratamento de certas infecções causadas por fungos.' },
+  { title: 'Antivirais', icon: '🧬', desc: 'Atuam em situações específicas contra determinados vírus, conforme a avaliação do profissional.' },
+  { title: 'Medicamentos de uso contínuo', icon: '🔁', desc: 'Fazem parte de tratamentos regulares e exigem acompanhamento e uso conforme orientação.' }
+];
+
+const forms = [
+  {
+    title: 'Comprimido', image: 'https://upload.wikimedia.org/wikipedia/commons/9/9b/Comprimidos.jpg',
+    alt: 'Fotografia de diferentes comprimidos', desc: 'Forma sólida geralmente destinada à administração oral. Pode ter diferentes formatos, tamanhos e revestimentos.'
+  },
+  {
+    title: 'Cápsula', image: 'https://upload.wikimedia.org/wikipedia/commons/c/c0/Capsule_medicine.png',
+    alt: 'Fotografia de cápsulas de medicamentos', desc: 'Forma sólida na qual o conteúdo fica envolvido por um invólucro de cápsula.'
+  },
+  {
+    title: 'Xarope', image: 'https://upload.wikimedia.org/wikipedia/commons/7/76/Cough_medicine.jpg',
+    alt: 'Fotografia de frasco de xarope medicinal', desc: 'Preparação líquida para administração oral. A apresentação pode vir acompanhada de medida apropriada.'
+  },
+  {
+    title: 'Creme', image: 'https://upload.wikimedia.org/wikipedia/commons/5/57/Tube_of_hydrocortisone_cream.jpg',
+    alt: 'Fotografia de tubo de creme', desc: 'Preparação semissólida usada sobre a pele em situações indicadas na bula e pela orientação profissional.'
+  },
+  {
+    title: 'Pomada', image: 'https://upload.wikimedia.org/wikipedia/commons/6/64/Diprosalic_ointment_tube.jpeg',
+    alt: 'Fotografia de tubo de pomada', desc: 'Preparação semissólida de uso local, com características que podem diferir das de um creme.'
+  },
+  {
+    title: 'Gotas', image: 'https://upload.wikimedia.org/wikipedia/commons/e/e7/Eye_Drops_-_eye_lubricant.jpg',
+    alt: 'Fotografia de frasco de gotas', desc: 'Preparação líquida apresentada em frasco conta-gotas ou sistema semelhante para administração em pequenas quantidades.'
+  }
+];
+
+const quizQuestions = [
+  { q: 'Qual parte da bula ajuda a localizar informações sobre dose e horários de uso?', a: ['Indicação', 'Posologia', 'Conservação', 'Fabricante'], correct: 1 },
+  { q: 'Qual setor da maquete está ligado à organização e conservação dos produtos?', a: ['Caixa', 'Armazenamento', 'Entrada', 'Estacionamento'], correct: 1 },
+  { q: 'Qual opção representa uma forma farmacêutica?', a: ['Comprimido', 'Marca', 'Prateleira', 'Preço'], correct: 0 },
+  { q: 'Qual prática contribui para um site mais acessível?', a: ['Texto minúsculo', 'Baixo contraste', 'Botões sem rótulo', 'Letras legíveis e bom contraste'], correct: 3 },
+  { q: 'Onde agulhas e outros materiais perfurocortantes devem ser colocados?', a: ['Lixo comum', 'Vaso sanitário', 'Recipiente apropriado para perfurocortantes', 'Caixa de papelão aberta'], correct: 2 },
+  { q: 'Por que os antibióticos exigem atenção especial no uso?', a: ['Porque são doces', 'Porque o uso inadequado pode favorecer resistência bacteriana', 'Porque só existem em cápsulas', 'Porque substituem vacinas'], correct: 1 },
+  { q: 'Qual recurso pode ampliar o acesso ao conteúdo de uma maquete?', a: ['QR Code com áudio', 'Texto apagado', 'Luz piscando sem legenda', 'Sinalização escondida'], correct: 0 },
+  { q: 'Qual atitude ajuda na sustentabilidade do projeto?', a: ['Desperdiçar materiais', 'Misturar todos os resíduos', 'Reaproveitar materiais adequados e evitar desperdícios', 'Descartar medicamentos no vaso sanitário'], correct: 2 }
+];
+
+const $ = (selector) => document.querySelector(selector);
+const $$ = (selector) => [...document.querySelectorAll(selector)];
+
+// ---------- Conheça a Farmácia ----------
+const sectorList = $('#sectorList');
+function renderSectors(activeName = sectors[0].name) {
+  sectorList.innerHTML = sectors.map((s) => `
+    <article class="sector-card ${s.name === activeName ? 'active' : ''}" id="sector-${slug(s.name)}">
+      <div class="sector-kicker">${s.icon} Setor da maquete</div>
+      <h3>${s.name}</h3>
+      <p>${s.text}</p>
+      <div class="sector-meta">
+        <div><strong>O que observar</strong><span>${s.detail.replace('O que observar: ', '')}</span></div>
+        <div><strong>Por que importa</strong><span>${s.focus}</span></div>
+      </div>
+    </article>
+  `).join('');
+}
+function slug(text) { return text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-'); }
+renderSectors();
+
+$$('.room').forEach((room) => {
+  room.addEventListener('click', () => {
+    $$('.room').forEach(r => r.classList.remove('selected'));
+    room.classList.add('selected');
+    renderSectors(room.dataset.sector);
+    const target = $('#sector-' + slug(room.dataset.sector));
+    if (target) target.scrollIntoView({ behavior: document.body.classList.contains('reduce-motion') ? 'auto' : 'smooth', block: 'nearest' });
+  });
+});
+
+// ---------- Medicamentos ----------
+const medContainer = $('#medicationCards');
+function labelCategory(c) {
+  return ({ dor: 'Dor e febre', alergia: 'Alergias', infeccao: 'Infecções', cronicos: 'Uso contínuo' })[c] || 'Categoria';
+}
+function renderMeds(filter = 'todos') {
+  const items = filter === 'todos' ? medications : medications.filter(x => x.category === filter);
+  medContainer.innerHTML = items.map(m => `
+    <article class="card">
+      <span class="tag">${labelCategory(m.category)}</span>
+      <h3>${m.title}</h3>
+      <p>${m.desc}</p>
+    </article>
+  `).join('');
+}
+renderMeds();
+$$('.chip').forEach(btn => btn.addEventListener('click', () => {
+  $$('.chip').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderMeds(btn.dataset.filter);
+}));
+
+// ---------- Classes terapêuticas ----------
+$('#classCards').innerHTML = therapeuticClasses.map(c => `
+  <article class="card"><div class="icon">${c.icon}</div><h3>${c.title}</h3><p>${c.desc}</p></article>
+`).join('');
+
+// ---------- Formas farmacêuticas ----------
+$('#formsCards').innerHTML = forms.map(f => `
+  <article class="forms-card">
+    <div class="form-image-wrap"><img src="${f.image}" alt="${f.alt}" loading="lazy" /></div>
+    <div class="forms-copy"><span class="tag">Forma farmacêutica</span><h3>${f.title}</h3><p>${f.desc}</p></div>
+  </article>
+`).join('');
+
+// ---------- Bula ----------
+$$('.bula-item').forEach(btn => btn.addEventListener('click', () => {
+  const open = btn.classList.toggle('open');
+  btn.setAttribute('aria-expanded', String(open));
+  btn.querySelector('span:last-child').textContent = open ? '−' : '+';
+}));
+
+// ---------- Menu ----------
+const menuToggle = $('#menuToggle');
+const mainNav = $('#mainNav');
+menuToggle.addEventListener('click', () => {
+  const open = mainNav.classList.toggle('open');
+  menuToggle.setAttribute('aria-expanded', String(open));
+  menuToggle.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
+});
+mainNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  mainNav.classList.remove('open');
+  menuToggle.setAttribute('aria-expanded', 'false');
+  menuToggle.setAttribute('aria-label', 'Abrir menu');
+}));
+
+// ---------- Preferências ----------
+const increaseText = $('#increaseText');
+const highContrast = $('#highContrast');
+const toggleTheme = $('#toggleTheme');
+const reduceMotion = $('#reduceMotion');
+const resetAccess = $('#resetAccess');
+
+function applyPreferenceClasses() {
+  const large = document.body.classList.contains('font-large');
+  const contrast = document.body.classList.contains('high-contrast');
+  const dark = document.body.classList.contains('dark');
+  const motion = document.body.classList.contains('reduce-motion');
+  increaseText.setAttribute('aria-pressed', String(large));
+  highContrast.setAttribute('aria-pressed', String(contrast));
+  toggleTheme.setAttribute('aria-pressed', String(dark));
+  reduceMotion.setAttribute('aria-pressed', String(motion));
+  toggleTheme.innerHTML = dark ? '☾ <span>Modo claro</span>' : '☼ <span>Modo escuro</span>';
+}
+function savePreferences() {
+  localStorage.setItem('farmaciaPrefs', JSON.stringify({
+    fontLarge: document.body.classList.contains('font-large'),
+    highContrast: document.body.classList.contains('high-contrast'),
+    dark: document.body.classList.contains('dark'),
+    reduceMotion: document.body.classList.contains('reduce-motion')
+  }));
+}
+function loadPreferences() {
+  try {
+    const pref = JSON.parse(localStorage.getItem('farmaciaPrefs') || '{}');
+    document.body.classList.toggle('font-large', !!pref.fontLarge);
+    document.body.classList.toggle('high-contrast', !!pref.highContrast);
+    document.body.classList.toggle('dark', !!pref.dark);
+    document.body.classList.toggle('reduce-motion', !!pref.reduceMotion);
+  } catch (_) {}
+  applyPreferenceClasses();
+}
+increaseText.addEventListener('click', () => { document.body.classList.toggle('font-large'); savePreferences(); applyPreferenceClasses(); });
+highContrast.addEventListener('click', () => { document.body.classList.toggle('high-contrast'); savePreferences(); applyPreferenceClasses(); });
+toggleTheme.addEventListener('click', () => { document.body.classList.toggle('dark'); savePreferences(); applyPreferenceClasses(); });
+reduceMotion.addEventListener('click', () => { document.body.classList.toggle('reduce-motion'); savePreferences(); applyPreferenceClasses(); });
+resetAccess.addEventListener('click', () => {
+  document.body.classList.remove('font-large','high-contrast','dark','reduce-motion');
+  localStorage.removeItem('farmaciaPrefs');
+  applyPreferenceClasses();
+});
+loadPreferences();
+
+// ---------- Quiz ----------
+let quizIndex = 0;
+let quizScore = 0;
+let quizName = '';
+let answered = false;
+const quizBox = $('#quizBox');
+const quizHistory = $('#quizHistory');
+const HISTORY_KEY = 'farmaciaQuizHistory';
+
+function getHistory() {
+  try { return JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]'); } catch (_) { return []; }
+}
+function saveHistory(item) {
+  const list = getHistory();
+  list.unshift(item);
+  localStorage.setItem(HISTORY_KEY, JSON.stringify(list.slice(0, 12)));
+}
+function renderHistory() {
+  const list = getHistory();
+  if (!list.length) {
+    quizHistory.innerHTML = '<div class="history-empty">Ainda não há tentativas salvas neste navegador.</div>';
+    return;
+  }
+  quizHistory.innerHTML = list.map(item => `
+    <div class="history-item">
+      <span class="history-name">${escapeHtml(item.name)}</span>
+      <span class="history-score">${item.score}/${item.total}</span>
+      <span class="history-date">${escapeHtml(item.date)}</span>
+    </div>
+  `).join('');
+}
+function escapeHtml(value) {
+  return String(value).replace(/[&<>'"]/g, ch => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#39;', '"':'&quot;' }[ch]));
+}
+
+function renderQuizStart(message = '') {
+  quizBox.innerHTML = `
+    <div class="quiz-start">
+      <p class="eyebrow">ANTES DE COMEÇAR</p>
+      <h3>Como podemos chamar você?</h3>
+      <p>Digite seu nome para registrar a sua pontuação no histórico deste navegador.</p>
+      <input id="quizName" class="quiz-name" type="text" maxlength="40" autocomplete="name" placeholder="Seu nome" aria-label="Seu nome" />
+      <button class="btn primary" id="startQuiz" type="button">Começar o quiz</button>
+      <p id="quizStartMessage" class="feedback-status" aria-live="polite">${message}</p>
+    </div>`;
+  const nameInput = $('#quizName');
+  nameInput.focus();
+  $('#startQuiz').addEventListener('click', startQuiz);
+  nameInput.addEventListener('keydown', e => { if (e.key === 'Enter') startQuiz(); });
+}
+function startQuiz() {
+  const value = $('#quizName').value.trim();
+  if (!value) {
+    $('#quizStartMessage').textContent = 'Digite seu nome para começar.';
+    $('#quizName').focus();
+    return;
+  }
+  quizName = value;
+  quizIndex = 0;
+  quizScore = 0;
+  answered = false;
+  renderQuizQuestion();
+}
+function renderQuizQuestion() {
+  const item = quizQuestions[quizIndex];
+  quizBox.innerHTML = `
+    <div class="quiz-progress">Pergunta ${quizIndex + 1} de ${quizQuestions.length}</div>
+    <div class="quiz-question">${item.q}</div>
+    <div class="answers" id="answers">
+      ${item.a.map((answer, i) => `<button class="answer" data-index="${i}" type="button">${String.fromCharCode(65+i)}. ${answer}</button>`).join('')}
+    </div>
+    <div class="quiz-actions">
+      <span id="feedback" aria-live="polite"></span>
+      <button class="btn primary" id="nextQuestion" type="button" disabled>${quizIndex === quizQuestions.length - 1 ? 'Finalizar' : 'Próxima'}</button>
+    </div>`;
+
+  const answerButtons = $$('.answer');
+  const next = $('#nextQuestion');
+  answerButtons.forEach(btn => btn.addEventListener('click', () => {
+    if (answered) return;
+    answered = true;
+    const chosen = Number(btn.dataset.index);
+    const correct = item.correct;
+    answerButtons.forEach(b => b.disabled = true);
+    if (chosen === correct) {
+      btn.classList.add('correct');
+      $('#feedback').textContent = '✅ Resposta correta!';
+      quizScore++;
+    } else {
+      btn.classList.add('wrong');
+      answerButtons[correct].classList.add('correct');
+      $('#feedback').textContent = '❌ Observe a resposta destacada.';
+    }
+    next.disabled = false;
+  }));
+  next.addEventListener('click', () => {
+    quizIndex++;
+    answered = false;
+    if (quizIndex >= quizQuestions.length) finishQuiz();
+    else renderQuizQuestion();
+  });
+}
+function finishQuiz() {
+  const record = {
+    name: quizName,
+    score: quizScore,
+    total: quizQuestions.length,
+    date: new Intl.DateTimeFormat('pt-BR', { dateStyle: 'short', timeStyle: 'short' }).format(new Date())
+  };
+  saveHistory(record);
+  renderHistory();
+  quizBox.innerHTML = `
+    <div class="result">
+      <p class="eyebrow">RESULTADO DE ${escapeHtml(quizName)}</p>
+      <div class="result-score">${quizScore}/${quizQuestions.length}</div>
+      <h3>${quizScore === quizQuestions.length ? 'Excelente! 🎉' : quizScore >= 6 ? 'Muito bem! 👏' : quizScore >= 4 ? 'Bom começo! 📚' : 'Continue explorando! 🔎'}</h3>
+      <p>Você acertou ${quizScore} de ${quizQuestions.length} perguntas. O resultado já foi registrado no histórico deste navegador.</p>
+      <button class="btn primary" id="restartQuiz" type="button">Tentar novamente</button>
+    </div>`;
+  $('#restartQuiz').addEventListener('click', () => renderQuizStart('Digite seu nome novamente ou use o mesmo nome.'));
+}
+$('#clearHistory').addEventListener('click', () => {
+  localStorage.removeItem(HISTORY_KEY);
+  renderHistory();
+});
+renderQuizStart();
+renderHistory();
+
+// ---------- Feedback ----------
+const FEEDBACK_KEY = 'farmaciaFeedback';
+$('#feedbackForm').addEventListener('submit', (event) => {
+  event.preventDefault();
+  const data = {
+    name: $('#feedbackName').value.trim() || 'Visitante',
+    type: $('#feedbackType').value,
+    message: $('#feedbackMessage').value.trim(),
+    evaluation: $$('input[name="evaluation"]:checked').map(input => input.value),
+    date: new Date().toISOString()
+  };
+  if (!data.message) return;
+  let saved = [];
+  try { saved = JSON.parse(localStorage.getItem(FEEDBACK_KEY) || '[]'); } catch (_) {}
+  saved.unshift(data);
+  localStorage.setItem(FEEDBACK_KEY, JSON.stringify(saved.slice(0, 30)));
+  $('#feedbackStatus').textContent = '✅ Feedback registrado neste dispositivo. Obrigado por participar!';
+  $('#feedbackForm').reset();
+});
+
+  </script>
 </body>
 </html>
