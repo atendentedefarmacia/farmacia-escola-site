@@ -718,6 +718,36 @@ p { margin-top: 0; }
   #bula .leaflet-sheet p { font-size:.74rem; }
 }
 
+  
+
+/* ===== CONSULTA 05 · EXPERIÊNCIA 3D REAL ===== */
+#bula .three-stage{
+  position:relative;
+  min-height:560px;
+  border-radius:22px;
+  overflow:hidden;
+  background:rgba(6,24,20,.60) url('assets/consulte-pharmacy-bg.png') center/cover no-repeat;
+  border:1px solid rgba(164,239,220,.22);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.04), 0 24px 70px rgba(0,0,0,.24);
+  touch-action:none;
+}
+#bula .three-stage-backdrop{position:absolute;inset:0;background:linear-gradient(180deg,rgba(3,21,18,.10),rgba(3,19,15,.52));backdrop-filter:blur(1.5px);pointer-events:none}
+#bula .three-stage-glow{position:absolute;left:50%;top:54%;width:460px;height:300px;translate:-50% -50%;border-radius:50%;background:radial-gradient(circle,rgba(102,225,196,.18),transparent 65%);filter:blur(10px);pointer-events:none}
+#bula .three-medicine-viewport{position:absolute;inset:0;z-index:2}
+#bula .three-medicine-viewport canvas{display:block;width:100%;height:100%;cursor:grab}
+#bula .three-medicine-viewport canvas:active{cursor:grabbing}
+#bula .three-stage-badge{position:absolute;top:18px;left:18px;z-index:5;padding:9px 12px;border-radius:999px;background:rgba(3,28,23,.66);border:1px solid rgba(150,241,222,.18);color:#effffb;font-size:.70rem;font-weight:950;letter-spacing:.11em;backdrop-filter:blur(8px)}
+#bula .three-stage-hint{position:absolute;bottom:18px;left:50%;translate:-50% 0;z-index:5;padding:8px 12px;border-radius:999px;background:rgba(4,24,20,.62);border:1px solid rgba(155,240,221,.16);color:rgba(239,255,250,.72);font-size:.61rem;font-weight:900;letter-spacing:.09em;white-space:nowrap;backdrop-filter:blur(8px);pointer-events:none}
+#bula .game-status{display:none}
+#bula .hero-title-green{color:#29d79e !important}
+#bula .hero-title-white{color:#fff !important}
+#bula .rotate-controls{position:relative;z-index:6}
+@media(max-width:760px){
+  #bula .three-stage{min-height:470px}
+  #bula .three-stage-hint{font-size:.54rem;max-width:90%;text-align:center}
+  #bula .three-stage-badge{top:12px;left:12px;font-size:.62rem}
+}
+
   </style>
 </head>
 <body>
@@ -906,57 +936,13 @@ p { margin-top: 0; }
               <span>Arraste · roda do mouse · controles</span>
             </div>
 
-            <div class="medicine-stage" id="medicineStage" tabindex="0" role="application" aria-label="Embalagem 3D educativa de paracetamol genérico em suspensão oral. Arraste para girar, use a roda do mouse para aproximar e os controles para interagir.">
-              <div class="scan-ring scan-ring-a" aria-hidden="true"></div>
-              <div class="scan-ring scan-ring-b" aria-hidden="true"></div>
-              <div class="medicine-platform" aria-hidden="true"></div>
-              <div class="medicine-shadow" aria-hidden="true"></div>
-
-              <div class="medicine-product" id="medicineObject">
-                <div class="product-face product-front">
-                  <div class="package-label">
-                    <div class="package-topline"><span>MEDICAMENTO GENÉRICO</span><span>USO ORAL</span></div>
-                    <div class="package-title">PARACETAMOL</div>
-                    <div class="package-subtitle">SUSPENSÃO ORAL</div>
-                    <div class="package-dose">100 mg/mL</div>
-                    <div class="package-volume">15 mL</div>
-                    <div class="package-seal">GENÉRICO</div>
-                    <div class="package-footer"><span>ANTI-TÉRMICO · ANALGÉSICO</span><span class="fake-barcode" aria-hidden="true"></span></div>
-                  </div>
-                </div>
-                <div class="product-face product-back">
-                  <strong>PARACETAMOL</strong>
-                  <span>Suspensão oral<br>100 mg/mL</span>
-                  <small>Exemplo educativo</small>
-                  <div class="back-lines" aria-hidden="true"></div>
-                </div>
-                <div class="product-face product-right">
-                  <strong>100</strong><small>mg/mL</small><small>USO ORAL</small>
-                </div>
-                <div class="product-face product-left">
-                  <strong>15 mL</strong><small>SUSPENSÃO</small><small>GENÉRICO</small>
-                </div>
-                <div class="product-face product-top"><span>ABRIR</span></div>
-                <div class="product-face product-bottom"><span>EDUCAÇÃO</span></div>
-                <div class="box-lid" id="boxLid"><span>ABRIR</span></div>
-
-                <div class="medicine-bottle" id="medicineBottle" aria-hidden="true">
-                  <div class="bottle-cap"><span></span></div>
-                  <div class="bottle-neck"></div>
-                  <div class="bottle-body">
-                    <div class="bottle-liquid"></div>
-                    <div class="bottle-label">
-                      <strong>PARACETAMOL</strong>
-                      <span>100 mg/mL</span>
-                      <small>SUSPENSÃO ORAL · GENÉRICO</small>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="stage-hint">ARRASTE PARA GIRAR <span aria-hidden="true">•</span> RODA PARA ZOOM</div>
+            <div class="medicine-stage three-stage" id="medicineStage" tabindex="0" role="application" aria-label="Medicamento em 3D. Arraste para girar, use a roda do mouse para aproximar ou afastar e os botões para controlar a visualização.">
+              <div class="three-stage-backdrop" aria-hidden="true"></div>
+              <div class="three-stage-glow" aria-hidden="true"></div>
+              <div class="three-stage-badge"><span class="status-dot" aria-hidden="true"></span> MEDICAMENTO 3D</div>
+              <div class="three-stage-hint">ARRASTE PARA GIRAR · RODA PARA ZOOM</div>
+              <div id="threeMedicineViewport" class="three-medicine-viewport" aria-hidden="true"></div>
             </div>
-
             <div class="rotate-controls" aria-label="Controles do objeto 3D">
               <button type="button" data-rotate="left" aria-label="Girar para a esquerda">←</button>
               <button type="button" data-rotate="up" aria-label="Girar para cima">↑</button>
@@ -984,9 +970,9 @@ p { margin-top: 0; }
             </div>
 
             <div class="medicine-summary">
-              <div><span>Nome</span><strong>Paracetamol genérico</strong></div>
+              <div><span>Nome</span><strong>Paracetamol</strong></div>
               <div><span>Categoria</span><strong>Analgésico e antitérmico</strong></div>
-              <div><span>Apresentação</span><strong>Suspensão oral · 100 mg/mL</strong></div>
+              <div><span>Apresentação</span><strong>Suspensão oral (xarope) · 200 mg/5 mL · 15 mL</strong></div>
               <div><span>Finalidade geral</span><strong>Redução da febre e alívio temporário de dores leves a moderadas.</strong></div>
             </div>
 
@@ -1219,6 +1205,7 @@ p { margin-top: 0; }
     </div>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
   <script>
 // Sempre abrir a página no topo ao carregar/recarregar, sem restaurar a posição anterior.
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
@@ -1585,11 +1572,8 @@ $('#clearHistory').addEventListener('click', () => {
 renderQuizStart();
 renderHistory();
 
-// ---------- Interação 360° do medicamento + bula ----------
-const medicineObject = document.getElementById('medicineObject');
+// ---------- Interação 3D do medicamento + bula ----------
 const medicineStage = document.getElementById('medicineStage');
-const boxLid = document.getElementById('boxLid');
-const medicineBottle = document.getElementById('medicineBottle');
 const openBoxBtn = document.getElementById('openBoxBtn');
 const takeMedicineBtn = document.getElementById('takeMedicineBtn');
 const readLeafletBtn = document.getElementById('readLeafletBtn');
@@ -1604,22 +1588,7 @@ const gamePhaseKicker = document.getElementById('gamePhaseKicker');
 const gamePhaseName = document.getElementById('gamePhaseName');
 const progressItems = [...document.querySelectorAll('#bulaProgress i')];
 
-let rotX = -9, rotY = -28, productScale = 1;
-let dragX = 0, dragY = 0, dragging = false;
 let interactionStep = 1;
-
-function renderMedicine(){
-  medicineObject.style.setProperty('--current-scale', productScale); medicineObject.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg) scale(${productScale})`;
-}
-function changeRotation(dx, dy){
-  rotY += dx;
-  rotX = Math.max(-55, Math.min(55, rotX + dy));
-  renderMedicine();
-}
-function changeProductZoom(delta){
-  productScale = Math.max(.78, Math.min(1.42, productScale + delta));
-  renderMedicine();
-}
 function setProgress(step){
   interactionStep = step;
   progressItems.forEach((item,index)=>item.classList.toggle('active', index < step));
@@ -1630,141 +1599,204 @@ function setStep(title,text){
   bulaStepTitle.textContent = title;
   bulaStepText.textContent = text;
 }
-function resetMedicine(){
-  rotX = -9; rotY = -28; productScale = 1;
-  dragging = false;
-  boxLid.classList.remove('opened');
-  medicineBottle.classList.remove('visible');
-  openBoxBtn.disabled = false;
-  takeMedicineBtn.disabled = true;
-  readLeafletBtn.disabled = true;
-  leafletViewer.hidden = true;
-  setProgress(1);
-  setStep('1. Observe a embalagem','Arraste a embalagem para girar e observe os detalhes. Depois, abra a caixa para continuar a experiência.');
-  resetLeaflet();
-  renderMedicine();
-  medicineStage.focus({preventScroll:true});
+
+// --- WebGL 3D (Three.js): caixa + frasco, com rotação livre e zoom ---
+const threeHost = document.getElementById('threeMedicineViewport');
+let renderer, camera, scene, productRoot, boxGroup, boxLidPivot, bottleGroup, animationFrameId;
+let threeRotX = -0.16, threeRotY = -0.52, threeZoom = 6.4;
+let pointerActive = false, lastPX = 0, lastPY = 0;
+let threeOpen = false, threeBottleOut = false;
+let bottleStart = 0, lidStart = 0;
+
+function createTextTexture(lines, bg='#f8fbf9', fg='#174f43', width=512, height=768){
+  const c=document.createElement('canvas'); c.width=width; c.height=height;
+  const ctx=c.getContext('2d');
+  ctx.fillStyle=bg; ctx.fillRect(0,0,width,height);
+  ctx.fillStyle=fg; ctx.textAlign='left';
+  ctx.font='900 38px Inter, Arial'; ctx.fillText(lines[0],40,75);
+  ctx.font='700 28px Inter, Arial';
+  lines.slice(1).forEach((t,i)=>ctx.fillText(t,40,125+i*43));
+  const tex=new THREE.CanvasTexture(c); tex.colorSpace=THREE.SRGBColorSpace; return tex;
 }
 
-renderMedicine();
-medicineStage.addEventListener('pointerdown', e => {
-  if(e.pointerType === 'mouse' && e.button !== 0) return;
-  dragging = true;
-  dragX = e.clientX;
-  dragY = e.clientY;
-  medicineStage.setPointerCapture(e.pointerId);
+function createBottleLabelTexture(){
+  const tex=new THREE.TextureLoader().load('assets/paracetamol-syrup-label.png');
+  tex.colorSpace=THREE.SRGBColorSpace;
+  tex.wrapS=THREE.ClampToEdgeWrapping;
+  tex.wrapT=THREE.ClampToEdgeWrapping;
+  tex.anisotropy=Math.min(8, renderer?.capabilities?.getMaxAnisotropy?.() || 4);
+  return tex;
+}
+
+function createMedicine3D(){
+  if(!window.THREE || !threeHost) return;
+  scene=new THREE.Scene();
+  camera=new THREE.PerspectiveCamera(36,1,.1,100);
+  camera.position.set(0,0.25,threeZoom);
+  scene.add(new THREE.HemisphereLight(0xf2fff9,0x14342b,2.2));
+  const key=new THREE.DirectionalLight(0xffffff,3.4); key.position.set(3.5,5.5,5.5); scene.add(key);
+  const fill=new THREE.DirectionalLight(0x74dfc7,1.5); fill.position.set(-4,1,2); scene.add(fill);
+  const rim=new THREE.DirectionalLight(0xbdeee4,1.6); rim.position.set(0,4,-5); scene.add(rim);
+
+  const floor=new THREE.Mesh(new THREE.PlaneGeometry(12,8),new THREE.MeshStandardMaterial({color:0xded4c5,roughness:.62,metalness:.02,transparent:true,opacity:.90}));
+  floor.rotation.x=-Math.PI/2; floor.position.y=-2.05; floor.position.z=-.6; scene.add(floor);
+
+  productRoot=new THREE.Group(); scene.add(productRoot);
+
+  // Caixa 3D: frente real da referência enviada + laterais e profundidade próprias.
+  const loader=new THREE.TextureLoader();
+  const frontTex=loader.load('assets/paracetamol-box-front.jpg'); frontTex.colorSpace=THREE.SRGBColorSpace;
+  frontTex.anisotropy=8;
+  const front=new THREE.MeshStandardMaterial({map:frontTex,roughness:.72,metalness:.0});
+  const back=new THREE.MeshStandardMaterial({color:0xd62828,roughness:.76});
+  const side=new THREE.MeshStandardMaterial({color:0xb51f26,roughness:.78});
+  const top=new THREE.MeshStandardMaterial({color:0x163b70,roughness:.70});
+  const bottom=new THREE.MeshStandardMaterial({color:0x9a1b25,roughness:.8});
+  const boxGeom=new THREE.BoxGeometry(2.05,3.12,.78);
+  boxGroup=new THREE.Mesh(boxGeom,[side,side,top,bottom,front,back]);
+  boxGroup.position.set(-.35,-.42,0);
+  productRoot.add(boxGroup);
+
+  // Interior escuro para reforçar a ideia de caixa aberta.
+  const inner=new THREE.Mesh(new THREE.BoxGeometry(1.84,.05,.64),new THREE.MeshStandardMaterial({color:0x2b2522,roughness:.9}));
+  inner.position.set(-.35,1.08,0.01); inner.visible=true; productRoot.add(inner);
+
+  // Tampa articulada de verdade.
+  boxLidPivot=new THREE.Group();
+  boxLidPivot.position.set(-.35,1.14,-.37);
+  const lid=new THREE.Mesh(new THREE.BoxGeometry(2.05,.12,.78),new THREE.MeshStandardMaterial({color:0xd62828,roughness:.7}));
+  lid.position.set(0,0,.39);
+  boxLidPivot.add(lid);
+  productRoot.add(boxLidPivot);
+
+  // Frasco modelado com perfil realista (lathe), tampa e rótulo cilíndrico.
+  bottleGroup=new THREE.Group();
+  bottleGroup.position.set(.52,-.55,.00);
+  const profile=[
+    new THREE.Vector2(.48,-.92),new THREE.Vector2(.55,-.84),new THREE.Vector2(.56,.46),
+    new THREE.Vector2(.52,.60),new THREE.Vector2(.40,.75),new THREE.Vector2(.28,.86),
+    new THREE.Vector2(.27,1.10),new THREE.Vector2(.36,1.12),new THREE.Vector2(.37,1.35)
+  ];
+  const bottleBody=new THREE.Mesh(new THREE.LatheGeometry(profile,64),new THREE.MeshStandardMaterial({color:0x6b2e17,roughness:.20,metalness:.05}));
+  bottleGroup.add(bottleBody);
+  const labelTex=createBottleLabelTexture();
+  const label=new THREE.Mesh(new THREE.CylinderGeometry(.561,.561,.78,64,1,true),new THREE.MeshStandardMaterial({map:labelTex,transparent:true,roughness:.5,side:THREE.DoubleSide}));
+  label.rotation.y=Math.PI; label.position.y=-.02; bottleGroup.add(label);
+  const capMat=new THREE.MeshStandardMaterial({color:0xf3f1ed,roughness:.52,metalness:.02});
+  const cap=new THREE.Mesh(new THREE.CylinderGeometry(.37,.39,.34,64),capMat); cap.position.y=1.51; bottleGroup.add(cap);
+  const capRing=new THREE.Mesh(new THREE.TorusGeometry(.35,.025,12,64),capMat); capRing.rotation.x=Math.PI/2; capRing.position.y=1.35; bottleGroup.add(capRing);
+  bottleGroup.traverse(o=>o.castShadow=false);
+  productRoot.add(bottleGroup);
+
+  // Sombra suave sob o conjunto.
+  const shadowCanvas=document.createElement('canvas'); shadowCanvas.width=256; shadowCanvas.height=128;
+  const sctx=shadowCanvas.getContext('2d'); const grad=sctx.createRadialGradient(128,64,5,128,64,112); grad.addColorStop(0,'rgba(0,0,0,.42)'); grad.addColorStop(1,'rgba(0,0,0,0)'); sctx.fillStyle=grad; sctx.fillRect(0,0,256,128);
+  const shadowTex=new THREE.CanvasTexture(shadowCanvas);
+  const shadow=new THREE.Mesh(new THREE.PlaneGeometry(3.7,1.65),new THREE.MeshBasicMaterial({map:shadowTex,transparent:true,depthWrite:false}));
+  shadow.rotation.x=-Math.PI/2; shadow.position.set(0,-2.02,.25); scene.add(shadow);
+
+  renderer=new THREE.WebGLRenderer({alpha:true,antialias:true,preserveDrawingBuffer:false});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+  renderer.outputColorSpace=THREE.SRGBColorSpace;
+  renderer.setClearColor(0x000000,0);
+  threeHost.replaceChildren(renderer.domElement);
+  renderer.domElement.style.width='100%'; renderer.domElement.style.height='100%'; renderer.domElement.setAttribute('aria-hidden','true');
+  resizeThree();
+
+  const ro=new ResizeObserver(resizeThree); ro.observe(threeHost);
+  window.addEventListener('resize',resizeThree);
+  renderThree();
+}
+function resizeThree(){
+  if(!renderer||!camera||!threeHost) return;
+  const w=Math.max(1,threeHost.clientWidth), h=Math.max(1,threeHost.clientHeight);
+  renderer.setSize(w,h,false); camera.aspect=w/h; camera.updateProjectionMatrix();
+}
+function renderThree(){
+  if(!renderer) return;
+  const targetLid=threeOpen ? -1.20 : 0;
+  const targetBottle=threeBottleOut ? 1.55 : 0;
+  boxLidPivot.rotation.x += (targetLid-boxLidPivot.rotation.x)*.12;
+  bottleGroup.position.z += (targetBottle-bottleGroup.position.z)*.12;
+  bottleGroup.position.y += ((threeBottleOut?-.38:-.55)-bottleGroup.position.y)*.12;
+  productRoot.rotation.x += (threeRotX-productRoot.rotation.x)*.18;
+  productRoot.rotation.y += (threeRotY-productRoot.rotation.y)*.18;
+  camera.position.z += (threeZoom-camera.position.z)*.15;
+  camera.lookAt(0,-.15,0);
+  renderer.render(scene,camera);
+  animationFrameId=requestAnimationFrame(renderThree);
+}
+function change3DRotation(dx,dy){ threeRotY += dx; threeRotX=Math.max(-.95,Math.min(.95,threeRotX+dy)); }
+function change3DZoom(delta){ threeZoom=Math.max(4.7,Math.min(8.4,threeZoom+delta)); }
+function reset3D(){ threeRotX=-.16; threeRotY=-.52; threeZoom=6.4; threeOpen=false; threeBottleOut=false; }
+
+if(window.THREE) createMedicine3D();
+else if(threeHost){ threeHost.innerHTML='<div style="padding:32px;text-align:center;color:#fff">O visualizador 3D precisa carregar a biblioteca gráfica para funcionar.</div>'; }
+
+medicineStage.addEventListener('pointerdown',e=>{
+  if(e.pointerType==='mouse'&&e.button!==0)return;
+  pointerActive=true; lastPX=e.clientX; lastPY=e.clientY; medicineStage.setPointerCapture(e.pointerId);
 });
-medicineStage.addEventListener('pointermove', e => {
-  if(!dragging) return;
-  const dx=e.clientX-dragX;
-  const dy=e.clientY-dragY;
-  dragX=e.clientX;
-  dragY=e.clientY;
-  changeRotation(dx*.55, -dy*.38);
+medicineStage.addEventListener('pointermove',e=>{
+  if(!pointerActive)return;
+  change3DRotation((e.clientX-lastPX)*.010,-(e.clientY-lastPY)*.008); lastPX=e.clientX; lastPY=e.clientY;
 });
-medicineStage.addEventListener('pointerup', e => { dragging=false; try{medicineStage.releasePointerCapture(e.pointerId);}catch(_){} });
-medicineStage.addEventListener('pointercancel', () => dragging=false);
-medicineStage.addEventListener('wheel', e => {
-  e.preventDefault();
-  changeProductZoom(e.deltaY < 0 ? .06 : -.06);
-}, {passive:false});
-medicineStage.addEventListener('keydown', e => {
-  const key=e.key;
-  if(key==='ArrowLeft'){e.preventDefault();changeRotation(-12,0);}
-  else if(key==='ArrowRight'){e.preventDefault();changeRotation(12,0);}
-  else if(key==='ArrowUp'){e.preventDefault();changeRotation(0,-10);}
-  else if(key==='ArrowDown'){e.preventDefault();changeRotation(0,10);}
-  else if(key==='+' || key==='='){e.preventDefault();changeProductZoom(.06);}
-  else if(key==='-' || key==='_'){e.preventDefault();changeProductZoom(-.06);}
-  else if(key==='Home'){e.preventDefault();resetMedicine();}
+medicineStage.addEventListener('pointerup',e=>{pointerActive=false;try{medicineStage.releasePointerCapture(e.pointerId);}catch(_){} });
+medicineStage.addEventListener('pointercancel',()=>pointerActive=false);
+medicineStage.addEventListener('wheel',e=>{e.preventDefault();change3DZoom(e.deltaY<0?-.22:.22);},{passive:false});
+medicineStage.addEventListener('keydown',e=>{
+  if(e.key==='ArrowLeft'){e.preventDefault();change3DRotation(-.20,0)}
+  else if(e.key==='ArrowRight'){e.preventDefault();change3DRotation(.20,0)}
+  else if(e.key==='ArrowUp'){e.preventDefault();change3DRotation(0,-.14)}
+  else if(e.key==='ArrowDown'){e.preventDefault();change3DRotation(0,.14)}
+  else if(e.key==='+'||e.key==='='){e.preventDefault();change3DZoom(-.25)}
+  else if(e.key==='-'||e.key==='_'){e.preventDefault();change3DZoom(.25)}
+  else if(e.key==='Home'){e.preventDefault();resetMedicine()}
 });
 
-document.querySelectorAll('[data-rotate]').forEach(btn => btn.addEventListener('click', () => {
+document.querySelectorAll('[data-rotate]').forEach(btn=>btn.addEventListener('click',()=>{
   const d=btn.dataset.rotate;
-  if(d==='left') changeRotation(-24,0);
-  else if(d==='right') changeRotation(24,0);
-  else if(d==='up') changeRotation(0,-17);
-  else if(d==='down') changeRotation(0,17);
-  else if(d==='zoomIn') changeProductZoom(.08);
-  else if(d==='zoomOut') changeProductZoom(-.08);
-  else resetMedicine();
+  if(d==='left')change3DRotation(-.32,0); else if(d==='right')change3DRotation(.32,0);
+  else if(d==='up')change3DRotation(0,-.20); else if(d==='down')change3DRotation(0,.20);
+  else if(d==='zoomIn')change3DZoom(-.32); else if(d==='zoomOut')change3DZoom(.32); else resetMedicine();
 }));
 
-openBoxBtn.addEventListener('click', () => {
-  boxLid.classList.add('opened');
-  openBoxBtn.disabled = true;
-  takeMedicineBtn.disabled = false;
-  setProgress(2);
-  setStep('2. Abra a caixa','A tampa foi aberta. Agora retire o frasco para revelar a apresentação do medicamento.');
-});
-
-takeMedicineBtn.addEventListener('click', () => {
-  medicineBottle.classList.add('visible');
-  takeMedicineBtn.disabled = true;
-  readLeafletBtn.disabled = false;
-  setProgress(3);
-  setStep('3. Retire o medicamento','O frasco saiu da embalagem. Observe novamente em 360° e, quando estiver pronto, abra a bula interativa.');
-});
-
-readLeafletBtn.addEventListener('click', () => {
-  leafletViewer.hidden = false;
-  setProgress(4);
-  setStep('4. Leia a bula','Agora você pode mover o documento, ampliar o conteúdo e girar a folha. Use os controles ou o mouse para explorar.');
+function resetMedicine(){
+  reset3D();
+  openBoxBtn.disabled=false; takeMedicineBtn.disabled=true; readLeafletBtn.disabled=true; leafletViewer.hidden=true;
+  setProgress(1); setStep('1. Observe a embalagem','Arraste o medicamento para girar em 360°. Veja a frente, as laterais, o topo e a profundidade da embalagem.');
   resetLeaflet();
-  requestAnimationFrame(()=>leafletViewer.scrollIntoView({behavior:'smooth', block:'nearest'}));
+}
+openBoxBtn.addEventListener('click',()=>{
+  threeOpen=true; openBoxBtn.disabled=true; takeMedicineBtn.disabled=false;
+  setProgress(2); setStep('2. Abra a caixa','A tampa agora se abre em 3D. Depois, retire o frasco para continuar.');
 });
-resetInteractionBtn.addEventListener('click', resetMedicine);
+takeMedicineBtn.addEventListener('click',()=>{
+  threeBottleOut=true; takeMedicineBtn.disabled=true; readLeafletBtn.disabled=false;
+  setProgress(3); setStep('3. Retire o frasco','O frasco de suspensão oral saiu da caixa. Gire novamente e observe a apresentação do xarope.');
+});
+readLeafletBtn.addEventListener('click',()=>{
+  leafletViewer.hidden=false; setProgress(4); setStep('4. Leia a bula','Agora você pode mover, ampliar e girar o documento para explorar as informações.'); resetLeaflet();
+  requestAnimationFrame(()=>leafletViewer.scrollIntoView({behavior:'smooth',block:'nearest'}));
+});
+resetInteractionBtn.addEventListener('click',resetMedicine);
 
+// ---------- Bula interativa ----------
 let leafletScale=1, leafletRotation=0, leafletX=0, leafletY=0, leafletDragging=false, leafletStartX=0, leafletStartY=0;
-function renderLeaflet(){
-  leafletSheet.style.transform = `translate(${leafletX}px, ${leafletY}px) rotate(${leafletRotation}deg) scale(${leafletScale})`;
-  leafletZoomLabel.textContent = Math.round(leafletScale*100)+'%';
-}
-function resetLeaflet(){
-  leafletScale=1; leafletRotation=0; leafletX=0; leafletY=0;
-  if(leafletSheet) renderLeaflet();
-}
-leafletViewport.addEventListener('pointerdown', e => {
-  if(e.pointerType === 'mouse' && e.button !== 0) return;
-  leafletDragging=true;
-  leafletStartX=e.clientX;
-  leafletStartY=e.clientY;
-  leafletViewport.setPointerCapture(e.pointerId);
-});
-leafletViewport.addEventListener('pointermove', e => {
-  if(!leafletDragging) return;
-  leafletX += e.clientX-leafletStartX;
-  leafletY += e.clientY-leafletStartY;
-  leafletStartX=e.clientX;
-  leafletStartY=e.clientY;
-  renderLeaflet();
-});
-leafletViewport.addEventListener('pointerup', e => { leafletDragging=false; try{leafletViewport.releasePointerCapture(e.pointerId);}catch(_){} });
+function renderLeaflet(){leafletSheet.style.transform=`translate(${leafletX}px,${leafletY}px) rotate(${leafletRotation}deg) scale(${leafletScale})`;leafletZoomLabel.textContent=Math.round(leafletScale*100)+'%';}
+function resetLeaflet(){leafletScale=1;leafletRotation=0;leafletX=0;leafletY=0;if(leafletSheet)renderLeaflet();}
+leafletViewport.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse'&&e.button!==0)return;leafletDragging=true;leafletStartX=e.clientX;leafletStartY=e.clientY;leafletViewport.setPointerCapture(e.pointerId);});
+leafletViewport.addEventListener('pointermove',e=>{if(!leafletDragging)return;leafletX+=e.clientX-leafletStartX;leafletY+=e.clientY-leafletStartY;leafletStartX=e.clientX;leafletStartY=e.clientY;renderLeaflet();});
+leafletViewport.addEventListener('pointerup',e=>{leafletDragging=false;try{leafletViewport.releasePointerCapture(e.pointerId);}catch(_){} });
 leafletViewport.addEventListener('pointercancel',()=>leafletDragging=false);
-leafletViewport.addEventListener('wheel', e=>{
-  e.preventDefault();
-  leafletScale=Math.max(.72,Math.min(2.2,leafletScale+(e.deltaY<0?.07:-.07)));
-  renderLeaflet();
-},{passive:false});
-leafletViewport.addEventListener('keydown', e=>{
-  if(e.key==='ArrowLeft'){e.preventDefault();leafletRotation-=6;renderLeaflet();}
-  else if(e.key==='ArrowRight'){e.preventDefault();leafletRotation+=6;renderLeaflet();}
-  else if(e.key==='ArrowUp'){e.preventDefault();leafletY+=12;renderLeaflet();}
-  else if(e.key==='ArrowDown'){e.preventDefault();leafletY-=12;renderLeaflet();}
-  else if(e.key==='+' || e.key==='='){e.preventDefault();leafletScale=Math.min(2.2,leafletScale+.08);renderLeaflet();}
-  else if(e.key==='-' || e.key==='_'){e.preventDefault();leafletScale=Math.max(.72,leafletScale-.08);renderLeaflet();}
-  else if(e.key==='Home'){e.preventDefault();resetLeaflet();}
+leafletViewport.addEventListener('wheel',e=>{e.preventDefault();leafletScale=Math.max(.72,Math.min(2.2,leafletScale+(e.deltaY<0?.07:-.07)));renderLeaflet();},{passive:false});
+leafletViewport.addEventListener('keydown',e=>{
+  if(e.key==='ArrowLeft'){e.preventDefault();leafletRotation-=6;renderLeaflet()} else if(e.key==='ArrowRight'){e.preventDefault();leafletRotation+=6;renderLeaflet()}
+  else if(e.key==='ArrowUp'){e.preventDefault();leafletY+=12;renderLeaflet()} else if(e.key==='ArrowDown'){e.preventDefault();leafletY-=12;renderLeaflet()}
+  else if(e.key==='+'||e.key==='='){e.preventDefault();leafletScale=Math.min(2.2,leafletScale+.08);renderLeaflet()} else if(e.key==='-'||e.key==='_'){e.preventDefault();leafletScale=Math.max(.72,leafletScale-.08);renderLeaflet()} else if(e.key==='Home'){e.preventDefault();resetLeaflet()}
 });
-
-document.querySelectorAll('[data-leaflet]').forEach(btn=>btn.addEventListener('click',()=>{
-  const d=btn.dataset.leaflet;
-  if(d==='left') leafletRotation-=6;
-  else if(d==='right') leafletRotation+=6;
-  else if(d==='zoomIn') leafletScale=Math.min(2.2,leafletScale+.12);
-  else if(d==='zoomOut') leafletScale=Math.max(.72,leafletScale-.12);
-  else resetLeaflet();
-  renderLeaflet();
-}));
+document.querySelectorAll('[data-leaflet]').forEach(btn=>btn.addEventListener('click',()=>{const d=btn.dataset.leaflet;if(d==='left')leafletRotation-=6;else if(d==='right')leafletRotation+=6;else if(d==='zoomIn')leafletScale=Math.min(2.2,leafletScale+.12);else if(d==='zoomOut')leafletScale=Math.max(.72,leafletScale-.12);else resetLeaflet();renderLeaflet();}));
+resetMedicine();
 
 // ---------- Rotina em formato de jogo ----------
 const routineData = [
