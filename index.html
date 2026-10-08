@@ -1317,80 +1317,6 @@ window.addEventListener('load', () => {
   if (!window.location.hash) window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
 });
 
-// ---------- Imagens ampliáveis (02, 04, 06, 07 e 08) ----------
-const lightboxSectionSelector = '#medicamentos .med-card-image img, #formas .form-image-wrap img, #rotina .routine-image-frame img, #acessibilidade .access-photo-wrap img, #sustentabilidade .visual-grid img';
-const lightbox = $('#imageLightbox');
-const lightboxMedia = $('#imageLightboxMedia');
-const lightboxTitle = $('#imageLightboxTitle');
-const lightboxClose = $('#imageLightboxClose');
-const lightboxBackdrop = $('#imageLightboxBackdrop');
-let lightboxLastTrigger = null;
-
-function expandIconSvg(){
-  return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H3v5M16 3h5v5M21 16v5h-5M3 16v5h5"/></svg>';
-}
-function createLightboxTrigger(img){
-  if (!img || img.closest('.image-lightbox-wrap') || img.dataset.lightboxReady === '1') return;
-  const parent = img.parentElement;
-  if (!parent) return;
-  const wrap = document.createElement('div');
-  wrap.className = 'image-lightbox-wrap';
-  parent.insertBefore(wrap, img);
-  wrap.appendChild(img);
-  img.dataset.lightboxReady = '1';
-  const btn = document.createElement('button');
-  btn.type = 'button';
-  btn.className = 'image-expand-btn';
-  btn.setAttribute('aria-label', `Ampliar imagem: ${img.alt || 'imagem'}`);
-  btn.title = 'Ampliar imagem';
-  btn.innerHTML = expandIconSvg();
-  btn.dataset.lightboxTrigger = '1';
-  wrap.appendChild(btn);
-}
-function initLightboxImages(root=document){
-  root.querySelectorAll(lightboxSectionSelector).forEach(createLightboxTrigger);
-}
-function openImageLightbox(img, trigger){
-  if (!img || !img.src) return;
-  lightboxLastTrigger = trigger || null;
-  lightboxMedia.innerHTML = '';
-  const clone = document.createElement('img');
-  clone.src = img.currentSrc || img.src;
-  clone.alt = img.alt || 'Imagem ampliada';
-  clone.decoding = 'async';
-  lightboxMedia.appendChild(clone);
-  const title = img.closest('article')?.querySelector('h3')?.textContent?.trim() || img.alt || 'Imagem ampliada';
-  lightboxTitle.textContent = title;
-  lightbox.classList.add('open');
-  lightbox.setAttribute('aria-hidden','false');
-  document.body.classList.add('modal-open');
-  lightboxClose.focus();
-}
-function closeImageLightbox(){
-  lightbox.classList.remove('open');
-  lightbox.setAttribute('aria-hidden','true');
-  lightboxMedia.innerHTML = '';
-  document.body.classList.remove('modal-open');
-  if (lightboxLastTrigger) lightboxLastTrigger.focus();
-  lightboxLastTrigger = null;
-}
-
-// A navegação é delegada para também funcionar depois de filtrar/re-renderizar os cartões.
-document.addEventListener('click', e => {
-  const trigger = e.target.closest('[data-lightbox-trigger="1"]');
-  const image = e.target.closest(lightboxSectionSelector);
-  if (trigger || image){
-    e.preventDefault(); e.stopPropagation();
-    const img = trigger ? trigger.closest('.image-lightbox-wrap')?.querySelector('img') : image;
-    openImageLightbox(img, trigger || image);
-    return;
-  }
-  if (e.target === lightboxBackdrop || e.target === lightboxClose) closeImageLightbox();
-});
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape' && lightbox.classList.contains('open')) { e.preventDefault(); closeImageLightbox(); }
-});
-
 const sectors = [
   {
     name: 'Atendimento', icon: '🧑‍⚕️',
@@ -1525,6 +1451,81 @@ const quizQuestions = [
 
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => [...document.querySelectorAll(selector)];
+
+// ---------- Imagens ampliáveis (02, 04, 06, 07 e 08) ----------
+const lightboxSectionSelector = '#medicamentos .med-card-image img, #formas .form-image-wrap img, #rotina .routine-image-frame img, #acessibilidade .access-photo-wrap img, #sustentabilidade .visual-grid img';
+const lightbox = $('#imageLightbox');
+const lightboxMedia = $('#imageLightboxMedia');
+const lightboxTitle = $('#imageLightboxTitle');
+const lightboxClose = $('#imageLightboxClose');
+const lightboxBackdrop = $('#imageLightboxBackdrop');
+let lightboxLastTrigger = null;
+
+function expandIconSvg(){
+  return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H3v5M16 3h5v5M21 16v5h-5M3 16v5h5"/></svg>';
+}
+function createLightboxTrigger(img){
+  if (!img || img.closest('.image-lightbox-wrap') || img.dataset.lightboxReady === '1') return;
+  const parent = img.parentElement;
+  if (!parent) return;
+  const wrap = document.createElement('div');
+  wrap.className = 'image-lightbox-wrap';
+  parent.insertBefore(wrap, img);
+  wrap.appendChild(img);
+  img.dataset.lightboxReady = '1';
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'image-expand-btn';
+  btn.setAttribute('aria-label', `Ampliar imagem: ${img.alt || 'imagem'}`);
+  btn.title = 'Ampliar imagem';
+  btn.innerHTML = expandIconSvg();
+  btn.dataset.lightboxTrigger = '1';
+  wrap.appendChild(btn);
+}
+function initLightboxImages(root=document){
+  root.querySelectorAll(lightboxSectionSelector).forEach(createLightboxTrigger);
+}
+function openImageLightbox(img, trigger){
+  if (!img || !img.src) return;
+  lightboxLastTrigger = trigger || null;
+  lightboxMedia.innerHTML = '';
+  const clone = document.createElement('img');
+  clone.src = img.currentSrc || img.src;
+  clone.alt = img.alt || 'Imagem ampliada';
+  clone.decoding = 'async';
+  lightboxMedia.appendChild(clone);
+  const title = img.closest('article')?.querySelector('h3')?.textContent?.trim() || img.alt || 'Imagem ampliada';
+  lightboxTitle.textContent = title;
+  lightbox.classList.add('open');
+  lightbox.setAttribute('aria-hidden','false');
+  document.body.classList.add('modal-open');
+  lightboxClose.focus();
+}
+function closeImageLightbox(){
+  lightbox.classList.remove('open');
+  lightbox.setAttribute('aria-hidden','true');
+  lightboxMedia.innerHTML = '';
+  document.body.classList.remove('modal-open');
+  if (lightboxLastTrigger) lightboxLastTrigger.focus();
+  lightboxLastTrigger = null;
+}
+
+// A navegação é delegada para também funcionar depois de filtrar/re-renderizar os cartões.
+document.addEventListener('click', e => {
+  const trigger = e.target.closest('[data-lightbox-trigger="1"]');
+  const image = e.target.closest(lightboxSectionSelector);
+  if (trigger || image){
+    e.preventDefault(); e.stopPropagation();
+    const img = trigger ? trigger.closest('.image-lightbox-wrap')?.querySelector('img') : image;
+    openImageLightbox(img, trigger || image);
+    return;
+  }
+  if (e.target === lightboxBackdrop || e.target === lightboxClose) closeImageLightbox();
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && lightbox.classList.contains('open')) { e.preventDefault(); closeImageLightbox(); }
+});
+
 
 // ---------- Conheça a Farmácia ----------
 const sectorButtons = $$('.sector-button');
