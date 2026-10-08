@@ -784,7 +784,59 @@ body.dark .medication-card .med-strength, body.dark .medication-card .med-form {
   #bula .three-stage-badge{top:12px;left:12px;font-size:.62rem}
 }
 
-  </style>
+  
+/* ---------- Image lightbox / zoom visual ---------- */
+.image-lightbox-wrap{position:relative;width:100%;height:100%;display:grid;place-items:center;overflow:hidden}
+.image-lightbox-wrap>img{display:block;max-width:100%;max-height:100%;cursor:zoom-in}
+.image-expand-btn{
+  position:absolute;right:12px;top:12px;z-index:8;width:42px;height:42px;border:1px solid rgba(255,255,255,.62);
+  border-radius:12px;background:rgba(7,39,33,.78);color:#fff;display:grid;place-items:center;
+  box-shadow:0 10px 24px rgba(0,0,0,.18);backdrop-filter:blur(8px);cursor:pointer;
+  opacity:.92;transition:transform .2s ease,background .2s ease,box-shadow .2s ease,opacity .2s ease
+}
+.image-expand-btn:hover,.image-expand-btn:focus-visible{transform:translateY(-2px) scale(1.04);background:var(--primary);box-shadow:0 14px 28px rgba(0,0,0,.22);opacity:1;outline:none}
+.image-expand-btn svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+body.dark .image-expand-btn{background:rgba(3,22,18,.86);border-color:rgba(210,255,244,.32);color:#f2fffb}
+.med-card-image .image-lightbox-wrap{height:100%}
+.form-image-wrap .image-lightbox-wrap{height:100%}
+.routine-image-frame .image-lightbox-wrap{position:absolute;inset:0;z-index:1}
+.routine-image-frame .routine-scanline,.routine-image-frame .routine-corner{z-index:3}
+.access-photo-wrap .image-lightbox-wrap{height:100%}
+.sustain-grid.visual-grid .image-lightbox-wrap{height:205px}
+.image-lightbox{
+  position:fixed;inset:0;z-index:10000;display:grid;place-items:center;padding:28px;
+  background:rgba(2,15,12,.84);backdrop-filter:blur(10px);opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .24s ease,visibility .24s ease
+}
+.image-lightbox.open{opacity:1;visibility:visible;pointer-events:auto}
+.image-lightbox-dialog{position:relative;z-index:2;width:min(1180px,94vw);max-height:92vh;display:grid;grid-template-rows:minmax(0,1fr) auto;gap:14px}
+.image-lightbox-media{min-height:0;display:grid;place-items:center;padding:12px}
+.image-lightbox-media img{display:block;max-width:100%;max-height:78vh;width:auto;height:auto;object-fit:contain;border-radius:18px;box-shadow:0 28px 70px rgba(0,0,0,.44);background:#fff}
+.image-lightbox-caption{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:13px 16px;border:1px solid rgba(255,255,255,.15);border-radius:16px;background:rgba(6,35,29,.84);color:#ecfff9}
+.image-lightbox-caption-text{min-width:0}
+.image-lightbox-caption strong{display:block;font-size:.95rem}
+.image-lightbox-caption span{display:block;color:rgba(236,255,249,.72);font-size:.8rem;margin-top:3px}
+.lightbox-backdrop-close{position:absolute;inset:0;z-index:1;border:0;background:transparent;padding:0;cursor:default}
+.image-lightbox-close{position:absolute;right:20px;top:20px;z-index:4;flex:0 0 auto;width:42px;height:42px;border:1px solid rgba(255,255,255,.25);border-radius:12px;background:rgba(255,255,255,.08);color:#fff;display:grid;place-items:center;cursor:pointer}
+.image-lightbox-close:hover,.image-lightbox-close:focus-visible{background:#fff;color:#0c2d25;outline:none}
+.image-lightbox-close svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round}
+@media (max-width:700px){
+  .image-expand-btn{width:38px;height:38px;right:9px;top:9px}
+  .image-lightbox{padding:14px}
+  .image-lightbox-dialog{width:96vw;max-height:94vh}
+  .image-lightbox-media img{max-height:76vh;border-radius:14px}
+  .image-lightbox-caption{padding:11px 12px}
+  .image-lightbox-caption strong{font-size:.88rem}
+  .image-lightbox-caption span{font-size:.74rem}
+}
+@media (prefers-reduced-motion:reduce){
+  .image-lightbox,.image-expand-btn{transition:none}
+}
+body.modal-open{overflow:hidden}
+body.reduce-motion .image-lightbox,body.reduce-motion .image-expand-btn{transition:none}
+body.reduce-motion .image-expand-btn{transform:none !important}
+
+</style>
 </head>
 <body>
   <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
@@ -1241,6 +1293,22 @@ body.dark .medication-card .med-strength, body.dark .medication-card .med-form {
     </div>
   </footer>
 
+  <div class="image-lightbox" id="imageLightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="imageLightboxTitle">
+    <button class="image-lightbox-close" id="imageLightboxClose" type="button" aria-label="Fechar imagem ampliada">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <div class="image-lightbox-dialog">
+      <div class="image-lightbox-media" id="imageLightboxMedia"></div>
+      <div class="image-lightbox-caption">
+        <div class="image-lightbox-caption-text">
+          <strong id="imageLightboxTitle">Imagem ampliada</strong>
+          <span id="imageLightboxHint">Clique no X ou pressione Esc para fechar.</span>
+        </div>
+      </div>
+    </div>
+    <button class="lightbox-backdrop-close" id="imageLightboxBackdrop" type="button" aria-label="Fechar imagem ampliada"></button>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
   <script>
 // Sempre abrir a página no topo ao carregar/recarregar, sem restaurar a posição anterior.
@@ -1248,6 +1316,81 @@ if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 window.addEventListener('load', () => {
   if (!window.location.hash) window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
 });
+
+// ---------- Imagens ampliáveis (02, 04, 06, 07 e 08) ----------
+const lightboxSectionSelector = '#medicamentos .med-card-image img, #formas .form-image-wrap img, #rotina .routine-image-frame img, #acessibilidade .access-photo-wrap img, #sustentabilidade .visual-grid img';
+const lightbox = $('#imageLightbox');
+const lightboxMedia = $('#imageLightboxMedia');
+const lightboxTitle = $('#imageLightboxTitle');
+const lightboxClose = $('#imageLightboxClose');
+const lightboxBackdrop = $('#imageLightboxBackdrop');
+let lightboxLastTrigger = null;
+
+function expandIconSvg(){
+  return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H3v5M16 3h5v5M21 16v5h-5M3 16v5h5"/></svg>';
+}
+function createLightboxTrigger(img){
+  if (!img || img.closest('.image-lightbox-wrap') || img.dataset.lightboxReady === '1') return;
+  const parent = img.parentElement;
+  if (!parent) return;
+  const wrap = document.createElement('div');
+  wrap.className = 'image-lightbox-wrap';
+  parent.insertBefore(wrap, img);
+  wrap.appendChild(img);
+  img.dataset.lightboxReady = '1';
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'image-expand-btn';
+  btn.setAttribute('aria-label', `Ampliar imagem: ${img.alt || 'imagem'}`);
+  btn.title = 'Ampliar imagem';
+  btn.innerHTML = expandIconSvg();
+  btn.dataset.lightboxTrigger = '1';
+  wrap.appendChild(btn);
+}
+function initLightboxImages(root=document){
+  root.querySelectorAll(lightboxSectionSelector).forEach(createLightboxTrigger);
+}
+function openImageLightbox(img, trigger){
+  if (!img || !img.src) return;
+  lightboxLastTrigger = trigger || null;
+  lightboxMedia.innerHTML = '';
+  const clone = document.createElement('img');
+  clone.src = img.currentSrc || img.src;
+  clone.alt = img.alt || 'Imagem ampliada';
+  clone.decoding = 'async';
+  lightboxMedia.appendChild(clone);
+  const title = img.closest('article')?.querySelector('h3')?.textContent?.trim() || img.alt || 'Imagem ampliada';
+  lightboxTitle.textContent = title;
+  lightbox.classList.add('open');
+  lightbox.setAttribute('aria-hidden','false');
+  document.body.classList.add('modal-open');
+  lightboxClose.focus();
+}
+function closeImageLightbox(){
+  lightbox.classList.remove('open');
+  lightbox.setAttribute('aria-hidden','true');
+  lightboxMedia.innerHTML = '';
+  document.body.classList.remove('modal-open');
+  if (lightboxLastTrigger) lightboxLastTrigger.focus();
+  lightboxLastTrigger = null;
+}
+
+// A navegação é delegada para também funcionar depois de filtrar/re-renderizar os cartões.
+document.addEventListener('click', e => {
+  const trigger = e.target.closest('[data-lightbox-trigger="1"]');
+  const image = e.target.closest(lightboxSectionSelector);
+  if (trigger || image){
+    e.preventDefault(); e.stopPropagation();
+    const img = trigger ? trigger.closest('.image-lightbox-wrap')?.querySelector('img') : image;
+    openImageLightbox(img, trigger || image);
+    return;
+  }
+  if (e.target === lightboxBackdrop || e.target === lightboxClose) closeImageLightbox();
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && lightbox.classList.contains('open')) { e.preventDefault(); closeImageLightbox(); }
+});
+
 const sectors = [
   {
     name: 'Atendimento', icon: '🧑‍⚕️',
@@ -1466,6 +1609,8 @@ function handleMedImageError(img) {
   svgImg.removeAttribute('onerror');
   wrap.appendChild(svgImg);
   img.replaceWith(wrap);
+  const fallbackImg = wrap.querySelector('img');
+  createLightboxTrigger(fallbackImg);
 }
 
 function renderMeds(filter = 'todos') {
@@ -1488,6 +1633,7 @@ function renderMeds(filter = 'todos') {
   initViewAnimations(medContainer);
 }
 renderMeds();
+initLightboxImages(document);
 initViewAnimations(document);
 $$('.chip').forEach(btn => btn.addEventListener('click', () => {
   $$('.chip').forEach(b => b.classList.remove('active'));
@@ -1508,7 +1654,11 @@ $('#formsCards').innerHTML = forms.map((f,i) => `
     <div class="forms-copy"><span class="tag">Forma farmacêutica</span><h3>${f.title}</h3><p>${f.desc}</p></div>
   </article>
 `).join('');
+initLightboxImages($('#formsCards'));
 initViewAnimations($('#formsCards'));
+initLightboxImages($('#rotina'));
+initLightboxImages($('#acessibilidade'));
+initLightboxImages($('#sustentabilidade'));
 
 // ---------- Bula ----------
 $$('.bula-item').forEach(btn => btn.addEventListener('click', () => {
