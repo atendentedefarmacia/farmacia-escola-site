@@ -176,7 +176,58 @@ p { margin-top: 0; }
 .medication-card { padding: 0; overflow: hidden; display: flex; flex-direction: column; min-height: 100%; }
 .med-card-image { height: 205px; padding: 10px; background: linear-gradient(145deg, #edf8f4, #d7ebe5); border-bottom: 1px solid var(--line); display: grid; place-items: center; }
 .med-card-image img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.med-photo-badge { position:absolute; left:10px; bottom:10px; z-index:2; padding:5px 8px; border-radius:999px; background:rgba(7,43,35,.78); color:#fff; font-size:.58rem; font-weight:900; letter-spacing:.07em; backdrop-filter:blur(7px); }
+body.dark .med-photo-badge { background:rgba(6,22,19,.82); color:#d8fff4; }
 .med-card-body { padding: 17px 18px 20px; display: flex; flex-direction: column; flex: 1; background: var(--surface); }
+
+.med-card-body > * { width: 100%; }
+.med-card-body > p {
+  margin: 0;
+  padding: 12px 13px 13px;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  background: var(--surface-2);
+  color: var(--muted);
+  line-height: 1.52;
+}
+.med-strength, .med-form {
+  width: 100%;
+  align-self: stretch;
+  box-shadow: 0 8px 18px rgba(14,63,53,.035);
+}
+.med-strength { position: relative; overflow: hidden; }
+.med-strength::after, .med-form::after {
+  content: ""; position: absolute; inset: 0 auto 0 0; width: 4px;
+  background: linear-gradient(180deg, var(--primary), var(--accent));
+  border-radius: inherit;
+}
+.med-strength, .med-form { position: relative; }
+.med-card-image { position: relative; overflow: hidden; }
+.med-card-image::after {
+  content: ""; position: absolute; inset: -30% -50%;
+  background: linear-gradient(105deg, transparent 36%, rgba(255,255,255,.42) 50%, transparent 64%);
+  transform: translateX(-65%) rotate(6deg);
+  transition: transform .7s cubic-bezier(.2,.75,.2,1);
+  pointer-events: none;
+}
+.medication-card:hover .med-card-image::after { transform: translateX(65%) rotate(6deg); }
+.med-card-image img { transition: transform .55s cubic-bezier(.2,.75,.2,1), filter .35s ease; }
+.medication-card:hover .med-card-image img { transform: scale(1.045); filter: saturate(1.05) contrast(1.02); }
+.medication-card {
+  --med-delay: 0ms;
+  animation: medCardIn .62s cubic-bezier(.2,.72,.2,1) both;
+  animation-delay: var(--med-delay);
+}
+.chip { transition: transform .18s ease, box-shadow .22s ease, background .22s ease, color .22s ease; }
+.chip:hover { transform: translateY(-2px); }
+.chip.active { box-shadow: 0 10px 24px rgba(22,133,111,.18); }
+body.dark .med-card-body > p { background:#172c27; border-color:#3b6158; color:#d7ebe4; }
+body.dark .medication-card .med-strength::after,
+body.dark .medication-card .med-form::after { background:linear-gradient(180deg,#55d0b2,#2c9f87); }
+body.dark .medication-card:hover .med-card-image::after { background:linear-gradient(105deg, transparent 36%, rgba(255,255,255,.18) 50%, transparent 64%); }
+
+.view-animate { opacity: 0; transform: translateY(18px) scale(.985); filter: blur(2px); }
+.view-animate.in-view { animation: sectionReveal .72s cubic-bezier(.2,.75,.2,1) var(--reveal-delay,0ms) both; }
 .med-card-body h3 { margin: 0 0 8px; }
 .med-card-body .tag { align-self: flex-start; }
 .med-strength { margin: 0 0 9px; padding: 10px 11px; border-radius: 13px; background: var(--surface-2); border: 1px solid var(--line); }
@@ -190,6 +241,7 @@ body.dark .medication-card .med-card-body .tag { background: #1b3831; color: #a4
 body.dark .medication-card .med-strength, body.dark .medication-card .med-form { background: #1a302b; border-color: #3b6158; }
 body.dark .medication-card .med-strength span, body.dark .medication-card .med-form span { color: #b9d0c8; }
 body.dark .medication-card .med-strength strong, body.dark .medication-card .med-form strong { color: #ecfff9; }
+body.dark .medication-card .med-strength, body.dark .medication-card .med-form { color:#edfdf8; } body.dark .medication-card .med-strength span, body.dark .medication-card .med-form span { background:transparent; }
 .medication-learning-note { margin: 18px 0 0; padding: 14px 16px; border-left: 4px solid var(--primary); border-radius: 12px; background: var(--secondary); color: var(--muted); font-size: .88rem; line-height: 1.55; }
 @media (max-width: 700px) { .med-card-image { height: 175px; } .med-strength strong, .med-form strong { overflow-wrap: anywhere; } }
 
@@ -277,6 +329,16 @@ body.dark .medication-card .med-strength strong, body.dark .medication-card .med
 .reveal:nth-child(2) { animation-delay: .1s; }
 
 @keyframes rise { from { opacity:0; transform: translateY(18px); } to { opacity:1; transform: translateY(0); } }
+
+@keyframes medCardIn {
+  0% { opacity:0; transform:translateY(20px) scale(.97); filter:blur(4px); }
+  65% { opacity:1; transform:translateY(-3px) scale(1.006); filter:blur(0); }
+  100% { opacity:1; transform:translateY(0) scale(1); filter:blur(0); }
+}
+@keyframes sectionReveal {
+  0% { opacity:0; transform:translateY(18px) scale(.985); filter:blur(2px); }
+  100% { opacity:1; transform:none; filter:blur(0); }
+}
 @keyframes floaty { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
 @keyframes breathe { 0%,100%{transform:scale(.95);opacity:.45} 50%{transform:scale(1.08);opacity:.7} }
 @keyframes scan { 0%{transform:translateY(0)} 50%{transform:translateY(460px)} 100%{transform:translateY(0)} }
@@ -1338,6 +1400,28 @@ const medContainer = $('#medicationCards');
 function labelCategory(c) {
   return ({ dor: 'Dor e febre', alergia: 'Alergias', infeccao: 'Infecções', cronicos: 'Uso contínuo' })[c] || 'Categoria';
 }
+let viewAnimationObserver;
+function initViewAnimations(root = document) {
+  if (!('IntersectionObserver' in window)) {
+    root.querySelectorAll('.view-animate').forEach(el => el.classList.add('in-view'));
+    return;
+  }
+  if (!viewAnimationObserver) {
+    viewAnimationObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          viewAnimationObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: .10, rootMargin: '0px 0px -30px 0px' });
+  }
+  root.querySelectorAll('.view-animate:not(.in-view)').forEach((el, i) => {
+    if (!el.style.getPropertyValue('--reveal-delay')) el.style.setProperty('--reveal-delay', `${Math.min(i,8)*55}ms`);
+    viewAnimationObserver.observe(el);
+  });
+}
+
 function renderMeds(filter = 'todos') {
   const items = filter === 'todos' ? medications : medications.filter(x => x.category === filter);
   const visualByKind = {
@@ -1346,12 +1430,14 @@ function renderMeds(filter = 'todos') {
     capsule: ['assets/med-visual-capsule.svg','Ilustração de cápsula'],
     cream: ['assets/med-visual-tube.svg','Ilustração de creme dermatológico']
   };
-  medContainer.innerHTML = items.map(m => {
-    const [fallback, altFallback] = visualByKind[m.kind] || visualByKind.tablet;
+  medContainer.innerHTML = items.map((m, index) => {
+    const [fallback] = visualByKind[m.kind] || visualByKind.tablet;
+    const fallbackEscaped = fallback.replace(/'/g, "\'");
     return `
-      <article class="card medication-card">
+      <article class="card medication-card view-animate" style="--med-delay:${Math.min(index,7)*70}ms;--reveal-delay:${Math.min(index,7)*70}ms">
         <div class="med-card-image">
-          <img src="${m.image || fallback}" alt="Foto de referência de ${m.title}, ${m.strength}, ${m.form}" loading="lazy" onerror="this.onerror=null;this.src='${fallback}';" />
+          <img src="${m.image || fallback}" alt="Foto de referência de ${m.title}, ${m.strength}, ${m.form}" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='${fallbackEscaped}';" />
+          <span class="med-photo-badge">FOTO DE REFERÊNCIA</span>
         </div>
         <div class="med-card-body">
           <span class="tag">${labelCategory(m.category)}</span>
@@ -1362,8 +1448,10 @@ function renderMeds(filter = 'todos') {
         </div>
       </article>`;
   }).join('');
+  initViewAnimations(medContainer);
 }
 renderMeds();
+initViewAnimations(document);
 $$('.chip').forEach(btn => btn.addEventListener('click', () => {
   $$('.chip').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
@@ -1371,17 +1459,19 @@ $$('.chip').forEach(btn => btn.addEventListener('click', () => {
 }));
 
 // ---------- Classes terapêuticas ----------
-$('#classCards').innerHTML = therapeuticClasses.map(c => `
-  <article class="card"><div class="icon">${c.icon}</div><h3>${c.title}</h3><p>${c.desc}</p></article>
+$('#classCards').innerHTML = therapeuticClasses.map((c,i) => `
+  <article class="card view-animate" style="--reveal-delay:${Math.min(i,7)*65}ms"><div class="icon">${c.icon}</div><h3>${c.title}</h3><p>${c.desc}</p></article>
 `).join('');
+initViewAnimations($('#classCards'));
 
 // ---------- Formas farmacêuticas ----------
-$('#formsCards').innerHTML = forms.map(f => `
-  <article class="forms-card">
-    <div class="form-image-wrap"><img src="${f.image}" alt="${f.alt}" loading="lazy" /></div>
+$('#formsCards').innerHTML = forms.map((f,i) => `
+  <article class="forms-card view-animate" style="--reveal-delay:${Math.min(i,7)*65}ms">
+    <div class="form-image-wrap"><img src="${f.image}" alt="${f.alt}" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.style.opacity='.25'; this.alt='Imagem de referência temporariamente indisponível';" /></div>
     <div class="forms-copy"><span class="tag">Forma farmacêutica</span><h3>${f.title}</h3><p>${f.desc}</p></div>
   </article>
 `).join('');
+initViewAnimations($('#formsCards'));
 
 // ---------- Bula ----------
 $$('.bula-item').forEach(btn => btn.addEventListener('click', () => {
