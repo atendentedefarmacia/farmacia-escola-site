@@ -172,6 +172,19 @@ p { margin-top: 0; }
 .filter-row { display: flex; flex-wrap: wrap; gap: 9px; margin-bottom: 22px; }
 .chip { border: 1px solid var(--line); background: var(--surface); color: var(--muted); padding: 9px 14px; border-radius: 999px; font-weight: 800; }
 .chip.active, .chip:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+.medication-card { padding: 0; overflow: hidden; display: flex; flex-direction: column; min-height: 100%; }
+.med-card-image { height: 150px; padding: 10px; background: linear-gradient(145deg, #edf8f4, #d7ebe5); border-bottom: 1px solid var(--line); display: grid; place-items: center; }
+.med-card-image img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.med-card-body { padding: 17px 18px 20px; display: flex; flex-direction: column; flex: 1; }
+.med-card-body h3 { margin: 0 0 8px; }
+.med-card-body .tag { align-self: flex-start; }
+.med-strength { margin: 0 0 9px; padding: 10px 11px; border-radius: 13px; background: var(--surface-2); border: 1px solid var(--line); }
+.med-strength span { display: block; color: var(--muted); font-size: .66rem; text-transform: uppercase; letter-spacing: .08em; font-weight: 900; }
+.med-strength strong { display: block; margin-top: 3px; color: var(--primary-dark); font-size: .83rem; line-height: 1.35; }
+.medication-learning-note { margin: 18px 0 0; padding: 14px 16px; border-left: 4px solid var(--primary); border-radius: 12px; background: var(--secondary); color: var(--muted); font-size: .88rem; line-height: 1.55; }
+@media (max-width: 700px) { .med-card-image { height: 132px; } }
+
 .cards-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
 .card, .access-card, .sustain-grid article { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 20px; box-shadow: 0 12px 30px rgba(14,63,53,.05); }
 .card { transition: transform .18s ease, box-shadow .18s ease; }
@@ -665,81 +678,10 @@ p { margin-top: 0; }
   #bula .sequence-actions{justify-content:center;}
 }
 
-/* ===== 3D FINAL OVERRIDES ===== */
-#bula .medicine-stage { perspective:1500px; perspective-origin:50% 44%; }
-#bula .medicine-product {
-  --box-w:230px; --box-h:300px; --box-d:78px;
-  width:var(--box-w); height:var(--box-h);
-  transform-style:preserve-3d;
-  transform-origin:center center;
-  will-change:transform;
-}
-#bula .product-face { left:50%; top:50%; }
-#bula .product-front,#bula .product-back {
-  width:var(--box-w); height:var(--box-h);
-  margin-left:calc(var(--box-w) / -2); margin-top:calc(var(--box-h) / -2);
-}
-#bula .product-front { transform:translateZ(calc(var(--box-d) / 2)); }
-#bula .product-back { transform:rotateY(180deg) translateZ(calc(var(--box-d) / 2)); }
-#bula .product-right,#bula .product-left {
-  width:var(--box-d); height:var(--box-h);
-  margin-left:calc(var(--box-d) / -2); margin-top:calc(var(--box-h) / -2);
-}
-#bula .product-right { transform:rotateY(90deg) translateZ(calc(var(--box-w) / 2)); }
-#bula .product-left { transform:rotateY(-90deg) translateZ(calc(var(--box-w) / 2)); }
-#bula .product-top,#bula .product-bottom {
-  width:var(--box-w); height:var(--box-d);
-  margin-left:calc(var(--box-w) / -2); margin-top:calc(var(--box-d) / -2);
-}
-#bula .product-top { transform:rotateX(90deg) translateZ(calc(var(--box-h) / 2)); }
-#bula .product-bottom { transform:rotateX(-90deg) translateZ(calc(var(--box-h) / 2)); }
-#bula .box-lid {
-  width:var(--box-w); height:var(--box-d); left:50%; top:50%;
-  margin-left:calc(var(--box-w) / -2); margin-top:calc(var(--box-d) / -2);
-  transform-origin:center bottom;
-  transform:rotateX(90deg) translateZ(calc(var(--box-h) / 2));
-}
-#bula .box-lid.opened { transform:rotateX(18deg) translateZ(calc(var(--box-h) / 2 + 2px)) translateY(-10px); }
-#bula .medicine-bottle {
-  width:92px; height:175px; left:50%; top:50%;
-  margin-left:-46px; margin-top:-87px;
-  transform:translate3d(0,95px,calc(var(--box-d) + 78px)) scale(.62) rotate(-2deg);
-}
-#bula .medicine-bottle.visible {
-  transform:translate3d(0,-2px,210px) scale(1) rotate(-2deg);
-}
-#bula .medicine-product { transform:rotateX(-9deg) rotateY(-28deg) scale(var(--current-scale,1)); }
-
-@media (max-width: 760px) {
-  #bula .medicine-stage { min-height:430px; perspective:1200px; }
-  #bula .medicine-product { --box-w:200px; --box-h:270px; --box-d:68px; width:var(--box-w); height:var(--box-h); transform:rotateX(-9deg) rotateY(-28deg) scale(.88); }
-  #bula .medicine-bottle { left:69px; }
-  #bula 
-#bula .medicine-product::before{
-  content:""; position:absolute; width:calc(var(--box-w) + 10px); height:calc(var(--box-h) + 10px);
-  left:50%; top:50%; margin-left:calc((var(--box-w) + 10px)/-2); margin-top:calc((var(--box-h) + 10px)/-2);
-  border-radius:7px; pointer-events:none; transform:translateZ(calc(var(--box-d) / -2 - 2px));
-  box-shadow:0 0 0 1px rgba(118,238,209,.09), 0 0 45px rgba(82,222,190,.08); opacity:.95;
-}
-#bula .medicine-product::after{
-  content:"3D"; position:absolute; right:-58px; top:-18px; padding:6px 8px; border-radius:8px;
-  background:rgba(84,227,196,.12); border:1px solid rgba(145,242,221,.2); color:#9af2dc;
-  font-size:.58rem; font-weight:950; letter-spacing:.14em; transform:translateZ(calc(var(--box-d) + 16px)) rotateY(0deg);
-}
-
-.stage-hint { font-size:.50rem; }
-  #bula .medicine-summary { grid-template-columns:1fr; }
-  #bula .leaflet-viewport { height:470px; }
-  #bula .leaflet-sheet { width:94%; min-height:780px; padding:25px 24px 28px; }
-  #bula .leaflet-sheet p { font-size:.74rem; }
-}
-
-  
-
 /* ===== CONSULTA 05 · EXPERIÊNCIA 3D REAL ===== */
 #bula .three-stage{
   position:relative;
-  min-height:560px;
+  min-height:610px;
   border-radius:22px;
   overflow:hidden;
   background:rgba(6,24,20,.60) url('assets/consulte-pharmacy-bg.png') center/cover no-repeat;
@@ -759,7 +701,7 @@ p { margin-top: 0; }
 #bula .hero-title-white{color:#fff !important}
 #bula .rotate-controls{position:relative;z-index:6}
 @media(max-width:760px){
-  #bula .three-stage{min-height:470px}
+  #bula .three-stage{min-height:500px}
   #bula .three-stage-hint{font-size:.54rem;max-width:90%;text-align:center}
   #bula .three-stage-badge{top:12px;left:12px;font-size:.62rem}
 }
@@ -891,6 +833,7 @@ p { margin-top: 0; }
           <button class="chip" data-filter="cronicos" type="button">Uso contínuo</button>
         </div>
         <div class="cards-grid" id="medicationCards"></div>
+        <div class="medication-learning-note"><strong>Como ler a apresentação:</strong> “500 mg/mL” é um exemplo de <strong>concentração</strong> — informa a quantidade de princípio ativo presente em cada mL de uma solução. Isso é diferente de dose. A apresentação e a concentração podem variar entre medicamentos e fabricantes.</div>
         <p class="content-note"><strong>Importante:</strong> antibióticos, outros medicamentos e tratamentos podem exigir avaliação e prescrição. O objetivo desta seção é apenas educativo.</p>
       </div>
     </section>
@@ -987,7 +930,7 @@ p { margin-top: 0; }
             <div class="medicine-summary">
               <div><span>Nome</span><strong>Paracetamol</strong></div>
               <div><span>Categoria</span><strong>Analgésico e antitérmico</strong></div>
-              <div><span>Apresentação</span><strong>Suspensão oral (xarope) · 200 mg/5 mL · 15 mL</strong></div>
+              <div><span>Apresentação</span><strong>Solução oral (xarope) · 200 mg/mL · 15 mL</strong></div>
               <div><span>Finalidade geral</span><strong>Redução da febre e alívio temporário de dores leves a moderadas.</strong></div>
             </div>
 
@@ -999,12 +942,12 @@ p { margin-top: 0; }
                 <div class="leaflet-shadow" aria-hidden="true"></div>
                 <article class="leaflet-sheet" id="leafletSheet">
                   <header class="leaflet-sheet-head">
-                    <div><span>PARACETAMOL</span><small>Suspensão oral · 100 mg/mL · Medicamento genérico</small></div>
+                    <div><span>PARACETAMOL</span><small>Solução oral · 200 mg/mL · Medicamento genérico</small></div>
                     <div class="leaflet-stamp">GUIA<br>EDUCATIVO</div>
                   </header>
                   <div class="leaflet-meta"><span>Leia por assunto</span><span>Documento demonstrativo</span></div>
                   <section><h4>1. Para que este medicamento é indicado?</h4><p>O paracetamol é utilizado para a redução da febre e para o alívio temporário de dores leves a moderadas. A indicação específica deve ser conferida na bula correspondente à apresentação.</p></section>
-                  <section><h4>2. Como este medicamento funciona?</h4><p>O paracetamol atua no sistema nervoso central, ajudando a reduzir a febre e a sensibilidade à dor. A bula de cada apresentação deve ser consultada para informações específicas.</p></section>
+                  <section><h4>2. Como este medicamento funciona?</h4><p>O paracetamol ajuda a reduzir a febre e a sensibilidade à dor, conforme as informações da apresentação consultada. A bula de cada apresentação deve ser consultada para informações específicas.</p></section>
                   <section><h4>3. Quando não devo usar?</h4><p>Não deve ser utilizado por pessoas que tenham alergia ao paracetamol ou a componentes da formulação. Situações relacionadas a doença do fígado exigem atenção profissional.</p></section>
                   <section><h4>4. Advertências e precauções</h4><p>Não associe diferentes medicamentos contendo paracetamol sem orientação. Em crianças, a quantidade administrada depende da concentração do produto e de fatores individuais. Siga a apresentação e a orientação apropriadas.</p></section>
                   <section><h4>5. Como devo usar?</h4><p>A dose e o intervalo devem seguir a bula específica da apresentação e a orientação do profissional de saúde. Em suspensões, utilize corretamente o dispositivo dosador indicado pela embalagem.</p></section>
@@ -1075,7 +1018,7 @@ p { margin-top: 0; }
       <div class="container">
         <div class="section-head">
           <div>
-            <p class="eyebrow">07 · INCLUA</p>
+            <p class="eyebrow">07 · INCLUSÃO</p>
             <h2>Acessibilidade</h2>
           </div>
           <p>Veja situações concretas e a solução que o projeto apresenta para tornar o espaço e o conteúdo mais acessíveis.</p>
@@ -1206,7 +1149,7 @@ p { margin-top: 0; }
           <p><strong>Instituição:</strong> Nome da instituição</p>
           <p><strong>Projeto:</strong> Extensão digital da Farmácia-Escola</p>
           <hr />
-          <p class="credit-small"><strong>Imagem do medicamento interativo:</strong> Cifarma Farmacêutica — fotografia do Paracetamol 100 mg/mL, suspensão oral, medicamento genérico.</p>
+          <p class="credit-small"><strong>Imagem do medicamento interativo:</strong> Referência visual de embalagem e frasco fornecida para esta versão educativa; a apresentação líquida consultada é 200 mg/mL em frasco de 15 mL.</p>
           <p class="credit-small"><strong>Créditos das imagens:</strong> Wikimedia Commons — <em>Comprimidos.jpg</em> (Abinoam Jr., CC BY-SA 3.0); <em>Capsule medicine.png</em> (Joseph Hemê, CC BY-SA 4.0); <em>Cough medicine.jpg</em> (Mysid, domínio público); <em>Tube of hydrocortisone cream.jpg</em> (Father Goose, CC BY-SA 4.0); <em>Diprosalic ointment tube.jpeg</em> (Cnbrb, CC BY-SA 4.0); <em>Eye Drops - eye lubricant.jpg</em> (Dineshkumar Nallaveerappan, CC BY-SA 4.0).</p>
         </div>
       </div>
@@ -1261,29 +1204,41 @@ const sectors = [
 ];
 
 const medications = [
-  { title: 'Paracetamol', category: 'dor', desc: 'Exemplo didático de medicamento associado ao alívio de dor e febre.' },
-  { title: 'Dipirona', category: 'dor', desc: 'Exemplo didático de medicamento utilizado em situações de dor e febre.' },
-  { title: 'Ibuprofeno', category: 'dor', desc: 'Exemplo de medicamento que pode ser relacionado à dor e à inflamação.' },
-  { title: 'Ácido acetilsalicílico', category: 'dor', desc: 'Exemplo de substância que aparece em medicamentos com ação analgésica e antitérmica.' },
-  { title: 'Naproxeno', category: 'dor', desc: 'Exemplo didático de anti-inflamatório não esteroidal relacionado à dor e inflamação.' },
+  { title: 'Paracetamol', category: 'dor', strength: '200 mg/mL · solução oral · 15 mL', kind: 'liquid', desc: 'Exemplo didático de medicamento associado ao alívio temporário de dor e febre.' },
+  { title: 'Dipirona', category: 'dor', strength: '500 mg/mL · solução oral (gotas) · 10 ou 20 mL', kind: 'liquid', desc: 'Exemplo didático de medicamento associado ao alívio de dor e febre.' },
+  { title: 'Ibuprofeno', category: 'dor', strength: '100 mg/5 mL · suspensão oral', kind: 'liquid', desc: 'Exemplo de anti-inflamatório não esteroidal relacionado à dor e à inflamação.' },
+  { title: 'Ácido acetilsalicílico', category: 'dor', strength: '500 mg · comprimido', kind: 'tablet', desc: 'Exemplo de medicamento com ação analgésica e antitérmica em algumas apresentações.' },
+  { title: 'Naproxeno', category: 'dor', strength: '550 mg · comprimido', kind: 'tablet', desc: 'Exemplo didático de anti-inflamatório não esteroidal relacionado à dor e inflamação.' },
+  { title: 'Diclofenaco', category: 'dor', strength: '50 mg · comprimido', kind: 'tablet', desc: 'Exemplo de anti-inflamatório usado em situações específicas, conforme orientação profissional.' },
+  { title: 'Cetoprofeno', category: 'dor', strength: '100 mg · cápsula', kind: 'capsule', desc: 'Exemplo de medicamento associado ao controle de dor e inflamação em situações específicas.' },
+  { title: 'Meloxicam', category: 'dor', strength: '15 mg · comprimido', kind: 'tablet', desc: 'Exemplo de anti-inflamatório não esteroidal para situações específicas.' },
 
-  { title: 'Loratadina', category: 'alergia', desc: 'Exemplo de anti-histamínico usado no tratamento de determinados sintomas alérgicos.' },
-  { title: 'Cetirizina', category: 'alergia', desc: 'Exemplo de anti-histamínico utilizado em algumas condições alérgicas.' },
-  { title: 'Fexofenadina', category: 'alergia', desc: 'Exemplo de anti-histamínico presente em tratamentos de sintomas alérgicos.' },
-  { title: 'Desloratadina', category: 'alergia', desc: 'Exemplo de medicamento da classe dos anti-histamínicos.' },
-  { title: 'Dexclorfeniramina', category: 'alergia', desc: 'Exemplo de anti-histamínico usado em situações alérgicas específicas.' },
+  { title: 'Loratadina', category: 'alergia', strength: '10 mg · comprimido', kind: 'tablet', desc: 'Exemplo de anti-histamínico usado no tratamento de determinados sintomas alérgicos.' },
+  { title: 'Cetirizina', category: 'alergia', strength: '10 mg · comprimido', kind: 'tablet', desc: 'Exemplo de anti-histamínico utilizado em algumas condições alérgicas.' },
+  { title: 'Fexofenadina', category: 'alergia', strength: '120 mg · comprimido', kind: 'tablet', desc: 'Exemplo de anti-histamínico presente em tratamentos de sintomas alérgicos.' },
+  { title: 'Desloratadina', category: 'alergia', strength: '5 mg · comprimido', kind: 'tablet', desc: 'Exemplo de medicamento da classe dos anti-histamínicos.' },
+  { title: 'Dexclorfeniramina', category: 'alergia', strength: '2 mg · comprimido', kind: 'tablet', desc: 'Exemplo de anti-histamínico usado em situações alérgicas específicas.' },
+  { title: 'Levocetirizina', category: 'alergia', strength: '5 mg · comprimido', kind: 'tablet', desc: 'Exemplo de anti-histamínico usado para determinados sintomas alérgicos.' },
+  { title: 'Bilastina', category: 'alergia', strength: '20 mg · comprimido', kind: 'tablet', desc: 'Exemplo de anti-histamínico usado em situações alérgicas específicas.' },
+  { title: 'Rupatadina', category: 'alergia', strength: '10 mg · comprimido', kind: 'tablet', desc: 'Exemplo de anti-histamínico utilizado em determinadas condições alérgicas.' },
 
-  { title: 'Amoxicilina', category: 'infeccao', desc: 'Exemplo de antibiótico utilizado contra determinadas infecções bacterianas, conforme prescrição quando indicada.' },
-  { title: 'Azitromicina', category: 'infeccao', desc: 'Exemplo de antibiótico usado contra determinadas infecções bacterianas, com uso orientado por profissional.' },
-  { title: 'Cefalexina', category: 'infeccao', desc: 'Exemplo de antibiótico da classe das cefalosporinas.' },
-  { title: 'Fluconazol', category: 'infeccao', desc: 'Exemplo de medicamento antifúngico usado contra determinadas infecções por fungos.' },
-  { title: 'Aciclovir', category: 'infeccao', desc: 'Exemplo de antiviral utilizado em situações específicas de infecções por certos vírus.' },
+  { title: 'Amoxicilina', category: 'infeccao', strength: '500 mg · cápsula', kind: 'capsule', desc: 'Exemplo de antibiótico usado contra determinadas infecções bacterianas, conforme prescrição quando indicada.' },
+  { title: 'Azitromicina', category: 'infeccao', strength: '500 mg · comprimido', kind: 'tablet', desc: 'Exemplo de antibiótico utilizado contra determinadas infecções bacterianas, com uso orientado por profissional.' },
+  { title: 'Cefalexina', category: 'infeccao', strength: '250 mg/5 mL · suspensão oral', kind: 'liquid', desc: 'Exemplo de antibiótico da classe das cefalosporinas, disponível também em suspensão oral.' },
+  { title: 'Fluconazol', category: 'infeccao', strength: '150 mg · cápsula', kind: 'capsule', desc: 'Exemplo de medicamento antifúngico usado contra determinadas infecções por fungos.' },
+  { title: 'Aciclovir', category: 'infeccao', strength: '200 mg · comprimido', kind: 'tablet', desc: 'Exemplo de antiviral utilizado em situações específicas de infecções por certos vírus.' },
+  { title: 'Clotrimazol', category: 'infeccao', strength: '1% · creme dermatológico', kind: 'cream', desc: 'Exemplo de antifúngico de uso tópico para situações específicas.' },
+  { title: 'Nistatina', category: 'infeccao', strength: '100.000 UI/mL · suspensão oral', kind: 'liquid', desc: 'Exemplo de antifúngico disponível em algumas apresentações líquidas.' },
+  { title: 'Metronidazol', category: 'infeccao', strength: '250 mg · comprimido', kind: 'tablet', desc: 'Exemplo de medicamento usado contra determinados microrganismos, com indicação específica.' },
 
-  { title: 'Metformina', category: 'cronicos', desc: 'Exemplo de medicamento usado em tratamentos de longo prazo para controle da glicemia em situações específicas.' },
-  { title: 'Losartana', category: 'cronicos', desc: 'Exemplo de medicamento usado em tratamentos de longo prazo relacionados à pressão arterial.' },
-  { title: 'Levotiroxina', category: 'cronicos', desc: 'Exemplo de medicamento usado em reposição de hormônio tireoidiano em condições específicas.' },
-  { title: 'Sinvastatina', category: 'cronicos', desc: 'Exemplo de medicamento utilizado para controle de colesterol em situações indicadas.' },
-  { title: 'Enalapril', category: 'cronicos', desc: 'Exemplo de medicamento utilizado em tratamentos cardiovasculares de acompanhamento contínuo.' }
+  { title: 'Metformina', category: 'cronicos', strength: '850 mg · comprimido', kind: 'tablet', desc: 'Exemplo de medicamento usado em tratamentos de longo prazo para controle da glicemia em situações específicas.' },
+  { title: 'Losartana', category: 'cronicos', strength: '50 mg · comprimido', kind: 'tablet', desc: 'Exemplo de medicamento usado em tratamentos de longo prazo relacionados à pressão arterial.' },
+  { title: 'Levotiroxina', category: 'cronicos', strength: '50 µg · comprimido', kind: 'tablet', desc: 'Exemplo de medicamento usado em reposição de hormônio tireoidiano em condições específicas.' },
+  { title: 'Sinvastatina', category: 'cronicos', strength: '20 mg · comprimido', kind: 'tablet', desc: 'Exemplo de medicamento utilizado para controle de colesterol em situações indicadas.' },
+  { title: 'Enalapril', category: 'cronicos', strength: '10 mg · comprimido', kind: 'tablet', desc: 'Exemplo de medicamento utilizado em tratamentos cardiovasculares de acompanhamento contínuo.' },
+  { title: 'Amlodipino', category: 'cronicos', strength: '5 mg · comprimido', kind: 'tablet', desc: 'Exemplo de medicamento usado em tratamentos contínuos relacionados à pressão arterial.' },
+  { title: 'Omeprazol', category: 'cronicos', strength: '20 mg · cápsula', kind: 'capsule', desc: 'Exemplo de medicamento usado para reduzir a produção de ácido do estômago em situações específicas.' },
+  { title: 'Hidroclorotiazida', category: 'cronicos', strength: '25 mg · comprimido', kind: 'tablet', desc: 'Exemplo de diurético utilizado em tratamentos contínuos sob acompanhamento profissional.' }
 ];
 
 const therapeuticClasses = [
@@ -1363,13 +1318,25 @@ function labelCategory(c) {
 }
 function renderMeds(filter = 'todos') {
   const items = filter === 'todos' ? medications : medications.filter(x => x.category === filter);
-  medContainer.innerHTML = items.map(m => `
-    <article class="card">
-      <span class="tag">${labelCategory(m.category)}</span>
-      <h3>${m.title}</h3>
-      <p>${m.desc}</p>
-    </article>
-  `).join('');
+  const visualByKind = {
+    tablet: ['assets/med-visual-tablet.svg','Ilustração da apresentação em comprimido'],
+    liquid: ['assets/med-visual-liquid.svg','Ilustração da apresentação líquida'],
+    capsule: ['assets/med-visual-capsule.svg','Ilustração da apresentação em cápsula'],
+    cream: ['assets/med-visual-tube.svg','Ilustração da apresentação em creme']
+  };
+  medContainer.innerHTML = items.map(m => {
+    const [image, alt] = visualByKind[m.kind] || visualByKind.tablet;
+    return `
+      <article class="card medication-card">
+        <div class="med-card-image"><img src="${image}" alt="${alt} para ${m.title}" loading="lazy" /></div>
+        <div class="med-card-body">
+          <span class="tag">${labelCategory(m.category)}</span>
+          <h3>${m.title}</h3>
+          <div class="med-strength"><span>Concentração / apresentação</span><strong>${m.strength}</strong></div>
+          <p>${m.desc}</p>
+        </div>
+      </article>`;
+  }).join('');
 }
 renderMeds();
 $$('.chip').forEach(btn => btn.addEventListener('click', () => {
@@ -1616,7 +1583,7 @@ function setStep(title,text){
 
 // --- WebGL 3D (Three.js): caixa + frasco, com rotação livre e zoom ---
 const threeHost = document.getElementById('threeMedicineViewport');
-let renderer, camera, scene, productRoot, boxGroup, boxLidPivot, bottleGroup, inner, animationFrameId;
+let renderer, camera, scene, productRoot, boxAssembly, boxGroup, boxLidPivot, bottleGroup, inner, animationFrameId;
 let threeRotX = -0.16, threeRotY = -0.52, threeZoom = 6.4;
 let pointerActive = false, lastPX = 0, lastPY = 0;
 let threeOpen = false, threeBottleOut = false;
@@ -1635,83 +1602,117 @@ function createTextTexture(lines, bg='#f8fbf9', fg='#174f43', width=512, height=
 }
 
 function createBottleLabelTexture(){
-  const tex=new THREE.TextureLoader().load('assets/paracetamol-syrup-label.png');
-  tex.colorSpace=THREE.SRGBColorSpace;
-  tex.wrapS=THREE.ClampToEdgeWrapping;
-  tex.wrapT=THREE.ClampToEdgeWrapping;
-  tex.anisotropy=Math.min(8, renderer?.capabilities?.getMaxAnisotropy?.() || 4);
-  return tex;
+  const c=document.createElement('canvas'); c.width=1200; c.height=650;
+  const ctx=c.getContext('2d');
+  ctx.clearRect(0,0,c.width,c.height);
+  // Etiqueta curta e larga, seguindo a proporção visual do frasco de referência.
+  ctx.fillStyle='#d52829'; ctx.fillRect(0,0,c.width,c.height);
+  ctx.fillStyle='#173d86';
+  ctx.beginPath(); ctx.moveTo(0,0); ctx.lineTo(c.width,0); ctx.lineTo(c.width,120); ctx.quadraticCurveTo(840,95,690,128); ctx.quadraticCurveTo(490,170,300,118); ctx.quadraticCurveTo(120,88,0,120); ctx.closePath(); ctx.fill();
+  ctx.fillStyle='#ffffff'; ctx.font='900 56px Inter, Arial'; ctx.fillText('neo',40,58); ctx.fillText('química',40,106);
+  ctx.fillStyle='#ffffff'; ctx.font='900 74px Inter, Arial'; ctx.fillText('paracetamol',42,232);
+  ctx.font='700 31px Inter, Arial'; ctx.fillText('Solução oral (xarope) 200 mg/mL',44,275);
+  ctx.fillStyle='#ffd92f'; ctx.font='900 30px Inter, Arial'; ctx.fillText('ALÍVIO DA DOR E FEBRE',44,350);
+  ctx.fillStyle='#ffffff'; ctx.font='700 26px Inter, Arial'; ctx.fillText('› Analgésico',48,400); ctx.fillText('› Antitérmico',48,442);
+  ctx.font='800 24px Inter, Arial'; ctx.fillText('USO ORAL',44,525);
+  ctx.font='900 34px Inter, Arial'; ctx.fillText('Conteúdo: 15 mL',44,582);
+  const tex=new THREE.CanvasTexture(c); tex.colorSpace=THREE.SRGBColorSpace; tex.anisotropy=Math.min(8,renderer?.capabilities?.getMaxAnisotropy?.()||4); return tex;
+}
+
+function createPanelTexture(lines, opts={}){
+  const width=900, height=1400;
+  const c=document.createElement('canvas'); c.width=width; c.height=height;
+  const ctx=c.getContext('2d');
+  ctx.fillStyle=opts.bg || '#bf1722'; ctx.fillRect(0,0,width,height);
+  ctx.fillStyle=opts.accent || '#0d2f6e'; ctx.fillRect(0,0,width,150);
+  ctx.fillStyle='#ffffff'; ctx.font='900 58px Inter, Arial';
+  ctx.fillText('paracetamol',58,95);
+  ctx.fillStyle='#fff'; ctx.font='700 34px Inter, Arial';
+  let y=235;
+  lines.forEach((line,idx)=>{
+    ctx.fillStyle=idx===0 ? '#ffffff' : 'rgba(255,255,255,.88)';
+    ctx.font=idx===0 ? '900 42px Inter, Arial' : '600 30px Inter, Arial';
+    ctx.fillText(line,58,y); y+=62;
+  });
+  const tex=new THREE.CanvasTexture(c); tex.colorSpace=THREE.SRGBColorSpace; return tex;
 }
 
 function createMedicine3D(){
   if(!window.THREE || !threeHost) return;
   scene=new THREE.Scene();
-  camera=new THREE.PerspectiveCamera(36,1,.1,100);
-  camera.position.set(0,0.25,threeZoom);
-  scene.add(new THREE.HemisphereLight(0xf2fff9,0x14342b,2.2));
-  const key=new THREE.DirectionalLight(0xffffff,3.4); key.position.set(3.5,5.5,5.5); scene.add(key);
-  const fill=new THREE.DirectionalLight(0x74dfc7,1.5); fill.position.set(-4,1,2); scene.add(fill);
-  const rim=new THREE.DirectionalLight(0xbdeee4,1.6); rim.position.set(0,4,-5); scene.add(rim);
+  camera=new THREE.PerspectiveCamera(31,1,.1,100);
+  camera.position.set(0,0.22,7.1);
+  scene.add(new THREE.HemisphereLight(0xf2fff9,0x14342b,2.25));
+  const key=new THREE.DirectionalLight(0xffffff,3.6); key.position.set(4,6,7); scene.add(key);
+  const fill=new THREE.DirectionalLight(0x74dfc7,1.3); fill.position.set(-4,2,3); scene.add(fill);
+  const rim=new THREE.DirectionalLight(0xc9fff2,1.8); rim.position.set(1,5,-6); scene.add(rim);
 
-  const floor=new THREE.Mesh(new THREE.PlaneGeometry(12,8),new THREE.MeshStandardMaterial({color:0xded4c5,roughness:.62,metalness:.02,transparent:true,opacity:.90}));
-  floor.rotation.x=-Math.PI/2; floor.position.y=-2.05; floor.position.z=-.6; scene.add(floor);
+  const floor=new THREE.Mesh(new THREE.PlaneGeometry(14,9),new THREE.MeshStandardMaterial({color:0xe4dbcf,roughness:.68,metalness:.01,transparent:true,opacity:.94}));
+  floor.rotation.x=-Math.PI/2; floor.position.y=-2.42; floor.position.z=-.85; scene.add(floor);
 
   productRoot=new THREE.Group(); scene.add(productRoot);
+  boxAssembly=new THREE.Group(); productRoot.add(boxAssembly);
 
-  // Caixa 3D: frente real da referência enviada + laterais e profundidade próprias.
   const loader=new THREE.TextureLoader();
-  const frontTex=loader.load('assets/paracetamol-box-front.jpg'); frontTex.colorSpace=THREE.SRGBColorSpace;
-  frontTex.anisotropy=8;
-  const front=new THREE.MeshStandardMaterial({map:frontTex,roughness:.72,metalness:.0});
-  const back=new THREE.MeshStandardMaterial({color:0xd62828,roughness:.76});
-  const side=new THREE.MeshStandardMaterial({color:0xb51f26,roughness:.78});
-  const top=new THREE.MeshStandardMaterial({color:0x163b70,roughness:.70});
-  const bottom=new THREE.MeshStandardMaterial({color:0x9a1b25,roughness:.8});
-  const boxGeom=new THREE.BoxGeometry(2.55,3.72,.96);
-  boxGroup=new THREE.Mesh(boxGeom,[side,side,top,bottom,front,back]);
-  boxGroup.position.set(-.38,-.45,0);
-  boxGroup.material.forEach(m=>{m.transparent=true;m.opacity=1;});
-  productRoot.add(boxGroup);
+  const frontTex=loader.load('assets/paracetamol-box-user-front.png'); frontTex.colorSpace=THREE.SRGBColorSpace; frontTex.anisotropy=8;
+  const sideTex=loader.load('assets/paracetamol-box-user-side.png'); sideTex.colorSpace=THREE.SRGBColorSpace; sideTex.anisotropy=8;
+  const front=new THREE.MeshStandardMaterial({map:frontTex,roughness:.76,metalness:0,transparent:true,alphaTest:.08});
+  const leftSide=new THREE.MeshStandardMaterial({map:sideTex,roughness:.82,metalness:0,transparent:true,alphaTest:.08});
+  const rightSide=new THREE.MeshStandardMaterial({color:0xaa1720,roughness:.82});
+  const top=new THREE.MeshStandardMaterial({color:0x153c83,roughness:.72});
+  const bottom=new THREE.MeshStandardMaterial({color:0x8f1520,roughness:.84});
+  const back=new THREE.MeshStandardMaterial({map:createPanelTexture(['Alívio temporário da dor e da febre','Analgésico · Antitérmico','Uso oral','Medicamento genérico','Consulte a bula para mais informações.']),roughness:.78,metalness:0});
 
-  // Interior escuro para reforçar a ideia de caixa aberta.
-  inner=new THREE.Mesh(new THREE.BoxGeometry(2.34,.07,.80),new THREE.MeshStandardMaterial({color:0x29211f,roughness:.9}));
-  inner.position.set(-.38,1.46,0.01); inner.visible=true; productRoot.add(inner);
+  const boxGeom=new THREE.BoxGeometry(2.42,5.00,.64);
+  boxGroup=new THREE.Mesh(boxGeom,[rightSide,leftSide,top,bottom,front,back]);
+  boxGroup.position.set(0,.02,0);
+  boxGroup.scale.set(1,1,1);
+  boxAssembly.add(boxGroup);
 
-  // Tampa articulada de verdade.
+  inner=new THREE.Mesh(new THREE.BoxGeometry(2.15,.09,.52),new THREE.MeshStandardMaterial({color:0x2b211f,roughness:.92}));
+  inner.position.set(0,2.40,0); boxAssembly.add(inner);
+
   boxLidPivot=new THREE.Group();
-  boxLidPivot.position.set(-.38,1.41,-.48);
-  const lid=new THREE.Mesh(new THREE.BoxGeometry(2.55,.14,.96),new THREE.MeshStandardMaterial({color:0xd62828,roughness:.7}));
-  lid.position.set(0,0,.48);
-  lid.material.transparent=true;
-  boxLidPivot.add(lid);
-  productRoot.add(boxLidPivot);
+  boxLidPivot.position.set(0,2.36,-.31);
+  const lidMat=new THREE.MeshStandardMaterial({color:0xd21f2b,roughness:.76});
+  const lid=new THREE.Mesh(new THREE.BoxGeometry(2.42,.13,.64),lidMat);
+  lid.position.set(0,0,.32);
+  boxLidPivot.add(lid); boxAssembly.add(boxLidPivot);
 
-  // Frasco modelado com perfil realista (lathe), tampa e rótulo cilíndrico.
+  // Frasco em volume real: corpo âmbar com ombros, gargalo e tampa branca curta.
   bottleGroup=new THREE.Group();
-  bottleGroup.position.set(.42,-.60,.00);
+  bottleGroup.position.set(0,-.98,.05);
   bottleGroup.visible=false;
-  const profile=[
-    new THREE.Vector2(.48,-.92),new THREE.Vector2(.55,-.84),new THREE.Vector2(.56,.46),
-    new THREE.Vector2(.52,.60),new THREE.Vector2(.40,.75),new THREE.Vector2(.28,.86),
-    new THREE.Vector2(.27,1.10),new THREE.Vector2(.36,1.12),new THREE.Vector2(.37,1.35)
-  ];
-  const bottleBody=new THREE.Mesh(new THREE.LatheGeometry(profile,64),new THREE.MeshStandardMaterial({color:0x6b2e17,roughness:.20,metalness:.05}));
-  bottleGroup.add(bottleBody);
+  bottleGroup.scale.set(1.04,1.04,1.04);
+
+  const amberMat=new THREE.MeshStandardMaterial({color:0x6b2a12,roughness:.24,metalness:.04});
+  const shoulderMat=new THREE.MeshStandardMaterial({color:0x783017,roughness:.25,metalness:.03});
+  const body=new THREE.Mesh(new THREE.CylinderGeometry(.55,.58,1.48,64),amberMat); body.position.y=.68; bottleGroup.add(body);
+  const shoulder=new THREE.Mesh(new THREE.ConeGeometry(.55,.42,64),shoulderMat); shoulder.position.y=1.63; shoulder.scale.set(1,.98,1); bottleGroup.add(shoulder);
+  const neck=new THREE.Mesh(new THREE.CylinderGeometry(.285,.305,.48,64),amberMat); neck.position.y=2.02; bottleGroup.add(neck);
+  const base=new THREE.Mesh(new THREE.CylinderGeometry(.56,.56,.10,64),new THREE.MeshStandardMaterial({color:0x4d1e0d,roughness:.38})); base.position.y=-.075; bottleGroup.add(base);
+
   const labelTex=createBottleLabelTexture();
-  const label=new THREE.Mesh(new THREE.CylinderGeometry(.561,.561,.78,64,1,true),new THREE.MeshStandardMaterial({map:labelTex,transparent:true,roughness:.5,side:THREE.DoubleSide}));
-  label.rotation.y=Math.PI; label.position.y=-.02; bottleGroup.add(label);
-  const capMat=new THREE.MeshStandardMaterial({color:0xf3f1ed,roughness:.52,metalness:.02});
-  const cap=new THREE.Mesh(new THREE.CylinderGeometry(.37,.39,.34,64),capMat); cap.position.y=1.51; bottleGroup.add(cap);
-  const capRing=new THREE.Mesh(new THREE.TorusGeometry(.35,.025,12,64),capMat); capRing.rotation.x=Math.PI/2; capRing.position.y=1.35; bottleGroup.add(capRing);
-  bottleGroup.traverse(o=>o.castShadow=false);
+  const labelMat=new THREE.MeshStandardMaterial({map:labelTex,transparent:true,roughness:.54,metalness:0,side:THREE.DoubleSide});
+  const label=new THREE.Mesh(new THREE.CylinderGeometry(.591,.591,.86,96,1,true,-1.52,3.04),labelMat);
+  label.position.y=.72; label.rotation.y=Math.PI; bottleGroup.add(label);
+
+  const capMat=new THREE.MeshStandardMaterial({color:0xf4f2ee,roughness:.56,metalness:.01});
+  const capBody=new THREE.Mesh(new THREE.CylinderGeometry(.355,.39,.48,64),capMat); capBody.position.y=2.47; bottleGroup.add(capBody);
+  // ranhuras discretas na tampa para aproximar o acabamento real.
+  for(let i=0;i<24;i++){
+    const a=(i/24)*Math.PI*2;
+    const rib=new THREE.Mesh(new THREE.BoxGeometry(.012,.40,.012),new THREE.MeshStandardMaterial({color:0xd8d5cf,roughness:.7}));
+    rib.position.set(Math.cos(a)*.365,2.47,Math.sin(a)*.365); rib.rotation.y=-a; bottleGroup.add(rib);
+  }
+  const capTop=new THREE.Mesh(new THREE.CylinderGeometry(.31,.35,.08,64),capMat); capTop.position.y=2.75; bottleGroup.add(capTop);
   productRoot.add(bottleGroup);
 
-  // Sombra suave sob o conjunto.
   const shadowCanvas=document.createElement('canvas'); shadowCanvas.width=256; shadowCanvas.height=128;
   const sctx=shadowCanvas.getContext('2d'); const grad=sctx.createRadialGradient(128,64,5,128,64,112); grad.addColorStop(0,'rgba(0,0,0,.42)'); grad.addColorStop(1,'rgba(0,0,0,0)'); sctx.fillStyle=grad; sctx.fillRect(0,0,256,128);
   const shadowTex=new THREE.CanvasTexture(shadowCanvas);
-  const shadow=new THREE.Mesh(new THREE.PlaneGeometry(3.7,1.65),new THREE.MeshBasicMaterial({map:shadowTex,transparent:true,depthWrite:false}));
-  shadow.rotation.x=-Math.PI/2; shadow.position.set(0,-2.02,.25); scene.add(shadow);
+  const shadow=new THREE.Mesh(new THREE.PlaneGeometry(3.7,1.45),new THREE.MeshBasicMaterial({map:shadowTex,transparent:true,depthWrite:false}));
+  shadow.rotation.x=-Math.PI/2; shadow.position.set(0,-2.52,.15); scene.add(shadow);
 
   renderer=new THREE.WebGLRenderer({alpha:true,antialias:true,preserveDrawingBuffer:false});
   renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
@@ -1720,7 +1721,6 @@ function createMedicine3D(){
   threeHost.replaceChildren(renderer.domElement);
   renderer.domElement.style.width='100%'; renderer.domElement.style.height='100%'; renderer.domElement.setAttribute('aria-hidden','true');
   resizeThree();
-
   const ro=new ResizeObserver(resizeThree); ro.observe(threeHost);
   window.addEventListener('resize',resizeThree);
   renderThree();
@@ -1733,28 +1733,29 @@ function resizeThree(){
 function renderThree(){
   if(!renderer) return;
 
-  const targetLid = threeOpen ? -1.18 : 0;
-  const targetBottleZ = threeBottleOut ? 1.85 : 0;
-  const targetBottleY = threeBottleOut ? -.30 : -.60;
-  const targetBoxX = threeExitBox ? -2.65 : -.38;
-  const targetBoxScale = threeExitBox ? .82 : 1;
-  const targetBoxOpacity = threeExitBox ? 0 : 1;
+  const targetLid = threeOpen ? -1.32 : 0;
+  const targetBottleY = threeBottleOut ? -.22 : -1.02;
+  const targetBottleZ = threeBottleOut ? .18 : .05;
+  const boxExitZ = threeExitBox ? -4.6 : 0;
+  const boxScale = threeExitBox ? .88 : 1;
+  const boxOpacity = threeExitBox ? 0 : 1;
 
-  boxLidPivot.rotation.x += (targetLid-boxLidPivot.rotation.x)*.11;
-  bottleGroup.position.z += (targetBottleZ-bottleGroup.position.z)*.105;
-  bottleGroup.position.y += (targetBottleY-bottleGroup.position.y)*.105;
-  boxGroup.position.x += (targetBoxX-boxGroup.position.x)*.085;
-  boxGroup.scale.lerp(new THREE.Vector3(targetBoxScale,targetBoxScale,targetBoxScale),.085);
-  boxGroup.material?.forEach?.(m=>{m.opacity += (targetBoxOpacity-m.opacity)*.08; m.transparent=true;});
-  boxLidPivot.position.x += (targetBoxX+.02-boxLidPivot.position.x)*.085;
-  boxLidPivot.scale.lerp(new THREE.Vector3(targetBoxScale,targetBoxScale,targetBoxScale),.085);
-  inner.position.x += (targetBoxX+.02-inner.position.x)*.085;
-  inner.scale.lerp(new THREE.Vector3(targetBoxScale,targetBoxScale,targetBoxScale),.085);
+  boxLidPivot.rotation.x += (targetLid-boxLidPivot.rotation.x)*.12;
+  bottleGroup.position.y += (targetBottleY-bottleGroup.position.y)*.10;
+  bottleGroup.position.z += (targetBottleZ-bottleGroup.position.z)*.10;
+  boxAssembly.position.z += (boxExitZ-boxAssembly.position.z)*.10;
+  boxAssembly.scale.lerp(new THREE.Vector3(boxScale,boxScale,boxScale),.10);
+  boxAssembly.traverse(obj=>{
+    if(obj.isMesh && obj.material){
+      const mats=Array.isArray(obj.material)?obj.material:[obj.material];
+      mats.forEach(m=>{m.transparent=true; m.opacity += (boxOpacity-m.opacity)*.10;});
+    }
+  });
 
   productRoot.rotation.x += (threeRotX-productRoot.rotation.x)*.18;
   productRoot.rotation.y += (threeRotY-productRoot.rotation.y)*.18;
   camera.position.z += (threeZoom-camera.position.z)*.15;
-  camera.lookAt(0,-.08,0);
+  camera.lookAt(0,.12,0);
 
   renderer.render(scene,camera);
   animationFrameId=requestAnimationFrame(renderThree);
@@ -1762,8 +1763,10 @@ function renderThree(){
 function change3DRotation(dx,dy){ threeRotY += dx; threeRotX=Math.max(-.95,Math.min(.95,threeRotX+dy)); }
 function change3DZoom(delta){ threeZoom=Math.max(4.7,Math.min(8.4,threeZoom+delta)); }
 function reset3D(){
-  threeRotX=-.12; threeRotY=-.42; threeZoom=6.0; threeOpen=false; threeBottleOut=false; threeExitBox=false;
-  if(bottleGroup) bottleGroup.visible=false;
+  threeRotX=-.08; threeRotY=-.28; threeZoom=6.15; threeOpen=false; threeBottleOut=false; threeExitBox=false;
+  if(bottleGroup) { bottleGroup.visible=false; bottleGroup.position.set(0,-1.02,.05); }
+  if(boxAssembly) { boxAssembly.position.set(0,0,0); boxAssembly.scale.set(1,1,1); }
+  if(boxLidPivot) boxLidPivot.rotation.x=0;
 }
 
 if(window.THREE) createMedicine3D();
@@ -1826,13 +1829,13 @@ function applyInteractionStep(step, smoothScroll=true){
     if(bottleGroup) bottleGroup.visible=false;
     hideLeaflet();
     setProgress(2);
-    setStep('2. Abra a caixa','A tampa se abre como uma embalagem real. Observe o interior e avance quando estiver pronto para retirar o medicamento.');
+    setStep('2. Abra a caixa','A tampa se abre como uma embalagem real. Observe a parte interna da embalagem e avance para a retirada do frasco.');
   }else if(step===3){
     threeOpen=true; threeBottleOut=true; threeExitBox=true;
     if(bottleGroup) bottleGroup.visible=true;
     hideLeaflet();
     setProgress(3);
-    setStep('3. Retire o medicamento','A caixa sai de cena enquanto o frasco de suspensão oral sobe e sai de dentro da embalagem. Depois, avance para consultar a bula.');
+    setStep('3. Retire o medicamento','A caixa sai completamente de cena. O frasco sobe e sai de dentro da embalagem, ficando centralizado para você girar e observar.');
   }else{
     threeOpen=true; threeBottleOut=true; threeExitBox=true;
     if(bottleGroup) bottleGroup.visible=true;
