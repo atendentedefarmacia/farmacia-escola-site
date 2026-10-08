@@ -174,7 +174,7 @@ p { margin-top: 0; }
 .chip.active, .chip:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
 
 .medication-card { padding: 0; overflow: hidden; display: flex; flex-direction: column; min-height: 100%; }
-.med-card-image { height: 150px; padding: 10px; background: linear-gradient(145deg, #edf8f4, #d7ebe5); border-bottom: 1px solid var(--line); display: grid; place-items: center; }
+.med-card-image { height: 205px; padding: 10px; background: linear-gradient(145deg, #edf8f4, #d7ebe5); border-bottom: 1px solid var(--line); display: grid; place-items: center; }
 .med-card-image img { width: 100%; height: 100%; object-fit: contain; display: block; }
 .med-card-body { padding: 17px 18px 20px; display: flex; flex-direction: column; flex: 1; }
 .med-card-body h3 { margin: 0 0 8px; }
@@ -182,8 +182,9 @@ p { margin-top: 0; }
 .med-strength { margin: 0 0 9px; padding: 10px 11px; border-radius: 13px; background: var(--surface-2); border: 1px solid var(--line); }
 .med-strength span { display: block; color: var(--muted); font-size: .66rem; text-transform: uppercase; letter-spacing: .08em; font-weight: 900; }
 .med-strength strong { display: block; margin-top: 3px; color: var(--primary-dark); font-size: .83rem; line-height: 1.35; }
+.med-form { margin: 0 0 10px; padding: 10px 11px; border-radius: 13px; border: 1px dashed var(--line); background: transparent; } .med-form span { display:block; color:var(--muted); font-size:.64rem; text-transform:uppercase; letter-spacing:.07em; font-weight:900; } .med-form strong { display:block; margin-top:3px; color:var(--text); font-size:.80rem; line-height:1.35; }
 .medication-learning-note { margin: 18px 0 0; padding: 14px 16px; border-left: 4px solid var(--primary); border-radius: 12px; background: var(--secondary); color: var(--muted); font-size: .88rem; line-height: 1.55; }
-@media (max-width: 700px) { .med-card-image { height: 132px; } }
+@media (max-width: 700px) { .med-card-image { height: 175px; } }
 
 .cards-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
 .card, .access-card, .sustain-grid article { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 20px; box-shadow: 0 12px 30px rgba(14,63,53,.05); }
@@ -225,6 +226,8 @@ p { margin-top: 0; }
 .quiz-name { width: 100%; border: 1px solid var(--line); background: var(--bg); color: var(--text); border-radius: 12px; padding: 13px 14px; margin: 13px 0; outline: none; }
 .quiz-name:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(22,133,111,.13); }
 .quiz-progress { color: var(--primary); font-weight: 900; font-size: .83rem; text-transform: uppercase; letter-spacing: .09em; }
+.quiz-difficulty { display:inline-flex; align-items:center; gap:7px; margin-top:7px; padding:6px 10px; border-radius:999px; border:1px solid var(--line); background:var(--surface-2); color:var(--muted); font-size:.70rem; font-weight:900; letter-spacing:.08em; text-transform:uppercase; }
+.quiz-difficulty.easy { color:#1f7a56; } .quiz-difficulty.medium { color:#8a6400; } .quiz-difficulty.hard { color:#9a3434; }
 .quiz-question { font-size: clamp(1.3rem, 3vw, 2rem); font-weight: 900; margin: 10px 0 22px; }
 .answers { display: grid; gap: 10px; }
 .answer { width: 100%; text-align: left; border: 1px solid var(--line); background: var(--surface); color: var(--text); padding: 14px 16px; border-radius: 14px; font-weight: 750; }
@@ -573,7 +576,7 @@ p { margin-top: 0; }
 #bula .game-phase { background: linear-gradient(135deg, rgba(77,200,171,.20), rgba(16,79,66,.72)); border: 1px solid rgba(141,236,214,.18); }
 #bula .game-phase strong { color: #effffb; }
 #bula .status-dot { width:8px; height:8px; display:inline-block; border-radius:50%; background:#66e2c2; box-shadow:0 0 0 5px rgba(102,226,194,.10),0 0 18px rgba(102,226,194,.55); vertical-align:middle; }
-#bula .medicine-stage { min-height: 500px; border-radius: 20px; background:
+#bula .medicine-stage { min-height: 560px; border-radius: 20px; background:
   radial-gradient(circle at 50% 40%, rgba(68,190,160,.12), transparent 35%),
   linear-gradient(180deg, rgba(12,43,35,.55), rgba(4,25,21,.82));
   isolation:isolate;
@@ -861,7 +864,7 @@ p { margin-top: 0; }
           <p>Compare formas reais de apresentação e observe como o formato faz parte da forma de administração.</p>
         </div>
         <div class="forms-grid" id="formsCards"></div>
-        <p class="image-note">Imagens ilustrativas selecionadas de Wikimedia Commons. Os medicamentos mostrados são apenas exemplos de formas farmacêuticas.</p>
+        <p class="image-note">Fotos de referência de embalagens reais. A concentração, o volume e a forma farmacêutica podem variar conforme o fabricante e a apresentação do produto.</p>
       </div>
     </section>
 
@@ -930,7 +933,7 @@ p { margin-top: 0; }
             <div class="medicine-summary">
               <div><span>Nome</span><strong>Paracetamol</strong></div>
               <div><span>Categoria</span><strong>Analgésico e antitérmico</strong></div>
-              <div><span>Apresentação</span><strong>Solução oral (xarope) · 200 mg/mL · 15 mL</strong></div>
+              <div><span>Apresentação</span><strong>Caixa: 750 mg, comprimidos · Frasco: 200 mg/mL, solução oral · 15 mL</strong></div>
               <div><span>Finalidade geral</span><strong>Redução da febre e alívio temporário de dores leves a moderadas.</strong></div>
             </div>
 
@@ -942,7 +945,7 @@ p { margin-top: 0; }
                 <div class="leaflet-shadow" aria-hidden="true"></div>
                 <article class="leaflet-sheet" id="leafletSheet">
                   <header class="leaflet-sheet-head">
-                    <div><span>PARACETAMOL</span><small>Solução oral · 200 mg/mL · Medicamento genérico</small></div>
+                    <div><span>PARACETAMOL</span><small>Solução oral · 200 mg/mL · frasco 15 mL · guia educativo</small></div>
                     <div class="leaflet-stamp">GUIA<br>EDUCATIVO</div>
                   </header>
                   <div class="leaflet-meta"><span>Leia por assunto</span><span>Documento demonstrativo</span></div>
@@ -1075,7 +1078,7 @@ p { margin-top: 0; }
             <p class="eyebrow">09 · TESTE</p>
             <h2>Quiz da Farmácia-Escola</h2>
           </div>
-          <p>Digite seu nome, responda às 8 perguntas e confira sua pontuação. As tentativas ficam salvas no histórico deste navegador.</p>
+          <p>Digite seu nome, responda às 20 perguntas em três níveis e confira sua pontuação. As tentativas ficam salvas no histórico deste navegador.</p>
         </div>
         <div id="quizBox" class="quiz-box"></div>
         <div class="history-box">
@@ -1150,7 +1153,7 @@ p { margin-top: 0; }
           <p><strong>Projeto:</strong> Extensão digital da Farmácia-Escola</p>
           <hr />
           <p class="credit-small"><strong>Imagem do medicamento interativo:</strong> Referência visual de embalagem e frasco fornecida para esta versão educativa; a apresentação líquida consultada é 200 mg/mL em frasco de 15 mL.</p>
-          <p class="credit-small"><strong>Créditos das imagens:</strong> Wikimedia Commons — <em>Comprimidos.jpg</em> (Abinoam Jr., CC BY-SA 3.0); <em>Capsule medicine.png</em> (Joseph Hemê, CC BY-SA 4.0); <em>Cough medicine.jpg</em> (Mysid, domínio público); <em>Tube of hydrocortisone cream.jpg</em> (Father Goose, CC BY-SA 4.0); <em>Diprosalic ointment tube.jpeg</em> (Cnbrb, CC BY-SA 4.0); <em>Eye Drops - eye lubricant.jpg</em> (Dineshkumar Nallaveerappan, CC BY-SA 4.0).</p>
+          <p class="credit-small"><strong>Fotos dos medicamentos:</strong> referências visuais vinculadas a páginas de produtos e bulas de fabricantes/drogarias consultadas para conferir concentração, apresentação e forma farmacêutica. A versão do site usa carregamento remoto dessas fotos e mantém ilustrações locais como fallback.</p><p class="credit-small"><strong>Outras imagens educativas:</strong> Wikimedia Commons — <em>Comprimidos.jpg</em> (Abinoam Jr., CC BY-SA 3.0); <em>Capsule medicine.png</em> (Joseph Hemê, CC BY-SA 4.0); <em>Cough medicine.jpg</em> (Mysid, domínio público); <em>Tube of hydrocortisone cream.jpg</em> (Father Goose, CC BY-SA 4.0); <em>Diprosalic ointment tube.jpeg</em> (Cnbrb, CC BY-SA 4.0); <em>Eye Drops - eye lubricant.jpg</em> (Dineshkumar Nallaveerappan, CC BY-SA 4.0).</p>
         </div>
       </div>
     </section>
@@ -1204,41 +1207,41 @@ const sectors = [
 ];
 
 const medications = [
-  { title: 'Paracetamol', category: 'dor', strength: '200 mg/mL · solução oral · 15 mL', kind: 'liquid', desc: 'Exemplo didático de medicamento associado ao alívio temporário de dor e febre.' },
-  { title: 'Dipirona', category: 'dor', strength: '500 mg/mL · solução oral (gotas) · 10 ou 20 mL', kind: 'liquid', desc: 'Exemplo didático de medicamento associado ao alívio de dor e febre.' },
-  { title: 'Ibuprofeno', category: 'dor', strength: '100 mg/5 mL · suspensão oral', kind: 'liquid', desc: 'Exemplo de anti-inflamatório não esteroidal relacionado à dor e à inflamação.' },
-  { title: 'Ácido acetilsalicílico', category: 'dor', strength: '500 mg · comprimido', kind: 'tablet', desc: 'Exemplo de medicamento com ação analgésica e antitérmica em algumas apresentações.' },
-  { title: 'Naproxeno', category: 'dor', strength: '550 mg · comprimido', kind: 'tablet', desc: 'Exemplo didático de anti-inflamatório não esteroidal relacionado à dor e inflamação.' },
-  { title: 'Diclofenaco', category: 'dor', strength: '50 mg · comprimido', kind: 'tablet', desc: 'Exemplo de anti-inflamatório usado em situações específicas, conforme orientação profissional.' },
-  { title: 'Cetoprofeno', category: 'dor', strength: '100 mg · cápsula', kind: 'capsule', desc: 'Exemplo de medicamento associado ao controle de dor e inflamação em situações específicas.' },
-  { title: 'Meloxicam', category: 'dor', strength: '15 mg · comprimido', kind: 'tablet', desc: 'Exemplo de anti-inflamatório não esteroidal para situações específicas.' },
+  { title:'Paracetamol', category:'dor', strength:'750 mg', form:'Comprimido revestido · caixa com 20 comprimidos', kind:'tablet', image:'https://drogariasp.vteximg.com.br/arquivos/ids/578264-1000-1000/138835---paracetamol-750mg-generico-neo-quimica-20-comprimidos.jpg?v=637835534369900000', desc:'Exemplo educativo de analgésico e antitérmico. A embalagem apresentada mostra 750 mg e 20 comprimidos.' },
+  { title:'Dipirona', category:'dor', strength:'500 mg/mL', form:'Solução oral (gotas) · frasco com 10 mL', kind:'liquid', image:'https://drogariasp.vteximg.com.br/arquivos/ids/529488-1000-1000/768952---dipirona-sodica-500mgml-neo-quimica-10ml-gotas-g-hypermarcas-1.jpg?v=637790121097870000', desc:'Exemplo educativo de analgésico e antitérmico em solução oral por gotas.' },
+  { title:'Ibuprofeno', category:'dor', strength:'100 mg/5 mL', form:'Suspensão oral · frasco com 100 mL', kind:'liquid', image:'https://www.sociofarma.cl/240-large_default/ibuprofeno-100mg-jarabe-100ml.jpg', desc:'Exemplo educativo de anti-inflamatório não esteroidal disponível em suspensão oral.' },
+  { title:'Ácido acetilsalicílico', category:'dor', strength:'500 mg', form:'Comprimido · embalagem com 10 comprimidos', kind:'tablet', image:'https://d2q99nmsismp7k.cloudfront.net/Custom/Content/Products/45/57/45571_aas-ad-500mg-c-10-ge-ems-p8326_m2_639034657518366350.webp', desc:'Exemplo educativo de medicamento em comprimido, com concentração de 500 mg.' },
+  { title:'Naproxeno', category:'dor', strength:'550 mg', form:'Comprimido revestido · caixa com 10 comprimidos', kind:'tablet', image:'https://cdn.awsli.com.br/800x800/2145/2145192/produto/386284044/4e2d6a95d839e2681358170357f38cbe-yf3nlkc84g.jpg', desc:'Exemplo educativo de anti-inflamatório não esteroidal relacionado ao controle de dor e inflamação.' },
+  { title:'Diclofenaco', category:'dor', strength:'50 mg', form:'Comprimido · caixa com 20 comprimidos', kind:'tablet', image:'https://www.disfacauca.com/6606-large_default/diclofenaco-sodico-50mg-cajax20tab-coaspharma.jpg', desc:'Exemplo educativo de medicamento em comprimido usado em situações específicas de dor e inflamação.' },
+  { title:'Cetoprofeno', category:'dor', strength:'100 mg', form:'Comprimido revestido · caixa com 20 comprimidos', kind:'tablet', image:'https://cdn.awsli.com.br/2500x2500/2051/2051223/produto/340760745/cetoprofeno-100mg-medley-w3h62dfz6i.png', desc:'Exemplo educativo de anti-inflamatório não esteroidal relacionado a dor e inflamação.' },
+  { title:'Meloxicam', category:'dor', strength:'15 mg', form:'Comprimido · caixa com 20 comprimidos', kind:'tablet', image:'https://farmacialalajita.com/storage/products/mobic-D2nFTEbT.webp', desc:'Exemplo educativo de anti-inflamatório não esteroidal em comprimidos.' },
 
-  { title: 'Loratadina', category: 'alergia', strength: '10 mg · comprimido', kind: 'tablet', desc: 'Exemplo de anti-histamínico usado no tratamento de determinados sintomas alérgicos.' },
-  { title: 'Cetirizina', category: 'alergia', strength: '10 mg · comprimido', kind: 'tablet', desc: 'Exemplo de anti-histamínico utilizado em algumas condições alérgicas.' },
-  { title: 'Fexofenadina', category: 'alergia', strength: '120 mg · comprimido', kind: 'tablet', desc: 'Exemplo de anti-histamínico presente em tratamentos de sintomas alérgicos.' },
-  { title: 'Desloratadina', category: 'alergia', strength: '5 mg · comprimido', kind: 'tablet', desc: 'Exemplo de medicamento da classe dos anti-histamínicos.' },
-  { title: 'Dexclorfeniramina', category: 'alergia', strength: '2 mg · comprimido', kind: 'tablet', desc: 'Exemplo de anti-histamínico usado em situações alérgicas específicas.' },
-  { title: 'Levocetirizina', category: 'alergia', strength: '5 mg · comprimido', kind: 'tablet', desc: 'Exemplo de anti-histamínico usado para determinados sintomas alérgicos.' },
-  { title: 'Bilastina', category: 'alergia', strength: '20 mg · comprimido', kind: 'tablet', desc: 'Exemplo de anti-histamínico usado em situações alérgicas específicas.' },
-  { title: 'Rupatadina', category: 'alergia', strength: '10 mg · comprimido', kind: 'tablet', desc: 'Exemplo de anti-histamínico utilizado em determinadas condições alérgicas.' },
+  { title:'Loratadina', category:'alergia', strength:'10 mg', form:'Comprimido · caixa com 12 comprimidos', kind:'tablet', image:'https://product-data.raiadrogasil.io/images/17272306.webp', desc:'Exemplo educativo de anti-histamínico para sintomas alérgicos.' },
+  { title:'Cetirizina', category:'alergia', strength:'10 mg', form:'Cápsula gelatinosa · embalagem com 10 cápsulas', kind:'capsule', image:'https://cdn.ultrafarma.com.br/static/produtos/813581/large-639111642251006825-813581_2.jpg', desc:'Exemplo educativo de anti-histamínico usado em determinadas condições alérgicas.' },
+  { title:'Fexofenadina', category:'alergia', strength:'120 mg', form:'Comprimido revestido · caixa com 10 comprimidos', kind:'tablet', image:'https://drogariavenancio.vtexassets.com/arquivos/ids/2771962/83895_z.jpg?v=639078169434130000', desc:'Exemplo educativo de anti-histamínico para sintomas alérgicos.' },
+  { title:'Desloratadina', category:'alergia', strength:'5 mg', form:'Comprimido revestido · caixa com 10 comprimidos', kind:'tablet', image:'https://drogariasp.vteximg.com.br/arquivos/ids/1635525-1000-1000/267708---Desloratadina-5mg-Generico-Germed-10-Comprimidos-Revestidos-1.jpg?v=639059002432800000', desc:'Exemplo educativo de anti-histamínico.' },
+  { title:'Dexclorfeniramina', category:'alergia', strength:'2 mg', form:'Comprimido · caixa com 20 comprimidos', kind:'tablet', image:'https://farmaconde.vtexassets.com/arquivos/ids/200938/WhatsApp-Image-2023-06-15-at-11.19.03.jpg?v=638224355638570000', desc:'Exemplo educativo de anti-histamínico usado em situações alérgicas específicas.' },
+  { title:'Levocetirizina', category:'alergia', strength:'5 mg', form:'Comprimido revestido · caixa com 10 comprimidos', kind:'tablet', image:'https://cdn.ultrafarma.com.br/static/produtos/817900/medium-638925196736409699-817900.png', desc:'Exemplo educativo de anti-histamínico.' },
+  { title:'Bilastina', category:'alergia', strength:'20 mg', form:'Comprimido · caixa com 30 comprimidos', kind:'tablet', image:'https://drogariacatarinense.vteximg.com.br/arquivos/ids/178839-1000-1000/742260.jpg?v=637828547395770000', desc:'Exemplo educativo de anti-histamínico.' },
+  { title:'Rupatadina', category:'alergia', strength:'10 mg', form:'Comprimido · caixa com 10 comprimidos', kind:'tablet', image:'https://dcuk1cxrnzjkh.cloudfront.net/imagesproducto/033644L.jpg', desc:'Exemplo educativo de anti-histamínico.' },
 
-  { title: 'Amoxicilina', category: 'infeccao', strength: '500 mg · cápsula', kind: 'capsule', desc: 'Exemplo de antibiótico usado contra determinadas infecções bacterianas, conforme prescrição quando indicada.' },
-  { title: 'Azitromicina', category: 'infeccao', strength: '500 mg · comprimido', kind: 'tablet', desc: 'Exemplo de antibiótico utilizado contra determinadas infecções bacterianas, com uso orientado por profissional.' },
-  { title: 'Cefalexina', category: 'infeccao', strength: '250 mg/5 mL · suspensão oral', kind: 'liquid', desc: 'Exemplo de antibiótico da classe das cefalosporinas, disponível também em suspensão oral.' },
-  { title: 'Fluconazol', category: 'infeccao', strength: '150 mg · cápsula', kind: 'capsule', desc: 'Exemplo de medicamento antifúngico usado contra determinadas infecções por fungos.' },
-  { title: 'Aciclovir', category: 'infeccao', strength: '200 mg · comprimido', kind: 'tablet', desc: 'Exemplo de antiviral utilizado em situações específicas de infecções por certos vírus.' },
-  { title: 'Clotrimazol', category: 'infeccao', strength: '1% · creme dermatológico', kind: 'cream', desc: 'Exemplo de antifúngico de uso tópico para situações específicas.' },
-  { title: 'Nistatina', category: 'infeccao', strength: '100.000 UI/mL · suspensão oral', kind: 'liquid', desc: 'Exemplo de antifúngico disponível em algumas apresentações líquidas.' },
-  { title: 'Metronidazol', category: 'infeccao', strength: '250 mg · comprimido', kind: 'tablet', desc: 'Exemplo de medicamento usado contra determinados microrganismos, com indicação específica.' },
+  { title:'Amoxicilina', category:'infeccao', strength:'500 mg', form:'Cápsula dura · caixa com 21 cápsulas', kind:'capsule', image:'https://portal.zilfarma.com/8730-large_default/amoxicilina-500mg-21caps.webp', desc:'Exemplo educativo de antibiótico para infecções bacterianas específicas; requer orientação profissional.' },
+  { title:'Azitromicina', category:'infeccao', strength:'500 mg', form:'Comprimido revestido · caixa com 5 comprimidos', kind:'tablet', image:'https://imgprd.martinsatacado.com.br/catalogoimg/417991/01_417991_01.jpg?ims=1000x&v=160320264210', desc:'Exemplo educativo de antibiótico que deve ser usado conforme prescrição e orientação profissional.' },
+  { title:'Cefalexina', category:'infeccao', strength:'250 mg/5 mL', form:'Suspensão oral · frasco com 100 mL + copo-medida', kind:'liquid', image:'https://loja.fortvale.com.br/463-large_default/cefalexina-susp-oral-250mg-100ml-cx-48.jpg', desc:'Exemplo educativo de antibiótico em suspensão oral.' },
+  { title:'Fluconazol', category:'infeccao', strength:'150 mg', form:'Cápsula · caixa com 1 cápsula', kind:'capsule', image:'https://santaluciadrogaria.vtexassets.com.br/arquivos/ids/165343-800-auto?aspect=true&height=auto&v=637638185843930000&width=800', desc:'Exemplo educativo de antifúngico em cápsula.' },
+  { title:'Aciclovir', category:'infeccao', strength:'200 mg', form:'Comprimido · caixa com 25 comprimidos', kind:'tablet', image:'https://loja.solfarma.com.br/imagens/produto/grande/0000010103_001.png', desc:'Exemplo educativo de antiviral em comprimidos.' },
+  { title:'Clotrimazol', category:'infeccao', strength:'10 mg/g (1%)', form:'Creme dermatológico · bisnaga com 20 g', kind:'cream', image:'https://down-br.img.susercontent.com/file/br-11134207-81ztc-mj4dw5ei90ch35', desc:'Exemplo educativo de antifúngico de uso tópico.' },
+  { title:'Nistatina', category:'infeccao', strength:'100.000 UI/mL', form:'Suspensão oral · frasco com 50 mL + copo-medida', kind:'liquid', image:'https://imgprd.martinsatacado.com.br/catalogoimg/417617/01_417617_01.jpg?ims=1000x&v=260220263207', desc:'Exemplo educativo de antifúngico em suspensão oral.' },
+  { title:'Metronidazol', category:'infeccao', strength:'250 mg', form:'Comprimido · caixa com 20 comprimidos', kind:'tablet', image:'https://imgprd.martinsatacado.com.br/catalogoimg/414572/01_414572_01.jpg?v=030520242852%3Bims%3D1000x', desc:'Exemplo educativo de medicamento com indicação específica contra determinados microrganismos.' },
 
-  { title: 'Metformina', category: 'cronicos', strength: '850 mg · comprimido', kind: 'tablet', desc: 'Exemplo de medicamento usado em tratamentos de longo prazo para controle da glicemia em situações específicas.' },
-  { title: 'Losartana', category: 'cronicos', strength: '50 mg · comprimido', kind: 'tablet', desc: 'Exemplo de medicamento usado em tratamentos de longo prazo relacionados à pressão arterial.' },
-  { title: 'Levotiroxina', category: 'cronicos', strength: '50 µg · comprimido', kind: 'tablet', desc: 'Exemplo de medicamento usado em reposição de hormônio tireoidiano em condições específicas.' },
-  { title: 'Sinvastatina', category: 'cronicos', strength: '20 mg · comprimido', kind: 'tablet', desc: 'Exemplo de medicamento utilizado para controle de colesterol em situações indicadas.' },
-  { title: 'Enalapril', category: 'cronicos', strength: '10 mg · comprimido', kind: 'tablet', desc: 'Exemplo de medicamento utilizado em tratamentos cardiovasculares de acompanhamento contínuo.' },
-  { title: 'Amlodipino', category: 'cronicos', strength: '5 mg · comprimido', kind: 'tablet', desc: 'Exemplo de medicamento usado em tratamentos contínuos relacionados à pressão arterial.' },
-  { title: 'Omeprazol', category: 'cronicos', strength: '20 mg · cápsula', kind: 'capsule', desc: 'Exemplo de medicamento usado para reduzir a produção de ácido do estômago em situações específicas.' },
-  { title: 'Hidroclorotiazida', category: 'cronicos', strength: '25 mg · comprimido', kind: 'tablet', desc: 'Exemplo de diurético utilizado em tratamentos contínuos sob acompanhamento profissional.' }
+  { title:'Metformina', category:'cronicos', strength:'850 mg', form:'Comprimido revestido · caixa com 30 comprimidos', kind:'tablet', image:'https://portal.riomeddistribuicao.com.br/11982-large_default/metformina-850mg-30com-geolab.webp', desc:'Exemplo educativo de medicamento usado em tratamentos de longo prazo para controle da glicemia.' },
+  { title:'Losartana', category:'cronicos', strength:'50 mg', form:'Comprimido revestido · caixa com 30 comprimidos', kind:'tablet', image:'https://d1jgmae0hcnr1i.cloudfront.net/Custom/Content/Products/91/32/91326_losartana-potassica-50mg-c-30-cp-rev-p67632_z1_638285764733223909.png', desc:'Exemplo educativo de medicamento usado em tratamentos contínuos relacionados à pressão arterial.' },
+  { title:'Levotiroxina', category:'cronicos', strength:'50 mcg', form:'Comprimido · caixa com 30 comprimidos', kind:'tablet', image:'https://www.drjonatascatunda.com/images/blog/levotiroxina-1.webp', desc:'Exemplo educativo de hormônio tireoidiano usado em terapia de reposição conforme acompanhamento profissional.' },
+  { title:'Sinvastatina', category:'cronicos', strength:'20 mg', form:'Comprimido revestido · caixa com 30 comprimidos', kind:'tablet', image:'https://cdn.awsli.com.br/800x800/2051/2051223/produto/348849329/sinvastatina-20mg-nova-quimica-imv567sv0l.png', desc:'Exemplo educativo de medicamento usado para controle de colesterol em situações indicadas.' },
+  { title:'Enalapril', category:'cronicos', strength:'10 mg', form:'Comprimido · caixa com 30 comprimidos', kind:'tablet', image:'https://storage.googleapis.com/retailon-publico/inteliger/produtos/7896422514248_0_500x500.webp', desc:'Exemplo educativo de medicamento utilizado em tratamentos cardiovasculares sob acompanhamento profissional.' },
+  { title:'Amlodipino', category:'cronicos', strength:'5 mg', form:'Comprimido · caixa com 30 comprimidos', kind:'tablet', image:'https://imgprd.martinsatacado.com.br/catalogoimg/418607/01_418607_01.jpg?ims=1000x&v=170420262720', desc:'Exemplo educativo de medicamento usado em tratamentos contínuos relacionados à pressão arterial.' },
+  { title:'Omeprazol', category:'cronicos', strength:'20 mg', form:'Cápsula · caixa com 30 cápsulas', kind:'capsule', image:'https://santaluciadrogaria.vtexassets.com/arquivos/ids/159851/7898148290093.png?v=637638047999330000', desc:'Exemplo educativo de medicamento que reduz a produção de ácido do estômago em situações específicas.' },
+  { title:'Hidroclorotiazida', category:'cronicos', strength:'25 mg', form:'Comprimido · caixa com 30 comprimidos', kind:'tablet', image:'https://santaluciadrogaria.vtexassets.com/arquivos/ids/176928/7896714211978.png?v=637703571074870000', desc:'Exemplo educativo de diurético utilizado em tratamentos contínuos sob acompanhamento profissional.' }
 ];
 
 const therapeuticClasses = [
@@ -1280,14 +1283,26 @@ const forms = [
 ];
 
 const quizQuestions = [
-  { q: 'Qual parte da bula ajuda a localizar informações sobre dose e horários de uso?', a: ['Indicação', 'Posologia', 'Conservação', 'Fabricante'], correct: 1 },
-  { q: 'Qual setor da maquete está ligado à organização e conservação dos produtos?', a: ['Caixa', 'Armazenamento', 'Entrada', 'Estacionamento'], correct: 1 },
-  { q: 'Qual opção representa uma forma farmacêutica?', a: ['Comprimido', 'Marca', 'Prateleira', 'Preço'], correct: 0 },
-  { q: 'Qual prática contribui para um site mais acessível?', a: ['Texto minúsculo', 'Baixo contraste', 'Botões sem rótulo', 'Letras legíveis e bom contraste'], correct: 3 },
-  { q: 'Onde agulhas e outros materiais perfurocortantes devem ser colocados?', a: ['Lixo comum', 'Vaso sanitário', 'Recipiente apropriado para perfurocortantes', 'Caixa de papelão aberta'], correct: 2 },
-  { q: 'Por que os antibióticos exigem atenção especial no uso?', a: ['Porque são doces', 'Porque o uso inadequado pode favorecer resistência bacteriana', 'Porque só existem em cápsulas', 'Porque substituem vacinas'], correct: 1 },
-  { q: 'Qual recurso pode ampliar o acesso ao conteúdo de uma maquete?', a: ['QR Code com áudio', 'Texto apagado', 'Luz piscando sem legenda', 'Sinalização escondida'], correct: 0 },
-  { q: 'Qual atitude ajuda na sustentabilidade do projeto?', a: ['Desperdiçar materiais', 'Misturar todos os resíduos', 'Reaproveitar materiais adequados e evitar desperdícios', 'Descartar medicamentos no vaso sanitário'], correct: 2 }
+  { difficulty:'Fácil', level:'easy', q:'Qual destes é um setor apresentado na Farmácia-Escola?', a:['Estacionamento','Armazenamento','Restaurante','Biblioteca'], correct:1 },
+  { difficulty:'Fácil', level:'easy', q:'Qual é uma forma farmacêutica?', a:['Marca','Comprimido','Preço','Prateleira'], correct:1 },
+  { difficulty:'Fácil', level:'easy', q:'Qual recurso pode levar um visitante a um áudio educativo?', a:['Etiqueta de preço','Blister','QR Code','Código de barras do caixa'], correct:2 },
+  { difficulty:'Fácil', level:'easy', q:'Na seção de sustentabilidade, medicamentos vencidos devem ser encaminhados para:', a:['Pia','Vaso sanitário','Lixeira da rua','Ponto de coleta apropriado'], correct:3 },
+  { difficulty:'Fácil', level:'easy', q:'Qual ajuste aumenta o tamanho das letras do site?', a:['Modo escuro','Aumentar texto','Reiniciar','Tela cheia'], correct:1 },
+  { difficulty:'Fácil', level:'easy', q:'Quantas perguntas há nesta versão do quiz?', a:['8','12','20','25'], correct:2 },
+  { difficulty:'Fácil', level:'easy', q:'Qual item representa um recurso de acessibilidade?', a:['Alto contraste','Animação excessiva','Texto minúsculo','Botão sem rótulo'], correct:0 },
+  { difficulty:'Médio', level:'medium', q:'O que significa a concentração indicada em "500 mg/mL"?', a:['Quantidade de caixas','Quantidade do princípio ativo por mL','Número de comprimidos','Tempo de validade'], correct:1 },
+  { difficulty:'Médio', level:'medium', q:'Qual seção permite explorar o medicamento em 3D antes de acessar a bula?', a:['Créditos','Feedback','Rotina','Consulte'], correct:3 },
+  { difficulty:'Médio', level:'medium', q:'Qual etapa vem depois de abrir a caixa na interação do medicamento?', a:['Abrir o menu','Ir aos créditos','Retirar o medicamento','Finalizar o quiz'], correct:2 },
+  { difficulty:'Médio', level:'medium', q:'Qual informação ajuda a identificar a forma farmacêutica de um medicamento?', a:['Comprimido, cápsula ou solução oral','Cor da parede da farmácia','Preço do produto','Nome do visitante'], correct:0 },
+  { difficulty:'Médio', level:'medium', q:'Por que os antibióticos devem ser usados com atenção e orientação profissional?', a:['Porque todos são líquidos','Porque substituem vacinas','Porque não possuem efeitos','Porque o uso inadequado pode favorecer resistência bacteriana'], correct:3 },
+  { difficulty:'Médio', level:'medium', q:'Qual combinação melhora a acessibilidade digital?', a:['Texto pequeno + baixo contraste','Texto legível + bom contraste + foco visível','Som sem legenda','Botões difíceis de tocar'], correct:1 },
+  { difficulty:'Difícil', level:'hard', q:'Qual comparação está correta para as duas apresentações mostradas no projeto?', a:['Caixa: 200 mg/mL; frasco: 750 mg em comprimidos','As duas são exatamente a mesma forma farmacêutica','Caixa: paracetamol 750 mg em comprimidos; frasco: solução oral 200 mg/mL','Nenhuma das duas informa concentração'], correct:2 },
+  { difficulty:'Difícil', level:'hard', q:'Em uma suspensão oral de 250 mg/5 mL, qual é a ideia principal dessa notação?', a:['Há 250 mg do princípio ativo em cada 5 mL da preparação','Há 5 mg em cada 250 mL','A embalagem sempre contém 250 mL','A forma farmacêutica é um comprimido'], correct:0 },
+  { difficulty:'Difícil', level:'hard', q:'Qual ação preserva melhor a proposta educativa do site sobre medicamentos?', a:['Sugerir doses personalizadas','Indicar tratamentos individuais','Substituir a consulta ao profissional','Ensinar a localizar informações sem incentivar automedicação'], correct:3 },
+  { difficulty:'Difícil', level:'hard', q:'Por que o histórico do quiz pode continuar disponível quando o visitante fecha a página?', a:['Porque o PDF da bula guarda as tentativas','Porque as tentativas são salvas no localStorage do navegador','Porque o site usa um servidor obrigatório','Porque ficam gravadas no cartão de memória do medicamento'], correct:1 },
+  { difficulty:'Difícil', level:'hard', q:'Qual descarte é adequado para agulhas e outros perfurocortantes?', a:['Recipiente apropriado para perfurocortantes','Papelão aberto','Lixo comum','Pia'], correct:0 },
+  { difficulty:'Difícil', level:'hard', q:'Durante a interação 3D, qual ação permite observar as diferentes faces do objeto?', a:['Atualizar a página','Clicar no título do site','Abrir o histórico','Arrastar o objeto para alterar a rotação'], correct:3 },
+  { difficulty:'Difícil', level:'hard', q:'Qual é a melhor descrição da função da bula na experiência?', a:['Servir como substituta para orientação profissional','Definir uma dose para qualquer pessoa','Organizar informações educativas sobre indicação, precauções, reações e conservação','Registrar o pagamento do medicamento'], correct:2 }
 ];
 
 const $ = (selector) => document.querySelector(selector);
@@ -1319,20 +1334,23 @@ function labelCategory(c) {
 function renderMeds(filter = 'todos') {
   const items = filter === 'todos' ? medications : medications.filter(x => x.category === filter);
   const visualByKind = {
-    tablet: ['assets/med-visual-tablet.svg','Ilustração da apresentação em comprimido'],
-    liquid: ['assets/med-visual-liquid.svg','Ilustração da apresentação líquida'],
-    capsule: ['assets/med-visual-capsule.svg','Ilustração da apresentação em cápsula'],
-    cream: ['assets/med-visual-tube.svg','Ilustração da apresentação em creme']
+    tablet: ['assets/med-visual-tablet.svg','Ilustração de comprimido'],
+    liquid: ['assets/med-visual-liquid.svg','Ilustração de solução oral'],
+    capsule: ['assets/med-visual-capsule.svg','Ilustração de cápsula'],
+    cream: ['assets/med-visual-tube.svg','Ilustração de creme dermatológico']
   };
   medContainer.innerHTML = items.map(m => {
-    const [image, alt] = visualByKind[m.kind] || visualByKind.tablet;
+    const [fallback, altFallback] = visualByKind[m.kind] || visualByKind.tablet;
     return `
       <article class="card medication-card">
-        <div class="med-card-image"><img src="${image}" alt="${alt} para ${m.title}" loading="lazy" /></div>
+        <div class="med-card-image">
+          <img src="${m.image || fallback}" alt="Foto de referência de ${m.title}, ${m.strength}, ${m.form}" loading="lazy" onerror="this.onerror=null;this.src='${fallback}';" />
+        </div>
         <div class="med-card-body">
           <span class="tag">${labelCategory(m.category)}</span>
           <h3>${m.title}</h3>
-          <div class="med-strength"><span>Concentração / apresentação</span><strong>${m.strength}</strong></div>
+          <div class="med-strength"><span>Concentração</span><strong>${m.strength}</strong></div>
+          <div class="med-form"><span>Forma farmacêutica / apresentação</span><strong>${m.form}</strong></div>
           <p>${m.desc}</p>
         </div>
       </article>`;
@@ -1493,6 +1511,7 @@ function renderQuizQuestion() {
   const item = quizQuestions[quizIndex];
   quizBox.innerHTML = `
     <div class="quiz-progress">Pergunta ${quizIndex + 1} de ${quizQuestions.length}</div>
+    <div class="quiz-difficulty ${item.level}">${item.difficulty}</div>
     <div class="quiz-question">${item.q}</div>
     <div class="answers" id="answers">
       ${item.a.map((answer, i) => `<button class="answer" data-index="${i}" type="button">${String.fromCharCode(65+i)}. ${answer}</button>`).join('')}
@@ -1512,12 +1531,12 @@ function renderQuizQuestion() {
     answerButtons.forEach(b => b.disabled = true);
     if (chosen === correct) {
       btn.classList.add('correct');
-      $('#feedback').textContent = '✅ Resposta correta!';
+      $('#feedback').textContent = 'Resposta correta!';
       quizScore++;
     } else {
       btn.classList.add('wrong');
       answerButtons[correct].classList.add('correct');
-      $('#feedback').textContent = '❌ Observe a resposta destacada.';
+      $('#feedback').textContent = 'Observe a resposta destacada.';
     }
     next.disabled = false;
   }));
@@ -1541,7 +1560,7 @@ function finishQuiz() {
     <div class="result">
       <p class="eyebrow">RESULTADO DE ${escapeHtml(quizName)}</p>
       <div class="result-score">${quizScore}/${quizQuestions.length}</div>
-      <h3>${quizScore === quizQuestions.length ? 'Excelente! 🎉' : quizScore >= 6 ? 'Muito bem! 👏' : quizScore >= 4 ? 'Bom começo! 📚' : 'Continue explorando! 🔎'}</h3>
+      <h3>${quizScore >= 18 ? 'Excelente desempenho!' : quizScore >= 14 ? 'Muito bom!' : quizScore >= 10 ? 'Bom trabalho!' : 'Continue explorando e aprendendo!'}</h3>
       <p>Você acertou ${quizScore} de ${quizQuestions.length} perguntas. O resultado já foi registrado no histórico deste navegador.</p>
       <button class="btn primary" id="restartQuiz" type="button">Tentar novamente</button>
     </div>`;
@@ -1584,7 +1603,7 @@ function setStep(title,text){
 // --- WebGL 3D (Three.js): caixa + frasco, com rotação livre e zoom ---
 const threeHost = document.getElementById('threeMedicineViewport');
 let renderer, camera, scene, productRoot, boxAssembly, boxGroup, boxLidPivot, bottleGroup, inner, animationFrameId;
-let threeRotX = -0.16, threeRotY = -0.52, threeZoom = 6.4;
+let threeRotX = -0.08, threeRotY = -0.12, threeZoom = 10.8;
 let pointerActive = false, lastPX = 0, lastPY = 0;
 let threeOpen = false, threeBottleOut = false;
 let bottleStart = 0, lidStart = 0;
@@ -1611,7 +1630,7 @@ function createBottleLabelTexture(){
   ctx.beginPath(); ctx.moveTo(0,0); ctx.lineTo(c.width,0); ctx.lineTo(c.width,120); ctx.quadraticCurveTo(840,95,690,128); ctx.quadraticCurveTo(490,170,300,118); ctx.quadraticCurveTo(120,88,0,120); ctx.closePath(); ctx.fill();
   ctx.fillStyle='#ffffff'; ctx.font='900 56px Inter, Arial'; ctx.fillText('neo',40,58); ctx.fillText('química',40,106);
   ctx.fillStyle='#ffffff'; ctx.font='900 74px Inter, Arial'; ctx.fillText('paracetamol',42,232);
-  ctx.font='700 31px Inter, Arial'; ctx.fillText('Solução oral (xarope) 200 mg/mL',44,275);
+  ctx.font='700 31px Inter, Arial'; ctx.fillText('Solução oral (gotas) 200 mg/mL',44,275);
   ctx.fillStyle='#ffd92f'; ctx.font='900 30px Inter, Arial'; ctx.fillText('ALÍVIO DA DOR E FEBRE',44,350);
   ctx.fillStyle='#ffffff'; ctx.font='700 26px Inter, Arial'; ctx.fillText('› Analgésico',48,400); ctx.fillText('› Antitérmico',48,442);
   ctx.font='800 24px Inter, Arial'; ctx.fillText('USO ORAL',44,525);
@@ -1641,7 +1660,7 @@ function createMedicine3D(){
   if(!window.THREE || !threeHost) return;
   scene=new THREE.Scene();
   camera=new THREE.PerspectiveCamera(31,1,.1,100);
-  camera.position.set(0,0.22,7.1);
+  camera.position.set(0,0.38,10.8);
   scene.add(new THREE.HemisphereLight(0xf2fff9,0x14342b,2.25));
   const key=new THREE.DirectionalLight(0xffffff,3.6); key.position.set(4,6,7); scene.add(key);
   const fill=new THREE.DirectionalLight(0x74dfc7,1.3); fill.position.set(-4,2,3); scene.add(fill);
@@ -1675,37 +1694,56 @@ function createMedicine3D(){
   boxLidPivot=new THREE.Group();
   boxLidPivot.position.set(0,2.36,-.31);
   const lidMat=new THREE.MeshStandardMaterial({color:0xd21f2b,roughness:.76});
-  const lid=new THREE.Mesh(new THREE.BoxGeometry(2.42,.13,.64),lidMat);
+  const lid=new THREE.Mesh(new THREE.BoxGeometry(2.42,.16,.64),lidMat);
   lid.position.set(0,0,.32);
   boxLidPivot.add(lid); boxAssembly.add(boxLidPivot);
 
-  // Frasco em volume real: corpo âmbar com ombros, gargalo e tampa branca curta.
+  // Frasco modelado por perfil: corpo âmbar contínuo, ombros arredondados, gargalo e tampa.
   bottleGroup=new THREE.Group();
-  bottleGroup.position.set(0,-.98,.05);
+  bottleGroup.position.set(0,-1.02,.05);
   bottleGroup.visible=false;
-  bottleGroup.scale.set(1.04,1.04,1.04);
+  // Proporção inspirada diretamente na referência enviada: corpo baixo e largo,
+  // ombros inclinados e arredondados, gargalo curto e tampa branca alta/ribada.
+  bottleGroup.scale.set(1.18,1.02,.94);
 
-  const amberMat=new THREE.MeshStandardMaterial({color:0x6b2a12,roughness:.24,metalness:.04});
-  const shoulderMat=new THREE.MeshStandardMaterial({color:0x783017,roughness:.25,metalness:.03});
-  const body=new THREE.Mesh(new THREE.CylinderGeometry(.55,.58,1.48,64),amberMat); body.position.y=.68; bottleGroup.add(body);
-  const shoulder=new THREE.Mesh(new THREE.ConeGeometry(.55,.42,64),shoulderMat); shoulder.position.y=1.63; shoulder.scale.set(1,.98,1); bottleGroup.add(shoulder);
-  const neck=new THREE.Mesh(new THREE.CylinderGeometry(.285,.305,.48,64),amberMat); neck.position.y=2.02; bottleGroup.add(neck);
-  const base=new THREE.Mesh(new THREE.CylinderGeometry(.56,.56,.10,64),new THREE.MeshStandardMaterial({color:0x4d1e0d,roughness:.38})); base.position.y=-.075; bottleGroup.add(base);
+  const amberMat=new THREE.MeshPhysicalMaterial({color:0x2c1208,roughness:.18,metalness:.02,transmission:.025,thickness:.28,clearcoat:.18});
+  const bottleProfile=[
+    new THREE.Vector2(.46,0.02),
+    new THREE.Vector2(.52,0.06),
+    new THREE.Vector2(.56,0.13),
+    new THREE.Vector2(.58,0.22),
+    new THREE.Vector2(.58,1.28),
+    new THREE.Vector2(.57,1.42),
+    new THREE.Vector2(.54,1.53),
+    new THREE.Vector2(.47,1.65),
+    new THREE.Vector2(.38,1.76),
+    new THREE.Vector2(.31,1.86),
+    new THREE.Vector2(.28,1.96),
+    new THREE.Vector2(.28,2.10)
+  ];
+  const bottleGeom=new THREE.LatheGeometry(bottleProfile,96);
+  bottleGeom.computeVertexNormals();
+  const body=new THREE.Mesh(bottleGeom,amberMat); bottleGroup.add(body);
+  const baseDisc=new THREE.Mesh(new THREE.CylinderGeometry(.50,.55,.10,96),new THREE.MeshPhysicalMaterial({color:0x241009,roughness:.30,metalness:.01}));
+  baseDisc.position.y=.025; bottleGroup.add(baseDisc);
+  const baseLip=new THREE.Mesh(new THREE.TorusGeometry(.515,.025,16,96),new THREE.MeshStandardMaterial({color:0x170a06,roughness:.30}));
+  baseLip.rotation.x=Math.PI/2; baseLip.position.y=.055; bottleGroup.add(baseLip);
 
   const labelTex=createBottleLabelTexture();
-  const labelMat=new THREE.MeshStandardMaterial({map:labelTex,transparent:true,roughness:.54,metalness:0,side:THREE.DoubleSide});
-  const label=new THREE.Mesh(new THREE.CylinderGeometry(.591,.591,.86,96,1,true,-1.52,3.04),labelMat);
-  label.position.y=.72; label.rotation.y=Math.PI; bottleGroup.add(label);
+  const labelMat=new THREE.MeshStandardMaterial({map:labelTex,transparent:true,roughness:.46,metalness:0,side:THREE.DoubleSide});
+  const label=new THREE.Mesh(new THREE.CylinderGeometry(.585,.585,.84,96,1,true,-1.53,3.06),labelMat);
+  label.position.y=.78; bottleGroup.add(label);
 
-  const capMat=new THREE.MeshStandardMaterial({color:0xf4f2ee,roughness:.56,metalness:.01});
-  const capBody=new THREE.Mesh(new THREE.CylinderGeometry(.355,.39,.48,64),capMat); capBody.position.y=2.47; bottleGroup.add(capBody);
-  // ranhuras discretas na tampa para aproximar o acabamento real.
-  for(let i=0;i<24;i++){
-    const a=(i/24)*Math.PI*2;
-    const rib=new THREE.Mesh(new THREE.BoxGeometry(.012,.40,.012),new THREE.MeshStandardMaterial({color:0xd8d5cf,roughness:.7}));
-    rib.position.set(Math.cos(a)*.365,2.47,Math.sin(a)*.365); rib.rotation.y=-a; bottleGroup.add(rib);
+  const capMat=new THREE.MeshStandardMaterial({color:0xf4f2ed,roughness:.50,metalness:.01});
+  const capLower=new THREE.Mesh(new THREE.CylinderGeometry(.36,.39,.09,96),capMat); capLower.position.y=2.08; bottleGroup.add(capLower);
+  const capBody=new THREE.Mesh(new THREE.CylinderGeometry(.39,.41,.43,96),capMat); capBody.position.y=2.35; bottleGroup.add(capBody);
+  const capTop=new THREE.Mesh(new THREE.CylinderGeometry(.34,.39,.10,96),capMat); capTop.position.y=2.615; bottleGroup.add(capTop);
+  const capTopDisk=new THREE.Mesh(new THREE.CylinderGeometry(.32,.34,.045,96),new THREE.MeshStandardMaterial({color:0xfbfaf7,roughness:.56})); capTopDisk.position.y=2.687; bottleGroup.add(capTopDisk);
+  for(let i=0;i<64;i++){
+    const a=(i/64)*Math.PI*2;
+    const rib=new THREE.Mesh(new THREE.BoxGeometry(.010,.39,.020),new THREE.MeshStandardMaterial({color:0xd3cec5,roughness:.72}));
+    rib.position.set(Math.cos(a)*.394,2.35,Math.sin(a)*.394); rib.rotation.y=-a; bottleGroup.add(rib);
   }
-  const capTop=new THREE.Mesh(new THREE.CylinderGeometry(.31,.35,.08,64),capMat); capTop.position.y=2.75; bottleGroup.add(capTop);
   productRoot.add(bottleGroup);
 
   const shadowCanvas=document.createElement('canvas'); shadowCanvas.width=256; shadowCanvas.height=128;
@@ -1733,17 +1771,18 @@ function resizeThree(){
 function renderThree(){
   if(!renderer) return;
 
-  const targetLid = threeOpen ? -1.32 : 0;
-  const targetBottleY = threeBottleOut ? -.22 : -1.02;
-  const targetBottleZ = threeBottleOut ? .18 : .05;
-  const boxExitZ = threeExitBox ? -4.6 : 0;
-  const boxScale = threeExitBox ? .88 : 1;
+  const targetLid = threeOpen ? -1.46 : 0;
+  const targetBottleY = threeBottleOut ? .05 : -1.02;
+  const targetBottleZ = threeBottleOut ? .55 : .05;
+  const boxExitX = threeExitBox ? -5.2 : 0;
+  const boxScale = threeExitBox ? .92 : 1;
   const boxOpacity = threeExitBox ? 0 : 1;
 
   boxLidPivot.rotation.x += (targetLid-boxLidPivot.rotation.x)*.12;
+  bottleGroup.visible = threeBottleOut;
   bottleGroup.position.y += (targetBottleY-bottleGroup.position.y)*.10;
   bottleGroup.position.z += (targetBottleZ-bottleGroup.position.z)*.10;
-  boxAssembly.position.z += (boxExitZ-boxAssembly.position.z)*.10;
+  boxAssembly.position.x += (boxExitX-boxAssembly.position.x)*.12;
   boxAssembly.scale.lerp(new THREE.Vector3(boxScale,boxScale,boxScale),.10);
   boxAssembly.traverse(obj=>{
     if(obj.isMesh && obj.material){
@@ -1761,9 +1800,9 @@ function renderThree(){
   animationFrameId=requestAnimationFrame(renderThree);
 }
 function change3DRotation(dx,dy){ threeRotY += dx; threeRotX=Math.max(-.95,Math.min(.95,threeRotX+dy)); }
-function change3DZoom(delta){ threeZoom=Math.max(4.7,Math.min(8.4,threeZoom+delta)); }
+function change3DZoom(delta){ threeZoom=Math.max(8.5,Math.min(13.5,threeZoom+delta)); }
 function reset3D(){
-  threeRotX=-.08; threeRotY=-.28; threeZoom=6.15; threeOpen=false; threeBottleOut=false; threeExitBox=false;
+  threeRotX=-.08; threeRotY=-.12; threeZoom=10.8; threeOpen=false; threeBottleOut=false; threeExitBox=false;
   if(bottleGroup) { bottleGroup.visible=false; bottleGroup.position.set(0,-1.02,.05); }
   if(boxAssembly) { boxAssembly.position.set(0,0,0); boxAssembly.scale.set(1,1,1); }
   if(boxLidPivot) boxLidPivot.rotation.x=0;
