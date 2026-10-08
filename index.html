@@ -174,8 +174,12 @@ p { margin-top: 0; }
 .chip.active, .chip:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
 
 .medication-card { padding: 0; overflow: hidden; display: flex; flex-direction: column; min-height: 100%; }
-.med-card-image { height: 205px; padding: 10px; background: linear-gradient(145deg, #edf8f4, #d7ebe5); border-bottom: 1px solid var(--line); display: grid; place-items: center; }
-.med-card-image img { width: 100%; height: 100%; object-fit: contain; display: block; }
+/* Section 02: more room for the whole package photo, without clipping. */
+#medicationCards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.med-card-image { height: 245px; padding: 4px 10px; background: linear-gradient(145deg, #edf8f4, #d7ebe5); border-bottom: 1px solid var(--line); display: grid; place-items: center; }
+.med-card-image img { width: 100%; height: 100%; max-width: 100%; max-height: 100%; object-fit: contain; object-position: center; display: block; }
+.med-fallback-photo { width: 100%; height: 100%; display: grid; place-items: center; padding: 10px; }
+.med-fallback-photo svg { width: 100%; height: 100%; max-width: 250px; max-height: 230px; display: block; filter: drop-shadow(0 12px 16px rgba(8,43,36,.12)); }
 .med-photo-badge { position:absolute; left:10px; bottom:10px; z-index:2; padding:5px 8px; border-radius:999px; background:rgba(7,43,35,.78); color:#fff; font-size:.58rem; font-weight:900; letter-spacing:.07em; backdrop-filter:blur(7px); }
 body.dark .med-photo-badge { background:rgba(6,22,19,.82); color:#d8fff4; }
 .med-card-body { padding: 17px 18px 20px; display: flex; flex-direction: column; flex: 1; background: var(--surface); }
@@ -243,7 +247,9 @@ body.dark .medication-card .med-strength span, body.dark .medication-card .med-f
 body.dark .medication-card .med-strength strong, body.dark .medication-card .med-form strong { color: #ecfff9; }
 body.dark .medication-card .med-strength, body.dark .medication-card .med-form { color:#edfdf8; } body.dark .medication-card .med-strength span, body.dark .medication-card .med-form span { background:transparent; }
 .medication-learning-note { margin: 18px 0 0; padding: 14px 16px; border-left: 4px solid var(--primary); border-radius: 12px; background: var(--secondary); color: var(--muted); font-size: .88rem; line-height: 1.55; }
-@media (max-width: 700px) { .med-card-image { height: 175px; } .med-strength strong, .med-form strong { overflow-wrap: anywhere; } }
+@media (max-width: 1080px) { #medicationCards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 700px) { #medicationCards { grid-template-columns: 1fr; } .med-card-image { height: 215px; padding: 2px 6px; } .med-card-image img { transform: scale(1.035); } .med-fallback-photo { padding: 2px; } .med-strength strong, .med-form strong { overflow-wrap: anywhere; } }
+@media (max-width: 430px) { .med-card-image { height: 225px; } .med-card-image img { transform: scale(1.06); } }
 
 .cards-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
 .card, .access-card, .sustain-grid article { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 20px; box-shadow: 0 12px 30px rgba(14,63,53,.05); }
@@ -1279,9 +1285,9 @@ const medications = [
   { title:'Paracetamol', category:'dor', strength:'750 mg', form:'Comprimido revestido · caixa com 20 comprimidos', kind:'tablet', image:'https://drogariasp.vteximg.com.br/arquivos/ids/578264-1000-1000/138835---paracetamol-750mg-generico-neo-quimica-20-comprimidos.jpg?v=637835534369900000', desc:'Exemplo educativo de analgésico e antitérmico. A embalagem apresentada mostra 750 mg e 20 comprimidos.' },
   { title:'Dipirona', category:'dor', strength:'500 mg/mL', form:'Solução oral (gotas) · frasco com 10 mL', kind:'liquid', image:'https://drogariasp.vteximg.com.br/arquivos/ids/529488-1000-1000/768952---dipirona-sodica-500mgml-neo-quimica-10ml-gotas-g-hypermarcas-1.jpg?v=637790121097870000', desc:'Exemplo educativo de analgésico e antitérmico em solução oral por gotas.' },
   { title:'Ibuprofeno', category:'dor', strength:'100 mg/5 mL', form:'Suspensão oral · frasco com 100 mL', kind:'liquid', image:'https://www.sociofarma.cl/240-large_default/ibuprofeno-100mg-jarabe-100ml.jpg', desc:'Exemplo educativo de anti-inflamatório não esteroidal disponível em suspensão oral.' },
-  { title:'Ácido acetilsalicílico', category:'dor', strength:'500 mg', form:'Comprimido · embalagem com 10 comprimidos', kind:'tablet', image:'https://d2q99nmsismp7k.cloudfront.net/Custom/Content/Products/45/57/45571_aas-ad-500mg-c-10-ge-ems-p8326_m2_639034657518366350.webp', desc:'Exemplo educativo de medicamento em comprimido, com concentração de 500 mg.' },
-  { title:'Naproxeno', category:'dor', strength:'550 mg', form:'Comprimido revestido · caixa com 10 comprimidos', kind:'tablet', image:'https://cdn.awsli.com.br/800x800/2145/2145192/produto/386284044/4e2d6a95d839e2681358170357f38cbe-yf3nlkc84g.jpg', desc:'Exemplo educativo de anti-inflamatório não esteroidal relacionado ao controle de dor e inflamação.' },
-  { title:'Diclofenaco', category:'dor', strength:'50 mg', form:'Comprimido · caixa com 20 comprimidos', kind:'tablet', image:'https://www.disfacauca.com/6606-large_default/diclofenaco-sodico-50mg-cajax20tab-coaspharma.jpg', desc:'Exemplo educativo de medicamento em comprimido usado em situações específicas de dor e inflamação.' },
+  { title:'Ácido acetilsalicílico', category:'dor', strength:'500 mg', form:'Comprimido · embalagem com 10 comprimidos', kind:'tablet', image:'https://www.drogarianovaesperanca.com.br/imagens-complete/1000x1000/acido-acetilsalicilico-500mg-com-20-comprimidos-f699dbfe00.jpg', desc:'Exemplo educativo de medicamento em comprimido, com concentração de 500 mg.' },
+  { title:'Naproxeno', category:'dor', strength:'550 mg', form:'Comprimido revestido · caixa com 10 comprimidos', kind:'tablet', image:'https://drogariavenancio.vtexassets.com/arquivos/ids/3044872/69444_z.jpg?v=639083304528100000', desc:'Exemplo educativo de anti-inflamatório não esteroidal relacionado ao controle de dor e inflamação.' },
+  { title:'Diclofenaco', category:'dor', strength:'50 mg', form:'Comprimido · caixa com 20 comprimidos', kind:'tablet', image:'https://images.tcdn.com.br/img/img_prod/1265393/diclofenaco_sodico_50mg_20_comp_rev_neo_36223_1_6b61e698fc83a0165f98b032431f16a2.jpg', desc:'Exemplo educativo de medicamento em comprimido usado em situações específicas de dor e inflamação.' },
   { title:'Cetoprofeno', category:'dor', strength:'100 mg', form:'Comprimido revestido · caixa com 20 comprimidos', kind:'tablet', image:'https://cdn.awsli.com.br/2500x2500/2051/2051223/produto/340760745/cetoprofeno-100mg-medley-w3h62dfz6i.png', desc:'Exemplo educativo de anti-inflamatório não esteroidal relacionado a dor e inflamação.' },
   { title:'Meloxicam', category:'dor', strength:'15 mg', form:'Comprimido · caixa com 20 comprimidos', kind:'tablet', image:'https://farmacialalajita.com/storage/products/mobic-D2nFTEbT.webp', desc:'Exemplo educativo de anti-inflamatório não esteroidal em comprimidos.' },
 
@@ -1292,14 +1298,14 @@ const medications = [
   { title:'Dexclorfeniramina', category:'alergia', strength:'2 mg', form:'Comprimido · caixa com 20 comprimidos', kind:'tablet', image:'https://farmaconde.vtexassets.com/arquivos/ids/200938/WhatsApp-Image-2023-06-15-at-11.19.03.jpg?v=638224355638570000', desc:'Exemplo educativo de anti-histamínico usado em situações alérgicas específicas.' },
   { title:'Levocetirizina', category:'alergia', strength:'5 mg', form:'Comprimido revestido · caixa com 10 comprimidos', kind:'tablet', image:'https://cdn.ultrafarma.com.br/static/produtos/817900/medium-638925196736409699-817900.png', desc:'Exemplo educativo de anti-histamínico.' },
   { title:'Bilastina', category:'alergia', strength:'20 mg', form:'Comprimido · caixa com 30 comprimidos', kind:'tablet', image:'https://drogariacatarinense.vteximg.com.br/arquivos/ids/178839-1000-1000/742260.jpg?v=637828547395770000', desc:'Exemplo educativo de anti-histamínico.' },
-  { title:'Rupatadina', category:'alergia', strength:'10 mg', form:'Comprimido · caixa com 10 comprimidos', kind:'tablet', image:'https://dcuk1cxrnzjkh.cloudfront.net/imagesproducto/033644L.jpg', desc:'Exemplo educativo de anti-histamínico.' },
+  { title:'Rupatadina', category:'alergia', strength:'10 mg', form:'Comprimido · caixa com 10 comprimidos', kind:'tablet', image:'https://unidrogas.vtexassets.com/arquivos/ids/434987-800-800?aspect=true&height=800&v=638964632582200000&width=800', desc:'Exemplo educativo de anti-histamínico.' },
 
   { title:'Amoxicilina', category:'infeccao', strength:'500 mg', form:'Cápsula dura · caixa com 21 cápsulas', kind:'capsule', image:'https://portal.zilfarma.com/8730-large_default/amoxicilina-500mg-21caps.webp', desc:'Exemplo educativo de antibiótico para infecções bacterianas específicas; requer orientação profissional.' },
   { title:'Azitromicina', category:'infeccao', strength:'500 mg', form:'Comprimido revestido · caixa com 5 comprimidos', kind:'tablet', image:'https://imgprd.martinsatacado.com.br/catalogoimg/417991/01_417991_01.jpg?ims=1000x&v=160320264210', desc:'Exemplo educativo de antibiótico que deve ser usado conforme prescrição e orientação profissional.' },
   { title:'Cefalexina', category:'infeccao', strength:'250 mg/5 mL', form:'Suspensão oral · frasco com 100 mL + copo-medida', kind:'liquid', image:'https://loja.fortvale.com.br/463-large_default/cefalexina-susp-oral-250mg-100ml-cx-48.jpg', desc:'Exemplo educativo de antibiótico em suspensão oral.' },
-  { title:'Fluconazol', category:'infeccao', strength:'150 mg', form:'Cápsula · caixa com 1 cápsula', kind:'capsule', image:'https://santaluciadrogaria.vtexassets.com.br/arquivos/ids/165343-800-auto?aspect=true&height=auto&v=637638185843930000&width=800', desc:'Exemplo educativo de antifúngico em cápsula.' },
+  { title:'Fluconazol', category:'infeccao', strength:'150 mg', form:'Cápsula · caixa com 1 cápsula', kind:'capsule', image:'https://d1jgmae0hcnr1i.cloudfront.net/Custom/Content/Products/25/19/251903_fluconazol-150mg-1comprimido-p142078_z1_638352194776427420.png', desc:'Exemplo educativo de antifúngico em cápsula.' },
   { title:'Aciclovir', category:'infeccao', strength:'200 mg', form:'Comprimido · caixa com 25 comprimidos', kind:'tablet', image:'https://loja.solfarma.com.br/imagens/produto/grande/0000010103_001.png', desc:'Exemplo educativo de antiviral em comprimidos.' },
-  { title:'Clotrimazol', category:'infeccao', strength:'10 mg/g (1%)', form:'Creme dermatológico · bisnaga com 20 g', kind:'cream', image:'https://down-br.img.susercontent.com/file/br-11134207-81ztc-mj4dw5ei90ch35', desc:'Exemplo educativo de antifúngico de uso tópico.' },
+  { title:'Clotrimazol', category:'infeccao', strength:'10 mg/g (1%)', form:'Creme dermatológico · bisnaga com 20 g', kind:'cream', image:'https://cdn1.staticpanvel.com.br/produtos/15/403052-15.jpg', desc:'Exemplo educativo de antifúngico de uso tópico.' },
   { title:'Nistatina', category:'infeccao', strength:'100.000 UI/mL', form:'Suspensão oral · frasco com 50 mL + copo-medida', kind:'liquid', image:'https://imgprd.martinsatacado.com.br/catalogoimg/417617/01_417617_01.jpg?ims=1000x&v=260220263207', desc:'Exemplo educativo de antifúngico em suspensão oral.' },
   { title:'Metronidazol', category:'infeccao', strength:'250 mg', form:'Comprimido · caixa com 20 comprimidos', kind:'tablet', image:'https://imgprd.martinsatacado.com.br/catalogoimg/414572/01_414572_01.jpg?v=030520242852%3Bims%3D1000x', desc:'Exemplo educativo de medicamento com indicação específica contra determinados microrganismos.' },
 
@@ -1422,21 +1428,52 @@ function initViewAnimations(root = document) {
   });
 }
 
+function medFallbackSvg({title, strength, form, kind}) {
+  const colors = {
+    tablet: ['#eef3f8','#1f5276'], liquid: ['#eef8f1','#16624f'], capsule: ['#f7f1fb','#69468c'], cream: ['#fff4eb','#a85b2d']
+  };
+  const [bg, accent] = colors[kind] || colors.tablet;
+  const safe = (v='') => String(v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  const label = kind === 'liquid' ? 'SUSPENSÃO ORAL' : kind === 'cream' ? 'CREME' : kind === 'capsule' ? 'CÁPSULAS' : 'COMPRIMIDOS';
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 430">
+    <rect width="520" height="430" rx="30" fill="${bg}"/>
+    <g transform="translate(118 28)">
+      <polygon points="210,0 250,24 250,340 210,364" fill="#d5dbe2"/>
+      <rect x="0" y="24" width="210" height="340" rx="10" fill="#ffffff" stroke="#c6cdd5" stroke-width="2"/>
+      <rect x="0" y="24" width="210" height="64" rx="10" fill="${accent}"/>
+      <text x="18" y="62" font-family="Arial, sans-serif" font-size="21" font-weight="700" fill="#ffffff">${safe(title).slice(0,24)}</text>
+      <text x="18" y="124" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#18322b">${safe(strength)}</text>
+      <text x="18" y="156" font-family="Arial, sans-serif" font-size="15" fill="#53625d">${safe(label)}</text>
+      <rect x="18" y="188" width="174" height="66" rx="12" fill="#f1f5f7"/>
+      <text x="32" y="214" font-family="Arial, sans-serif" font-size="12" fill="#6a7773">FORMA / APRESENTAÇÃO</text>
+      <text x="32" y="238" font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="#1d332e">${safe(form).slice(0,34)}</text>
+      <rect x="18" y="280" width="62" height="48" rx="8" fill="${accent}" opacity=".13"/>
+      <text x="49" y="310" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="700" fill="${accent}">REFERÊNCIA</text>
+    </g>
+  </svg>`;
+  return 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg);
+}
+
+function handleMedImageError(img) {
+  if (img.dataset.fallbackApplied === '1') return;
+  img.dataset.fallbackApplied = '1';
+  const data = { title: img.dataset.title, strength: img.dataset.strength, form: img.dataset.form, kind: img.dataset.kind };
+  const wrap = document.createElement('div');
+  wrap.className = 'med-fallback-photo';
+  const svgImg = document.createElement('img');
+  svgImg.src = medFallbackSvg(data);
+  svgImg.alt = `Ilustração de apoio de ${data.title}, ${data.strength}, ${data.form}`;
+  svgImg.removeAttribute('onerror');
+  wrap.appendChild(svgImg);
+  img.replaceWith(wrap);
+}
+
 function renderMeds(filter = 'todos') {
   const items = filter === 'todos' ? medications : medications.filter(x => x.category === filter);
-  const visualByKind = {
-    tablet: ['assets/med-visual-tablet.svg','Ilustração de comprimido'],
-    liquid: ['assets/med-visual-liquid.svg','Ilustração de solução oral'],
-    capsule: ['assets/med-visual-capsule.svg','Ilustração de cápsula'],
-    cream: ['assets/med-visual-tube.svg','Ilustração de creme dermatológico']
-  };
-  medContainer.innerHTML = items.map((m, index) => {
-    const [fallback] = visualByKind[m.kind] || visualByKind.tablet;
-    const fallbackEscaped = fallback.replace(/'/g, "\'");
-    return `
+  medContainer.innerHTML = items.map((m, index) => `
       <article class="card medication-card view-animate" style="--med-delay:${Math.min(index,7)*70}ms;--reveal-delay:${Math.min(index,7)*70}ms">
         <div class="med-card-image">
-          <img src="${m.image || fallback}" alt="Foto de referência de ${m.title}, ${m.strength}, ${m.form}" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='${fallbackEscaped}';" />
+          <img src="${m.image}" alt="Foto de referência de ${m.title}, ${m.strength}, ${m.form}" data-title="${m.title.replace(/"/g,'&quot;')}" data-strength="${m.strength.replace(/"/g,'&quot;')}" data-form="${m.form.replace(/"/g,'&quot;')}" data-kind="${m.kind}" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="handleMedImageError(this)" />
           <span class="med-photo-badge">FOTO DE REFERÊNCIA</span>
         </div>
         <div class="med-card-body">
@@ -1446,8 +1483,8 @@ function renderMeds(filter = 'todos') {
           <div class="med-form"><span>Forma farmacêutica / apresentação</span><strong>${m.form}</strong></div>
           <p>${m.desc}</p>
         </div>
-      </article>`;
-  }).join('');
+      </article>`
+  ).join('');
   initViewAnimations(medContainer);
 }
 renderMeds();
